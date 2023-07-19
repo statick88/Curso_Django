@@ -413,7 +413,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <li><a href="#/módulo-1-introducción-a-django." id="/toc-módulo-1-introducción-a-django.">Módulo 1: Introducción a Django.</a>
 <ul>
 <li><a href="#/qué-es-django-y-por-qué-utilizarlo" id="/toc-qué-es-django-y-por-qué-utilizarlo">¿Qué es Django y por qué utilizarlo?</a></li>
-<li><a href="#/mvc-vs-mtv." id="/toc-mvc-vs-mtv.">MVC vs MTV.</a></li>
+<li><a href="#/mvc-xvs-mtv." id="/toc-mvc-xvs-mtv.">MVC x`vs MTV.</a></li>
 <li><a href="#/instalación-de-django-4.2.3-y-configuración-del-entorno-de-desarrollo" id="/toc-instalación-de-django-4.2.3-y-configuración-del-entorno-de-desarrollo">Instalación de Django 4.2.3 y Configuración del Entorno de Desarrollo</a></li>
 <li><a href="#/creación-de-un-proyecto-en-django." id="/toc-creación-de-un-proyecto-en-django.">Creación de un Proyecto en Django.</a>
 <ul>
@@ -447,23 +447,15 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <li>Ventajas de Django: MVC (Modelo-Vista-Controlador), administrador de base de datos, seguridad integrada y comunidad activa.</li>
 </ul>
 </section>
-<section id="mvc-vs-mtv." class="slide level2">
-<h2>MVC vs MTV.</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/2022-07-15-182810_1366x768_scrot.png"></p>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/2022-07-15-174633_1366x768_scrot.png"></p>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="https://docs.djangoproject.com/en/dev/faq/general/#django-appears-to-be-a-mvc-framework-but-you-call-the-controller-the-view-and-the-view-the-template-how-come-you-don-t-use-the-standard-names"><img data-src="images/Django_MVT-1-683x1024.webp"></a></p>
-</figure>
-</div>
+<section id="mvc-xvs-mtv." class="slide level2">
+<h2>MVC x`vs MTV.</h2>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img data-src="images/img001.png" data-fig-align="center"></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="instalación-de-django-4.2.3-y-configuración-del-entorno-de-desarrollo" class="slide level2">
 <h2>Instalación de Django 4.2.3 y Configuración del Entorno de Desarrollo</h2>
@@ -515,10 +507,10 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <span id="cb4-11"><a href="#cb4-11"></a>│</span>
 <span id="cb4-12"><a href="#cb4-12"></a>└───otras_aplicaciones/</span>
 <span id="cb4-13"><a href="#cb4-13"></a>    │   ...</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table>
+<table style="width:97%;">
 <colgroup>
-<col style="width: 31%">
-<col style="width: 68%">
+<col style="width: 48%">
+<col style="width: 48%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -528,11 +520,13 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><strong>nombre_proyecto/</strong></td>
+<td style="text-align: center;"><strong>nomb re_proyecto/</strong></td>
 <td style="text-align: center;">Es el directorio raíz del proyecto. Contiene el archivo “manage.py”, que es una herramienta para administrar el proyecto y ejecutar comandos de Django.</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><strong>nombre_proyec to/nombre_proyecto/</strong></td>
+<td style="text-align: center;"><ul>
+<li>*nombre_proyec to/nomb re_proyecto/**</li>
+</ul></td>
 <td style="text-align: center;">Es el directorio de la configuración del proyecto. Contiene varios archivos esenciales:</td>
 </tr>
 <tr class="odd">
@@ -540,7 +534,9 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <td style="text-align: center;">Este archivo indica a Python que el directorio es un paquete y permite la importación de módulos dentro de él.</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><strong>settings.py</strong></td>
+<td style="text-align: center;"><ul>
+<li>*settings.py**</li>
+</ul></td>
 <td style="text-align: center;">Aquí se encuentran todas las configuraciones del proyecto, como bases de datos, aplicaciones instaladas, rutas de plantillas, configuraciones de seguridad, etc.</td>
 </tr>
 <tr class="odd">
@@ -552,7 +548,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <td style="text-align: center;">Son archivos de configuración para el servidor ASGI (Asynchronous Server Gateway Interface) y WSGI (Web Server Gateway Interface), respectivamente. Estos archivos son utilizados por servidores web para servir la aplicación Django.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><strong>otras_aplicaciones/</strong></td>
+<td style="text-align: center;"><strong>otras_a plicaciones/</strong></td>
 <td style="text-align: center;">Es un directorio opcional donde puedes organizar las aplicaciones adicionales que desarrolles para el proyecto. Cada aplicación puede tener su propia estructura de directorios.</td>
 </tr>
 </tbody>
@@ -575,8 +571,8 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <span id="cb6-10"><a href="#cb6-10"></a>│   │   views.py</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table>
 <colgroup>
-<col style="width: 27%">
-<col style="width: 72%">
+<col style="width: 11%">
+<col style="width: 88%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -649,7 +645,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <p><strong>Paso 4:</strong> Ejecutar el Servidor de Desarrollo</p>
 <p>Ahora, ejecuta el servidor de desarrollo para ver el proyecto en acción:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a><span class="ex">python</span> manage.py runserver</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Abre tu navegador y visita la dirección “<a href="http://localhost:8000/">http://localhost:8000/</a>”. Deberías ver la página de bienvenida de Django.</p>
+<p>Abre tu navegador y visita la dirección “<a href="http://localhost:8000/" class="uri">http://localhost:8000/</a>”. Deberías ver la página de bienvenida de Django.</p>
 <p>Si has llegado a este punto, ¡Felicidades! Has creado con éxito un nuevo proyecto de e-commerce en Django y una aplicación llamada “ecommerce”. Ahora puedes comenzar a desarrollar las funcionalidades del e-commerce y diseñar las diapositivas para cada uno de los módulos del curso.</p>
 <p>¡Buena suerte!</p>
 </section></section>
