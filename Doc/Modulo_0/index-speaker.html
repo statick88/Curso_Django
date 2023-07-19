@@ -420,6 +420,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <li><a href="#/ejercicio-práctico" id="/toc-ejercicio-práctico">Ejercicio práctico:</a>
 <ul>
 <li><a href="#/configurar-un-repositorio-y-realizar-cambios" id="/toc-configurar-un-repositorio-y-realizar-cambios">Configurar un Repositorio y Realizar Cambios</a></li>
+<li><a href="#/resolución-del-ejercicio-práctico" id="/toc-resolución-del-ejercicio-práctico">Resolución del Ejercicio Práctico</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -444,7 +445,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <h2>Uso Básico de Comandos de Git.</h2>
 <p>Flujo básico de git.</p>
 
-<img data-src="images/Screenshot%202023-07-17%20at%2022-23-02%20Curso%20de%20Django.png" class="r-stretch quarto-figure-center"><p>En la imágen anterior se describe el proceso básico para pasar de <strong>Local</strong> a <strong>Stage</strong>, de <strong>Stage</strong> a <strong>Commit</strong> y de <strong>Commit</strong> a <strong>Github</strong> y/o <strong>Cloud</strong>.</p>
+<img data-src="images/4f2dcf907fb94594a3776525a5ac7bd5.png" class="r-stretch"><p>En la imágen anterior se describe el proceso básico para pasar de <strong>Local</strong> a <strong>Stage</strong>, de <strong>Stage</strong> a <strong>Commit</strong> y de <strong>Commit</strong> a <strong>Github</strong> y/o <strong>Cloud</strong>.</p>
 <p>Clonar un repositorio existente desde GitHub a tu máquina local:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">git</span> clone url_repositorio</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Crear una nueva rama para trabajar en una funcionalidad específica:</p>
@@ -485,7 +486,9 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <li>Envía tus cambios al repositorio en GitHub con git push origin main.</li>
 </ol>
 <p>¡Excelente! Ahora has aprendido los conceptos básicos de Git y GitHub, así como cómo configurar un repositorio y colaborar en un proyecto utilizando esta plataforma. En los próximos módulos, abordaremos el desarrollo web con Django.</p>
-<p>##Resolución del Ejercicio Práctico</p>
+</section>
+<section id="resolución-del-ejercicio-práctico" class="slide level2">
+<h2>Resolución del Ejercicio Práctico</h2>
 <p>Configurar un Repositorio y Realizar Cambios en el Proyecto Blog</p>
 <p>En este ejercicio, configuraremos un repositorio Git para el proyecto del blog que vamos a dearrollar en los módulos 1 al 4. Luego, haremos algunos cambios en el proyecto y realizaremos commits para registrar esos cambios en el historial de versiones.</p>
 <p><strong>Paso 1:</strong> Configurar el repositorio en GitHub</p>
@@ -509,7 +512,8 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <p>El comando git add . agrega todos los cambios realizados en los archivos del proyecto al área de preparación, y el comando git commit -m “Mensaje” crea un nuevo commit con un mensaje descriptivo para los cambios realizados.</p>
 <p><strong>Paso 5:</strong> Enviar los cambios al repositorio en GitHub</p>
 <p>Después de hacer commit de los cambios en tu repositorio local, utiliza el siguiente comando para enviar los cambios al repositorio en GitHub:</p>
-<p>`<code>bash git push origin main</code> Reemplaza “main” con el nombre de la rama principal de tu proyecto si utilizas otro nombre diferente.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">git</span> push origin main<span class="kw">`</span> </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Reemplaza “main” con el nombre de la rama principal de tu proyecto si utilizas otro nombre diferente.</p>
 <p>¡Felicitaciones! Ahora has configurado un repositorio Git para tu proyecto y has realizado cambios en el proyecto, registrando esos cambios mediante commits.</p>
 <p>Los cambios ahora están disponibles en el repositorio en GitHub. Puedes repetir estos pasos cada vez que desees realizar cambios en el proyecto y mantener un historial de versiones de tu proyecto en GitHub.</p>
 
@@ -552,8 +556,8 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'chalkboard': {"buttons":true},
-'multiplex': {"secret":"16832335174565558332","id":"7fc00916520421b2","url":"https://reveal-multiplex.glitch.me/"},
+'chalkboard': {"buttons":false},
+'multiplex': {"secret":"16897988590563769973","id":"60d90a97dc9d0f05","url":"https://reveal-multiplex.glitch.me/"},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -679,7 +683,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'fade',
+        transition: 'none',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',
