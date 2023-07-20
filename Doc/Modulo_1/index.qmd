@@ -130,56 +130,57 @@ nombre_proyecto/
     │   ...
 ```
 
-+----------------------------------+----------------------------------+
-| Directorio y/o Archivo           | Descripción                      |
-+:================================:+:================================:+
-| **nomb re_proyecto/**            | Es el directorio raíz del        |
-|                                  | proyecto. Contiene el archivo    |
-|                                  | "manage.py", que es una          |
-|                                  | herramienta para administrar el  |
-|                                  | proyecto y ejecutar comandos de  |
-|                                  | Django.                          |
-+----------------------------------+----------------------------------+
-| -   \*nombre_proyec to/nomb      | Es el directorio de la           |
-|     re_proyecto/\*\*             | configuración del proyecto.      |
-|                                  | Contiene varios archivos         |
-|                                  | esenciales:                      |
-+----------------------------------+----------------------------------+
-| **init.py**                      | Este archivo indica a Python que |
-|                                  | el directorio es un paquete y    |
-|                                  | permite la importación de        |
-|                                  | módulos dentro de él.            |
-+----------------------------------+----------------------------------+
-| -   \*settings.py\*\*            | Aquí se encuentran todas las     |
-|                                  | configuraciones del proyecto,    |
-|                                  | como bases de datos,             |
-|                                  | aplicaciones instaladas, rutas   |
-|                                  | de plantillas, configuraciones   |
-|                                  | de seguridad, etc.               |
-+----------------------------------+----------------------------------+
-| **urls.py**                      | Contiene las configuraciones de  |
-|                                  | las URLs del proyecto, es decir, |
-|                                  | cómo se manejan las solicitudes  |
-|                                  | y se mapean a las vistas.        |
-+----------------------------------+----------------------------------+
-| **asgi.py** y **wsgi.py**        | Son archivos de configuración    |
-|                                  | para el servidor ASGI            |
-|                                  | (Asynchronous Server Gateway     |
-|                                  | Interface) y WSGI (Web Server    |
-|                                  | Gateway Interface),              |
-|                                  | respectivamente. Estos archivos  |
-|                                  | son utilizados por servidores    |
-|                                  | web para servir la aplicación    |
-|                                  | Django.                          |
-+----------------------------------+----------------------------------+
-| **otras_a plicaciones/**         | Es un directorio opcional donde  |
-|                                  | puedes organizar las             |
-|                                  | aplicaciones adicionales que     |
-|                                  | desarrolles para el proyecto.    |
-|                                  | Cada aplicación puede tener su   |
-|                                  | propia estructura de             |
-|                                  | directorios.                     |
-+----------------------------------+----------------------------------+
++---------------------------------+---------------------------------+
+| Directorio y/o Archivo          | Descripción                     |
++:===============================:+:===============================:+
+| **nomb re_proyecto/**           | Es el directorio raíz del       |
+|                                 | proyecto. Contiene el archivo   |
+|                                 | "manage.py", que es una         |
+|                                 | herramienta para administrar el |
+|                                 | proyecto y ejecutar comandos de |
+|                                 | Django.                         |
++---------------------------------+---------------------------------+
+| -   \*nombre_proyec to/nomb     | Es el directorio de la          |
+|     re_proyecto/\*\*            | configuración del proyecto.     |
+|                                 | Contiene varios archivos        |
+|                                 | esenciales:                     |
++---------------------------------+---------------------------------+
+| **init.py**                     | Este archivo indica a Python    |
+|                                 | que el directorio es un paquete |
+|                                 | y permite la importación de     |
+|                                 | módulos dentro de él.           |
++---------------------------------+---------------------------------+
+| -   \*settings.py\*\*           | Aquí se encuentran todas las    |
+|                                 | configuraciones del proyecto,   |
+|                                 | como bases de datos,            |
+|                                 | aplicaciones instaladas, rutas  |
+|                                 | de plantillas, configuraciones  |
+|                                 | de seguridad, etc.              |
++---------------------------------+---------------------------------+
+| **urls.py**                     | Contiene las configuraciones de |
+|                                 | las URLs del proyecto, es       |
+|                                 | decir, cómo se manejan las      |
+|                                 | solicitudes y se mapean a las   |
+|                                 | vistas.                         |
++---------------------------------+---------------------------------+
+| **asgi.py** y **wsgi.py**       | Son archivos de configuración   |
+|                                 | para el servidor ASGI           |
+|                                 | (Asynchronous Server Gateway    |
+|                                 | Interface) y WSGI (Web Server   |
+|                                 | Gateway Interface),             |
+|                                 | respectivamente. Estos archivos |
+|                                 | son utilizados por servidores   |
+|                                 | web para servir la aplicación   |
+|                                 | Django.                         |
++---------------------------------+---------------------------------+
+| **otras_a plicaciones/**        | Es un directorio opcional donde |
+|                                 | puedes organizar las            |
+|                                 | aplicaciones adicionales que    |
+|                                 | desarrolles para el proyecto.   |
+|                                 | Cada aplicación puede tener su  |
+|                                 | propia estructura de            |
+|                                 | directorios.                    |
++---------------------------------+---------------------------------+
 
 ## Creación de una Aplicación en Django
 
@@ -205,16 +206,46 @@ nombre_app/
 │   │   views.py
 ```
 
-| Directorio y/o Archivo |                                                                                           Descripción                                                                                            |
-|------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| nombre_app             |                                 Es el directorio raíz de la aplicación. Contiene los archivos esenciales y directorios para el funcionamiento de la aplicación.                                  |
-| migrations/            | Es un directorio generado automáticamente por Django cuando se realizan cambios en los modelos de la aplicación. Contiene archivos de migración que representan los cambios en la base de datos. |
-| init.py                |                                          Este archivo indica a Python que el directorio es un paquete y permite la importación de módulos dentro de él.                                          |
-| admin.py               |                                   En este archivo se pueden registrar los modelos de la aplicación para que aparezcan en el panel de administración de Django.                                   |
-| apps.py                |                                          Es el archivo donde se define la configuración de la aplicación, como su nombre y configuraciones adicionales.                                          |
-| models.py              |  Aquí se definen los modelos de la aplicación utilizando la clase "Model" de Django. Los modelos representan las tablas en la base de datos y definen los campos y relaciones de la aplicación.  |
-| tests.py               |                                                  Es el archivo donde se pueden escribir pruebas unitarias y de integración para la aplicación.                                                   |
-| views.py               | Contiene las vistas de la aplicación, que son funciones o clases que manejan las solicitudes y generan las respuestas. Las vistas determinan qué se muestra en las páginas web de la aplicación. |
++-----------+---------------------------------------------------------+
+| D         | Descripción                                             |
+| irectorio |                                                         |
+| y/o       |                                                         |
+| Archivo   |                                                         |
++===========+:=======================================================:+
+| n         | Es el directorio raíz de la aplicación. Contiene los    |
+| ombre_app | archivos esenciales y directorios para el               |
+|           | funcionamiento de la aplicación.                        |
++-----------+---------------------------------------------------------+
+| mi        | Es un directorio generado automáticamente por Django    |
+| grations/ | cuando se realizan cambios en los modelos de la         |
+|           | aplicación. Contiene archivos de migración que          |
+|           | representan los cambios en la base de datos.            |
++-----------+---------------------------------------------------------+
+| init.py   | Este archivo indica a Python que el directorio es un    |
+|           | paquete y permite la importación de módulos dentro de   |
+|           | él.                                                     |
++-----------+---------------------------------------------------------+
+| admin.py  | En este archivo se pueden registrar los modelos de la   |
+|           | aplicación para que aparezcan en el panel de            |
+|           | administración de Django.                               |
++-----------+---------------------------------------------------------+
+| apps.py   | Es el archivo donde se define la configuración de la    |
+|           | aplicación, como su nombre y configuraciones            |
+|           | adicionales.                                            |
++-----------+---------------------------------------------------------+
+| models.py | Aquí se definen los modelos de la aplicación utilizando |
+|           | la clase "Model" de Django. Los modelos representan las |
+|           | tablas en la base de datos y definen los campos y       |
+|           | relaciones de la aplicación.                            |
++-----------+---------------------------------------------------------+
+| tests.py  | Es el archivo donde se pueden escribir pruebas          |
+|           | unitarias y de integración para la aplicación.          |
++-----------+---------------------------------------------------------+
+| views.py  | Contiene las vistas de la aplicación, que son funciones |
+|           | o clases que manejan las solicitudes y generan las      |
+|           | respuestas. Las vistas determinan qué se muestra en las |
+|           | páginas web de la aplicación.                           |
++-----------+---------------------------------------------------------+
 
 # Ejemplo Práctico:
 
@@ -298,80 +329,108 @@ En esta actividad práctica, crearás un nuevo proyecto de Blog en Django
 desde cero. Asegúrate de tener Django instalado en tu entorno de
 desarrollo antes de comenzar.
 
-**Paso 1:** Crear un Proyecto de Django
-
-**Paso 2:** Crear una Aplicación para el E-commerce
-
-**Paso 3:** Configurar el Proyecto y la Aplicación
-
-**Paso 4:** Ejecutar el Servidor de Desarrollo
+- [ ]  Iniciar un Repositorio 
+- [ ]  Crear el entorno virtual
+- [ ]  Activación del entorno virtual
+- [ ]  Instalación de Django
+- [ ]  Crear el archivo requirements.txt
+- [ ]  Agregar el archivo .gitignore
+- [ ]  Crear un Proyecto con Django
+- [ ]  Crear la App dentro del Proyecto
+- [ ]  Agregar la App al Archivo settings.py del Proyecto
+- [ ]  Correr el Servidor de Pruebas
 
 ## Resolución de la Actividad Práctica:
 
-En esta actividad práctica, crearás un nuevo proyecto de blog en Django
-desde cero. Asegúrate de tener Django instalado en tu entorno de
-desarrollo antes de comenzar.
+Para crear el proyecto de Blog en Django y completar las actividades prácticas, sigue los siguientes pasos:
 
-**Paso 1:** Crear un Proyecto de Django
+**Paso 1:** Iniciar un Repositorio
 
-Abre una terminal o línea de comandos en la ubicación donde desees crear
-tu proyecto de blog.
+Inicia un nuevo repositorio en tu sistema de control de versiones (por ejemplo, en GitHub) para gestionar el código de tu proyecto.
 
-Ejecuta el siguiente comando para crear un nuevo proyecto Django llamado
-"mi_blog":
+**Paso 2:** Crear el Entorno Virtual
+
+Crea un nuevo entorno virtual para aislar las dependencias del proyecto y evitar conflictos con otras aplicaciones Python instaladas en tu sistema.
 
 ``` bash
+# Ejecutar en la terminal o consola
+python -m venv mi_entorno_virtual
+```
+**Paso 3:** Activación del Entorno Virtual
+
+Activa el entorno virtual antes de instalar Django o trabajar en el proyecto.
+
+``` bash
+# En Windows
+mi_entorno_virtual\Scripts\activate
+
+# En macOS o Linux
+source mi_entorno_virtual/bin/activate
+```
+**Paso 4:** Instalación de Django
+
+Dentro del entorno virtual, instala Django utilizando pip.
+
+``` bash
+# Ejecutar en la terminal o consola
+pip install django
+```
+**Paso 5:** Crear el Archivo requirements.txt
+
+Crea un archivo "requirements.txt" en la raíz del proyecto para almacenar todas las dependencias de Python utilizadas en el proyecto.
+
+``` makefile
+# requirements.txt
+Django==4.2.3
+```
+**Paso 6:** Agregar el Archivo .gitignore
+
+Crea un archivo ".gitignore" en la raíz del proyecto para evitar que los archivos y directorios innecesarios se incluyan en el repositorio.
+
+``` markdown
+# .gitignore
+mi_entorno_virtual/
+__pycache__/
+*.pyc
+db.sqlite3
+```
+**Paso 7:** Crear un Proyecto con Django
+
+Crea un nuevo proyecto de Django llamado "mi_blog".
+
+``` bash
+# Ejecutar en la terminal o consola
 django-admin startproject mi_blog
 ```
+**Paso 8:** Crear la App dentro del Proyecto
 
-Verás que se ha creado un nuevo directorio llamado "mi_blog" que
-contiene la estructura inicial del proyecto.
-
-**Paso 2:** Crear una Aplicación para el Blog
-
-Cambia al directorio recién creado "mi_blog":
+Crea una nueva aplicación llamada "blog" dentro del proyecto "mi_blog".
 
 ``` bash
+# Ejecutar en la terminal o consola
 cd mi_blog
-```
-
-Ahora, crea una nueva aplicación llamada "blog" utilizando el siguiente
-comando:
-
-``` bash
 python manage.py startapp blog
 ```
+**Paso 9:** Agregar la App al Archivo settings.py del Proyecto
 
-Se creará un nuevo directorio "blog" dentro de tu proyecto, que
-contendrá todos los archivos necesarios para la aplicación.
-
-**Paso 3:** Configurar el Proyecto y la Aplicación
-
-Abre el archivo "settings.py" ubicado en el directorio
-"mi_blog/mi_blog".
-
-Asegúrate de agregar la aplicación "blog" en la lista de
-"INSTALLED_APPS" para que Django la reconozca:
+Abre el archivo "settings.py" en la carpeta "mi_blog" y agrega la aplicación "blog" a la lista de aplicaciones instaladas.
 
 ``` python
+# settings.py
+
 INSTALLED_APPS = [
-    # Otras aplicaciones...
+    ...
     'blog',
 ]
 ```
+**Paso 10:** Correr el Servidor de Pruebas
 
-**Paso 4:** Ejecutar el Servidor de Desarrollo
-
-Ahora, ejecuta el servidor de desarrollo para ver el proyecto en acción:
+Para verificar que todo está configurado correctamente, inicia el servidor de pruebas de Django.
 
 ``` bash
+# Ejecutar en la terminal o consola
 python manage.py runserver
 ```
+Ahora podrás acceder a la página de inicio de Django en tu navegador web en la dirección "[http://127.0.0.1:8000/](http://127.0.0.1:8000/)".
 
-Abre tu navegador y visita la dirección "http://localhost:8000/".
-Deberías ver la página de bienvenida de Django.
-
-¡Felicidades! Has creado con éxito un nuevo proyecto de blog en Django y
-una aplicación llamada "blog". Ahora puedes comenzar a desarrollar las
-funcionalidades del blog y diseñar las diapositivas para cada uno de los
-módulos del curso. ¡Buena suerte!
+Con estos pasos, has creado un nuevo proyecto de Blog en Django, configurado un entorno virtual, instalado Django y creado una nueva aplicación dentro del proyecto. Ahora estás listo para comenzar a desarrollar tu blog utilizando Django.
