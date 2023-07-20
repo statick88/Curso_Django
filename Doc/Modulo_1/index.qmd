@@ -5,27 +5,27 @@ date: "today"
 author: "Lcdo. Diego Medardo Saavedra García. Mgtr."
 lang: "es"
 format:
-  revealjs:
-    #chalkboard: 
-      #buttons: false
-    toc: true
-    incremental: false
-    slide-number: true
-    preview-links: auto
-    logo: img/logo.png
-    footer: <https://abacom.edu.ec>
-    theme: dark
-    makeindex: true
-    multiplex: true
-    transition: fade
-    chalkboard: true #Pizarra
-    auto-stretch: true
-    smaller: false
-    scrollable: true
-    menu: true
-    codeBlock: {data-trim: true}
-    execute: false
-    executeCode: true
+  # revealjs:
+  #   #chalkboard: 
+  #     #buttons: false
+  #   toc: true
+  #   incremental: false
+  #   slide-number: true
+  #   preview-links: auto
+  #   logo: img/logo.png
+  #   footer: <https://abacom.edu.ec>
+  #   theme: dark
+  #   makeindex: true
+  #   multiplex: true
+  #   transition: fade
+  #   chalkboard: true #Pizarra
+  #   auto-stretch: true
+  #   smaller: false
+  #   scrollable: true
+  #   menu: true
+  #   codeBlock: {data-trim: true}
+  #   execute: false
+  #   executeCode: true
   pdf:
     toc: true
     number-sections: true
