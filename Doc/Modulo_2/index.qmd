@@ -49,7 +49,7 @@ editor:
 
 ## Diseño de Modelos en Django
 
-En este diagrama, se muestra el flujo de diseño de modelos en Django. 
+En este diagrama, se muestra el flujo de diseño de modelos en Django.
 
 ``` markdown
 # Diseño de Modelos en Django
@@ -84,17 +84,25 @@ En este diagrama, se muestra el flujo de diseño de modelos en Django.
 |                    |   |                    |
 +--------------------+   +--------------------+
 ```
-## 1. Comienza definiendo el modelo como una clase Python que hereda de models.Model.
 
-En Django, los modelos son la base para diseñar la estructura de la base de datos de nuestra aplicación web.
+## 1. Definimos el Modelo.
 
-Cada modelo representa una tabla en la base de datos y define los campos que estarán presentes en dicha tabla.
+En Django, los modelos son la base para diseñar la estructura de la base
+de datos de nuestra aplicación web.
 
-Los modelos son definidos como clases Python que heredan de models.Model, lo que permite que Django maneje automáticamente la creación y gestión de la base de datos.
+Cada modelo representa una tabla en la base de datos y define los campos
+que estarán presentes en dicha tabla.
+
+Los modelos son definidos como clases Python que heredan de
+models.Model, lo que permite que Django maneje automáticamente la
+creación y gestión de la base de datos.
 
 ### Creación de un Modelo.
 
-Para crear un modelo en Django, primero definimos una clase Python que representa la tabla en la base de datos. Por ejemplo, si deseamos crear un modelo para representar las publicaciones en nuestro blog, podemos definirlo de la siguiente manera:
+Para crear un modelo en Django, primero definimos una clase Python que
+representa la tabla en la base de datos. Por ejemplo, si deseamos crear
+un modelo para representar las publicaciones en nuestro blog, podemos
+definirlo de la siguiente manera:
 
 ``` python
 from django.db import models
@@ -104,23 +112,23 @@ class Publicacion(models.Model):
     contenido = models.TextField()
     fecha_publicacion = models.DateTimeField()
 ```
-En este ejemplo, hemos definido el modelo Publicacion con tres campos: 
 
-* titulo, 
-* contenido
-* fecha_publicacion. 
+En este ejemplo, hemos definido el modelo Publicacion con tres campos:
+titulo,
 
-Cada campo se representa mediante un atributo de la clase, donde 
+contenido y fecha_publicacion.
 
-* **models.CharField** representa un campo de texto, 
-* **models.TextField** representa un campo de texto más largo y 
-* **models.DateTimeField** representa una fecha y hora.
+Cada campo se representa mediante un atributo de la clase, donde:
+**models.CharField** representa un campo de texto, **models.TextField**
+representa un campo de texto más largo y **models.DateTimeField**
+representa una fecha y hora.
 
-## 2. Luego, se definen los campos y atributos del modelo.
+## 2. Definir Métodos del Modelo.
 
-### Definir Métodos del Modelo.
-
-Además de los campos, también podemos definir métodos en el modelo para realizar acciones específicas o para dar formato a los datos. Por ejemplo, podríamos agregar un método que nos devuelva una representación más legible de la publicación:
+Además de los campos, también podemos definir métodos en el modelo para
+realizar acciones específicas o para dar formato a los datos. Por
+ejemplo, podríamos agregar un método que nos devuelva una representación
+más legible de la publicación:
 
 ``` python
 from django.db import models
@@ -133,20 +141,57 @@ class Publicacion(models.Model):
     def __str__(self):
         return self.titulo
 ```
-En este caso, hemos definido el método __str__ que se ejecutará cuando necesitemos obtener una representación de texto del objeto Publicacion. En este caso, hemos decidido que la representación será simplemente el título de la publicación.
 
-## 3. A continuación, se pueden agregar métodos adicionales para realizar acciones específicas o dar formato a los datos.
+En este caso, hemos definido el método **str** que se ejecutará cuando
+necesitemos obtener una representación de texto del objeto Publicacion.
+En este caso, hemos decidido que la representación será simplemente el
+título de la publicación.
 
-### Aplicar Migraciones.
+Para poder probar los cambios que hemos realizado vamos a registrar
+nuestro modelo en el archivo **admin.py**
 
-Una vez que hemos definido nuestro modelo, necesitamos aplicar las migraciones para que los cambios se reflejen en la base de datos.
+``` python
+#  admin.py
+
+from .models import Publicacion
+
+admin.site.register(Publicacion)
+```
+
+## 3. Aplicar Migraciones.
+
+Una vez que hemos definido nuestro modelo, necesitamos aplicar las
+migraciones para que los cambios se reflejen en la base de datos.
 
 ``` bash
 # Ejecutar en la terminal o consola
 python manage.py makemigrations
 python manage.py migrate
 ```
-Con estos pasos, hemos diseñado nuestro modelo de Publicaciones en Django y aplicado las migraciones para crear la tabla correspondiente en la base de datos. Ahora estamos listos para utilizar nuestro modelo y almacenar datos en la base de datos.
+
+Con estos pasos, hemos diseñado nuestro modelo de Publicaciones en
+Django y aplicado las migraciones para crear la tabla correspondiente en
+la base de datos. Ahora estamos listos para utilizar nuestro modelo y
+almacenar datos en la base de datos.
+
+Finalmente creamos un superusuario para acceder a la administración de
+nuestro proyecto.
+
+``` bash
+python manage.py createsuperuser
+```
+
+Llenamos un pequeño formulario que nos pide: nombre de usuario, correo
+electrónico (no obligatorio), password, repeat again password.
+
+Y listo para poder acceder a la administración de nuestro proyecto nos
+dirigimos a la siguiente url
+
+<http://127.0.0.1:8000/admin>
+
+De forma gráfica ingresamos nuestro usuario y contraseña creado.
+
+![](images/ingreso_credenciales.png){fig-align="center"}
 
 ## Ejemplo de las clases "Blog" y "Comentario" en Django:
 
@@ -204,6 +249,8 @@ de blog específica y tiene cuatro campos:
 
 Al igual que en la clase "Blog", hemos definido un método "str" para
 mostrar información útil al imprimir una instancia de la clase.
+
+![](images/Codigo_models_and_comentarios.png){fig-align="center"}
 
 ## Migraciones de la Base de Datos
 
@@ -426,49 +473,69 @@ DATABASES = {
 A continuación, se presenta una tabla comparativa de las ventajas y
 desventajas de cada base de datos:
 
-+--------------------------------------------------------------------------+
-| +----------------------+---------------+---------------+---------------+ |
-| | Característica       | SQLite        | MySQL         | PostgreSQL    | |
-| +:=====================+:=============:+:=============:+:=============:+ |
-| | Tipo                 | Base de datos | Base de datos | Base de datos | |
-| |                      | incorporada   | externa       | externa       | |
-| |                      | en Django     |               |               | |
-| +----------------------+---------------+---------------+---------------+ |
-| | Tamaño máximo        | Pequeño       | Grande        | Grande        | |
-| +----------------------+---------------+---------------+---------------+ |
-| | Conexiones           | Conexiones    | Múltiples     | Múltiples     | |
-| |                      | concurrentes  | conexiones    | conexiones    | |
-| |                      | limitadas     | concurrentes  | concurrentes  | |
-| +----------------------+---------------+---------------+---------------+ |
-| | Escalabilidad        | Limitada      | Buena         | Excelente     | |
-| +----------------------+---------------+---------------+---------------+ |
-| | Soporte              | Ligero y      | Ampliamente   | Ampliamente   | |
-| |                      | simple        | utilizado     | utilizado     | |
-| +----------------------+---------------+---------------+---------------+ |
-| | Instalación          | No requiere   | Requiere      | Requiere      | |
-| |                      | instalación   | instalación   | instalación   | |
-| |                      | de servidor   | de servidor   | de servidor   | |
-| |                      |               | MySQL         | PostgreSQL    | |
-| +----------------------+---------------+---------------+---------------+ |
-| | Rendimiento          | Rápido y      | Buen          | Excelente     | |
-| |                      | adecuado para | rendimiento y | rendimiento y | |
-| |                      | aplicaciones  | escalabilidad | escalabilidad | |
-| |                      | pequeñas o    |               |               | |
-| |                      | prototipos    |               |               | |
-| +----------------------+---------------+---------------+---------------+ |
-| | Utilización          | Ideal para    | Ampliamente   | Ampliamente   | |
-| |                      | aplicaciones  | utilizado en  | utilizado en  | |
-| |                      | de desarrollo | aplicaciones  | aplicaciones  | |
-| |                      | o pruebas     | web y         | web y         | |
-| |                      |               | empresariales | empresariales | |
-| +----------------------+---------------+---------------+---------------+ |
-| | Flexibilidad         | Menos         | Configurable  | Altamente     | |
-| |                      | opciones de   | y             | configurable  | |
-| |                      | configuración | p             | y             | |
-| |                      |               | ersonalizable | p             | |
-| |                      |               |               | ersonalizable | |
-| +----------------------+---------------+---------------+---------------+ |
-+--------------------------------------------------------------------------+
++-----------------------------------------------------------------------+
+| +------------+------------+------------+------------+                 |
+| | Ca         | SQLite     | MySQL      | PostgreSQL |                 |
+| | ra         |            |            |            |                 |
+| | cterística |            |            |            |                 |
+| +:===========+:==========:+:==========:+:==========:+                 |
+| | Tipo       | Base de    | Base de    | Base de    |                 |
+| |            | datos      | datos      | datos      |                 |
+| |            | i          | externa    | externa    |                 |
+| |            | ncorporada |            |            |                 |
+| |            | en Django  |            |            |                 |
+| +------------+------------+------------+------------+                 |
+| | Tamaño     | Pequeño    | Grande     | Grande     |                 |
+| | máximo     |            |            |            |                 |
+| +------------+------------+------------+------------+                 |
+| | Conexiones | Conexiones | Múltiples  | Múltiples  |                 |
+| |            | c          | conexiones | conexiones |                 |
+| |            | o          | c          | c          |                 |
+| |            | ncurrentes | o          | o          |                 |
+| |            | limitadas  | ncurrentes | ncurrentes |                 |
+| +------------+------------+------------+------------+                 |
+| | E          | Limitada   | Buena      | Excelente  |                 |
+| | sc         |            |            |            |                 |
+| | alabilidad |            |            |            |                 |
+| +------------+------------+------------+------------+                 |
+| | Soporte    | Ligero y   | A          | A          |                 |
+| |            | simple     | mpliamente | mpliamente |                 |
+| |            |            | utilizado  | utilizado  |                 |
+| +------------+------------+------------+------------+                 |
+| | I          | No         | Requiere   | Requiere   |                 |
+| | nstalación | requiere   | i          | i          |                 |
+| |            | i          | nstalación | nstalación |                 |
+| |            | nstalación | de         | de         |                 |
+| |            | de         | servidor   | servidor   |                 |
+| |            | servidor   | MySQL      | PostgreSQL |                 |
+| +------------+------------+------------+------------+                 |
+| | R          | Rápido y   | Buen       | Excelente  |                 |
+| | endimiento | adecuado   | r          | r          |                 |
+| |            | para a     | endimiento | endimiento |                 |
+| |            | p          | y e s      | y e s      |                 |
+| |            | licaciones | c          | c          |                 |
+| |            | pequeñas o | alabilidad | alabilidad |                 |
+| |            | prototipos |            |            |                 |
+| +------------+------------+------------+------------+                 |
+| | U          | Ideal para | A          | A          |                 |
+| | tilización | a          | mpliamente | mpliamente |                 |
+| |            | p          | utilizado  | utilizado  |                 |
+| |            | licaciones | en a       | en a       |                 |
+| |            | de         | p          | p          |                 |
+| |            | desarrollo | licaciones | licaciones |                 |
+| |            | o pruebas  | web y e m  | web y e m  |                 |
+| |            |            | p          | p          |                 |
+| |            |            | resariales | resariales |                 |
+| +------------+------------+------------+------------+                 |
+| | Fl         | Menos      | C          | Altamente  |                 |
+| | exibilidad | opciones   | o          | c          |                 |
+| |            | de c o     | nfigurable | o          |                 |
+| |            | n          | y p e r    | nfigurable |                 |
+| |            | figuración | s          | y p e r    |                 |
+| |            |            | onalizable | s          |                 |
+| |            |            |            | onalizable |                 |
+| +------------+------------+------------+------------+                 |
++-----------------------------------------------------------------------+
 
 Es importante tener en cuenta que la elección de la base de datos
 depende del contexto y las necesidades específicas del proyecto. En
@@ -478,13 +545,15 @@ y empresariales que requieren mayor rendimiento y escalabilidad.
 
 ## Uso de Formularios en Django
 
-Los formularios en Django se utilizan para crear y manejar formularios HTML.
+Los formularios en Django se utilizan para crear y manejar formularios
+HTML.
 
-Django proporciona una clase ModelForm que genera automáticamente un formulario basado en el modelo.
+Django proporciona una clase ModelForm que genera automáticamente un
+formulario basado en el modelo.
 
 Ejemplo de un formulario para el modelo de Comentario:
 
-```python
+``` python
 #models.py
 
 from django import forms
@@ -502,7 +571,8 @@ class ComentarioForm(forms.ModelForm):
 
 ### Importación de módulos necesarios:
 
-Para definir los modelos en Django, primero importamos los módulos necesarios desde la biblioteca Django.
+Para definir los modelos en Django, primero importamos los módulos
+necesarios desde la biblioteca Django.
 
 ``` python
 # models.py
@@ -510,9 +580,13 @@ Para definir los modelos en Django, primero importamos los módulos necesarios d
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 ```
+
 ### Definición del modelo "Usuario":
 
-El modelo de "Usuario" se crea mediante la herencia de la clase "AbstractUser" proporcionada por Django. Esto nos permite utilizar la funcionalidad de autenticación y autorización incorporada en Django. También podemos agregar campos adicionales según sea necesario.
+El modelo de "Usuario" se crea mediante la herencia de la clase
+"AbstractUser" proporcionada por Django. Esto nos permite utilizar la
+funcionalidad de autenticación y autorización incorporada en Django.
+También podemos agregar campos adicionales según sea necesario.
 
 ``` python
 # models.py
@@ -521,11 +595,17 @@ class Usuario(AbstractUser):
     # Agrega campos adicionales si es necesario
     pass
 ```
-En el modelo "Usuario", podemos agregar campos adicionales según las necesidades específicas de nuestra aplicación. Al heredar de la clase "AbstractUser" proporcionada por Django, ya contamos con campos comunes para autenticación, como "username", "email" y "password".
 
-Además de los campos heredados, algunos ejemplos de campos adicionales que podríamos agregar al modelo "Usuario" son:
+En el modelo "Usuario", podemos agregar campos adicionales según las
+necesidades específicas de nuestra aplicación. Al heredar de la clase
+"AbstractUser" proporcionada por Django, ya contamos con campos comunes
+para autenticación, como "username", "email" y "password".
 
-**Nombre completo:** Podemos agregar un campo para almacenar el nombre completo del usuario.
+Además de los campos heredados, algunos ejemplos de campos adicionales
+que podríamos agregar al modelo "Usuario" son:
+
+**Nombre completo:** Podemos agregar un campo para almacenar el nombre
+completo del usuario.
 
 ``` python
 class Usuario(AbstractUser):
@@ -535,7 +615,9 @@ class Usuario(AbstractUser):
     # Campo adicional
     nombre_completo = models.CharField(max_length=255)
 ```
-**Fecha de nacimiento:** Podemos incluir un campo para registrar la fecha de nacimiento del usuario.
+
+**Fecha de nacimiento:** Podemos incluir un campo para registrar la
+fecha de nacimiento del usuario.
 
 ``` python
 class Usuario(AbstractUser):
@@ -545,7 +627,9 @@ class Usuario(AbstractUser):
     # Campo adicional
     fecha_nacimiento = models.DateField()
 ```
-**Biografía:** Podemos permitir que los usuarios agreguen una breve biografía sobre ellos mismos.
+
+**Biografía:** Podemos permitir que los usuarios agreguen una breve
+biografía sobre ellos mismos.
 
 ``` python
 class Usuario(AbstractUser):
@@ -555,7 +639,9 @@ class Usuario(AbstractUser):
     # Campo adicional
     biografia = models.TextField(blank=True, null=True)
 ```
-**Imagen de perfil:** Podemos agregar un campo para que los usuarios carguen una imagen de perfil.
+
+**Imagen de perfil:** Podemos agregar un campo para que los usuarios
+carguen una imagen de perfil.
 
 ``` python
 class Usuario(AbstractUser):
@@ -565,13 +651,22 @@ class Usuario(AbstractUser):
     # Campo adicional
     imagen_perfil = models.ImageField(upload_to='imagenes_perfil/', blank=True, null=True)
 ```
-Estos son solo algunos ejemplos de los campos adicionales que podríamos agregar al modelo "Usuario". La elección de los campos depende de los requisitos específicos de la aplicación y qué información adicional deseamos almacenar para nuestros usuarios. 
 
-Django proporciona una amplia variedad de tipos de campos para adaptarse a diferentes tipos de datos y necesidades.
+Estos son solo algunos ejemplos de los campos adicionales que podríamos
+agregar al modelo "Usuario". La elección de los campos depende de los
+requisitos específicos de la aplicación y qué información adicional
+deseamos almacenar para nuestros usuarios.
+
+Django proporciona una amplia variedad de tipos de campos para adaptarse
+a diferentes tipos de datos y necesidades.
 
 ### Definición del modelo "Publicacion":
 
-El modelo "Publicacion" se crea como una subclase de "models.Model". Aquí definimos los campos que representarán los atributos de una publicación en el blog, como "titulo", "contenido" y "fecha_publicacion". Cada campo es una instancia de una clase de campo de Django que define el tipo y las propiedades del campo.
+El modelo "Publicacion" se crea como una subclase de "models.Model".
+Aquí definimos los campos que representarán los atributos de una
+publicación en el blog, como "titulo", "contenido" y
+"fecha_publicacion". Cada campo es una instancia de una clase de campo
+de Django que define el tipo y las propiedades del campo.
 
 ``` python
 # models.py
@@ -581,9 +676,14 @@ class Publicacion(models.Model):
     contenido = models.TextField()
     fecha_publicacion = models.DateTimeField()
 ```
+
 Método "str":
 
-En el modelo "Publicacion", hemos definido el método "str" que devuelve el título de la publicación cuando se imprime una instancia de la clase. Esto hace que sea más fácil identificar las publicaciones en el administrador de Django y en cualquier otra parte donde se muestren objetos de la clase "Publicacion".
+En el modelo "Publicacion", hemos definido el método "str" que devuelve
+el título de la publicación cuando se imprime una instancia de la clase.
+Esto hace que sea más fácil identificar las publicaciones en el
+administrador de Django y en cualquier otra parte donde se muestren
+objetos de la clase "Publicacion".
 
 ``` python
 # models.py
@@ -594,7 +694,11 @@ class Publicacion(models.Model):
     def __str__(self):
         return self.titulo
 ```
-Con estos pasos, hemos definido los modelos "Usuario" y "Publicacion" en Django. Estos modelos representarán las tablas "Usuario" y "Publicacion" en la base de datos y nos permitirán interactuar con ellos mediante el ORM de Django.
+
+Con estos pasos, hemos definido los modelos "Usuario" y "Publicacion" en
+Django. Estos modelos representarán las tablas "Usuario" y "Publicacion"
+en la base de datos y nos permitirán interactuar con ellos mediante el
+ORM de Django.
 
 # Actividad Práctica:
 
@@ -608,14 +712,16 @@ Con estos pasos, hemos definido los modelos "Usuario" y "Publicacion" en Django.
 
 3.  Crea una migración para aplicar los cambios al modelo usando el
     comando
-    
+
 4.  Aplica la migración a la base de datos.
 
 ## Resolución de la Actividad Práctica.
 
 **Paso 1:** Agregar un Campo Adicional al Modelo de Publicaciones
 
-En el archivo "models.py" de la aplicación "blog", agregamos un nuevo campo llamado "imagen" de tipo "ImageField" al modelo "Publicacion". Esto nos permitirá almacenar imágenes relacionadas con cada publicación.
+En el archivo "models.py" de la aplicación "blog", agregamos un nuevo
+campo llamado "imagen" de tipo "ImageField" al modelo "Publicacion".
+Esto nos permitirá almacenar imágenes relacionadas con cada publicación.
 
 ``` python
 # models.py
@@ -631,31 +737,46 @@ class Publicacion(models.Model):
     def __str__(self):
         return self.titulo
 ```
+
 **Paso 2:** Crear una Migración para Aplicar los Cambios
 
-Después de agregar el nuevo campo "imagen" al modelo, necesitamos crear una migración para aplicar los cambios a la base de datos. Django nos proporciona un comando para generar automáticamente la migración.
+Después de agregar el nuevo campo "imagen" al modelo, necesitamos crear
+una migración para aplicar los cambios a la base de datos. Django nos
+proporciona un comando para generar automáticamente la migración.
 
 ``` bash
 # Ejecutar en la terminal o consola
 python manage.py makemigrations
 ```
+
 **Paso 3:** Aplicar la Migración a la Base de Datos
 
-Una vez que se ha creado la migración, la aplicamos a la base de datos con el siguiente comando:
+Una vez que se ha creado la migración, la aplicamos a la base de datos
+con el siguiente comando:
 
 ``` bash
 # Ejecutar en la terminal o consola
 python manage.py migrate
 ```
-Con estos pasos, hemos agregado con éxito un campo adicional "imagen" al modelo de Publicaciones y hemos aplicado la migración a la base de datos para reflejar el cambio. Ahora, cada publicación en el blog tendrá un campo para asociar una imagen, lo que mejorará la experiencia visual para los usuarios.
+
+Con estos pasos, hemos agregado con éxito un campo adicional "imagen" al
+modelo de Publicaciones y hemos aplicado la migración a la base de datos
+para reflejar el cambio. Ahora, cada publicación en el blog tendrá un
+campo para asociar una imagen, lo que mejorará la experiencia visual
+para los usuarios.
 
 ## Extra.
 
-Para poder manejar el modelo de Publicaciones desde la administración de Django, es necesario registrar el modelo en el archivo "admin.py" de la aplicación "blog". De esta manera, podremos acceder a las publicaciones y administrarlas desde la interfaz de administración de Django.
+Para poder manejar el modelo de Publicaciones desde la administración de
+Django, es necesario registrar el modelo en el archivo "admin.py" de la
+aplicación "blog". De esta manera, podremos acceder a las publicaciones
+y administrarlas desde la interfaz de administración de Django.
 
 **Paso 4:** Registro del Modelo en el Administrador de Django
 
-En el archivo "admin.py" de la aplicación "blog", registramos el modelo "Publicacion" para que sea accesible desde la interfaz de administración.
+En el archivo "admin.py" de la aplicación "blog", registramos el modelo
+"Publicacion" para que sea accesible desde la interfaz de
+administración.
 
 ``` python
 # admin.py
@@ -665,20 +786,26 @@ from .models import Publicacion
 
 admin.site.register(Publicacion)
 ```
-Con este registro, el modelo "Publicacion" estará disponible en la interfaz de administración de Django. 
 
-Ahora, cuando ingreses a la URL "/admin/" en tu aplicación, podrás iniciar sesión como superusuario y ver la sección de "Publicacions", donde podrás agregar, editar y eliminar publicaciones desde la interfaz de administración. 
+Con este registro, el modelo "Publicacion" estará disponible en la
+interfaz de administración de Django.
 
-Esto facilitará el manejo de las publicaciones sin tener que acceder directamente a la base de datos.
+Ahora, cuando ingreses a la URL "/admin/" en tu aplicación, podrás
+iniciar sesión como superusuario y ver la sección de "Publicacions",
+donde podrás agregar, editar y eliminar publicaciones desde la interfaz
+de administración.
+
+Esto facilitará el manejo de las publicaciones sin tener que acceder
+directamente a la base de datos.
 
 ## Conclusión.
 
 Con esto, hemos completado el Módulo 2 de Modelos y Bases de Datos en
-Django. 
+Django.
 
-Has aprendido a diseñar modelos en Django, realizar migraciones
-de la base de datos, hacer consultas utilizando el ORM de Django,
-establecer relaciones entre modelos y usar formularios en Django. 
+Has aprendido a diseñar modelos en Django, realizar migraciones de la
+base de datos, hacer consultas utilizando el ORM de Django, establecer
+relaciones entre modelos y usar formularios en Django.
 
-En el próximo módulo, continuaremos explorando más características de Django,
-como vistas y plantillas.
+En el próximo módulo, continuaremos explorando más características de
+Django, como vistas y plantillas.
