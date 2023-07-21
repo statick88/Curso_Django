@@ -47,15 +47,106 @@ editor:
 
 # Módulo 2: Modelos y Bases de Datos.
 
-## Diseño de Modelos en Django.
+## Diseño de Modelos en Django
 
--   Los modelos en Django representan la estructura de la base de datos.
+En este diagrama, se muestra el flujo de diseño de modelos en Django. 
 
--   Cada modelo se define como una clase Python que hereda de
-    models.Model.
+``` markdown
+# Diseño de Modelos en Django
 
--   Los atributos de la clase representan los campos de la tabla en la
-    base de datos.
+         +-----------------------+
+         |                       |
+         | Definir el modelo     |
+         | como una clase        |
+         | Python que hereda de  |
+         | models.Model          |
+         |                       |
+         +----+-------------+----+
+              |             |
+              |             |
+              v             v
+  +-------------------+   +------------------+
+  |                   |   |                  |
+  | Definir campos    |   | Definir métodos  |
+  | y atributos       |   | adicionales      |
+  | del modelo        |   | del modelo       |
+  |                   |   |                  |
+  +--------+----------+   +------+-----------+
+           |                     |
+           |                     |
+           v                     v
++--------------------+   +--------------------+
+|                    |   |                    |
+| Aplicar migraciones|   | Definir __str__    |
+| para reflejar los  |   | método para        |
+| cambios en la      |   | representación     |
+| base de datos      |   | del modelo         |
+|                    |   |                    |
++--------------------+   +--------------------+
+```
+## 1. Comienza definiendo el modelo como una clase Python que hereda de models.Model.
+
+En Django, los modelos son la base para diseñar la estructura de la base de datos de nuestra aplicación web.
+
+Cada modelo representa una tabla en la base de datos y define los campos que estarán presentes en dicha tabla.
+
+Los modelos son definidos como clases Python que heredan de models.Model, lo que permite que Django maneje automáticamente la creación y gestión de la base de datos.
+
+### Creación de un Modelo.
+
+Para crear un modelo en Django, primero definimos una clase Python que representa la tabla en la base de datos. Por ejemplo, si deseamos crear un modelo para representar las publicaciones en nuestro blog, podemos definirlo de la siguiente manera:
+
+``` python
+from django.db import models
+
+class Publicacion(models.Model):
+    titulo = models.CharField(max_length=200)
+    contenido = models.TextField()
+    fecha_publicacion = models.DateTimeField()
+```
+En este ejemplo, hemos definido el modelo Publicacion con tres campos: 
+
+* titulo, 
+* contenido
+* fecha_publicacion. 
+
+Cada campo se representa mediante un atributo de la clase, donde 
+
+* **models.CharField** representa un campo de texto, 
+* **models.TextField** representa un campo de texto más largo y 
+* **models.DateTimeField** representa una fecha y hora.
+
+## 2. Luego, se definen los campos y atributos del modelo.
+
+### Definir Métodos del Modelo.
+
+Además de los campos, también podemos definir métodos en el modelo para realizar acciones específicas o para dar formato a los datos. Por ejemplo, podríamos agregar un método que nos devuelva una representación más legible de la publicación:
+
+``` python
+from django.db import models
+
+class Publicacion(models.Model):
+    titulo = models.CharField(max_length=200)
+    contenido = models.TextField()
+    fecha_publicacion = models.DateTimeField()
+
+    def __str__(self):
+        return self.titulo
+```
+En este caso, hemos definido el método __str__ que se ejecutará cuando necesitemos obtener una representación de texto del objeto Publicacion. En este caso, hemos decidido que la representación será simplemente el título de la publicación.
+
+## 3. A continuación, se pueden agregar métodos adicionales para realizar acciones específicas o dar formato a los datos.
+
+### Aplicar Migraciones.
+
+Una vez que hemos definido nuestro modelo, necesitamos aplicar las migraciones para que los cambios se reflejen en la base de datos.
+
+``` bash
+# Ejecutar en la terminal o consola
+python manage.py makemigrations
+python manage.py migrate
+```
+Con estos pasos, hemos diseñado nuestro modelo de Publicaciones en Django y aplicado las migraciones para crear la tabla correspondiente en la base de datos. Ahora estamos listos para utilizar nuestro modelo y almacenar datos en la base de datos.
 
 ## Ejemplo de las clases "Blog" y "Comentario" en Django:
 
