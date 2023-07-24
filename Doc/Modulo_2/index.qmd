@@ -5,37 +5,37 @@ date: "today"
 author: "Lcdo. Diego Medardo Saavedra García. Mgtr."
 lang: "es"
 format:
-#   revealjs:
-#     #chalkboard: 
-#       #buttons: false
-#     toc: true
-#     incremental: false
-#     slide-number: true
-#     preview-links: auto
-#     logo: img/logo.png
-#     footer: <https://abacom.edu.ec>
-#     theme: dark
-#     makeindex: true
-#     multiplex: true
-#     transition: fade
-#     chalkboard: true #Pizarra
-#     auto-stretch: true
-#     smaller: false
-#     scrollable: true
-#     menu: true
-#     codeBlock: {data-trim: true}
-#     execute: false
-#     executeCode: true
-  pdf:
-    toc: true
-    number-sections: true
-    colorlinks: true
-  html:     
-    code-fold: true
-    html-math-method: katex
-    multiplex: true
-    transition: fade
-    auto-stretch: false
+    # revealjs:
+    #     #chalkboard: 
+    #         #buttons: false
+    #     toc: true
+    #     incremental: false
+    #     slide-number: true
+    #     preview-links: auto
+    #     logo: img/logo.png
+    #     footer: <https://abacom.edu.ec>
+    #     theme: dark
+    #     makeindex: true
+    #     multiplex: true
+    #     transition: fade
+    #     chalkboard: true #Pizarra
+    #     auto-stretch: true
+    #     smaller: false
+    #     scrollable: true
+    #     menu: true
+    #     codeBlock: {data-trim: true}
+    #     execute: false
+    #     executeCode: true
+    pdf:
+        toc: true
+        number-sections: true
+        colorlinks: true
+    html:     
+        code-fold: true
+        html-math-method: katex
+        multiplex: true
+        transition: fade
+        auto-stretch: false
 bibliography: Bibliografia.bib
 csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl"
 editor_options: 
@@ -551,7 +551,7 @@ requerimientos específicos de la aplicación.
 
 A continuación, se presentará un ejemplo de configuración de Django para
 conectar el proyecto de blog a tres bases de datos diferentes: SQLite,
-MySQL y PostgreSQL.
+MySQL, MongoDB y PostgreSQL.
 
 ## 1. SQLite:
 
@@ -644,9 +644,9 @@ DATABASES = {
 }
 ```
 
-```         
-Asegúrate de reemplazar **nombre_de_la_base_de_datos**, **nombre_de_usuario** y **contraseña_del_usuario** con los valores adecuados para tu configuración de MySQL.
-```
+Asegúrate de reemplazar **nombre_de_la_base_de_datos**,
+**nombre_de_usuario** y **contraseña_del_usuario** con los valores
+adecuados para tu configuración de MySQL.
 
 7.  **Realizar migraciones:** Una vez configurada la base de datos en
     Django, es necesario aplicar las migraciones para crear las tablas y
@@ -664,6 +664,13 @@ python manage.py migrate
     Con estos pasos, tendrás configurada la conexión con la base de
     datos de MySQL en tu proyecto de Django y podrás utilizarla para
     almacenar y recuperar datos de forma local en tu máquina.
+
+    |                                             |
+    |---------------------------------------------|
+    | ![](images/paste-1.png){fig-align="center"} |
+    | ![](images/paste-2.png){fig-align="center"} |
+    | ![](images/paste-3.png){fig-align="center"} |
+    | ![](images/paste-4.png){fig-align="center"} |
 
 ## 3. **MongoDB:**
 
@@ -695,6 +702,17 @@ python manage.py migrate
 ``` python
  # settings.py
 
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'publicaciones',
+    'djongo',
+]
+
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
@@ -714,9 +732,11 @@ deseas para tu base de datos MongoDB.
 
 Una vez configurada la base de datos en Django, es necesario aplicar las
 migraciones para crear las colecciones y documentos correspondientes.
+
 Ejecuta el siguiente comando para aplicar las migraciones:
 
 ``` bash
+python manage.py makemigrations
 python manage.py migrate 
 ```
 
@@ -733,3 +753,10 @@ Es importante mencionar que MongoDB es una base de datos NoSQL, lo que
 significa que utiliza un modelo de datos basado en documentos en lugar
 de tablas y filas como las bases de datos relacionales. Esto permite una
 mayor flexibilidad y escalabilidad en el almacenamiento de datos.
+
+|                                             |
+|---------------------------------------------|
+| ![](images/paste-9.png){fig-align="center"} |
+| ![](images/paste-6.png){fig-align="center"} |
+| ![](images/paste-7.png){fig-align="center"} |
+| ![](images/paste-8.png){fig-align="center"} |

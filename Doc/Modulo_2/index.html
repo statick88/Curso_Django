@@ -720,7 +720,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 </section>
 <section id="ejemplo-de-conexión-del-proyecto-blog-con-bases-de-datos" class="slide level2">
 <h2>Ejemplo de Conexión del Proyecto Blog con Bases de Datos</h2>
-<p>A continuación, se presentará un ejemplo de configuración de Django para conectar el proyecto de blog a tres bases de datos diferentes: SQLite, MySQL y PostgreSQL.</p>
+<p>A continuación, se presentará un ejemplo de configuración de Django para conectar el proyecto de blog a tres bases de datos diferentes: SQLite, MySQL, MongoDB y PostgreSQL.</p>
 </section>
 <section id="sqlite" class="slide level2">
 <h2>1. SQLite:</h2>
@@ -767,14 +767,30 @@ Para hacerlo, modifica el archivo settings.py de tu proyecto Django y ajusta la 
 <span id="cb21-10"><a href="#cb21-10"></a>        <span class="st">'PORT'</span>: <span class="st">'3306'</span>,</span>
 <span id="cb21-11"><a href="#cb21-11"></a>    }</span>
 <span id="cb21-12"><a href="#cb21-12"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>Asegúrate de reemplazar **nombre_de_la_base_de_datos**, **nombre_de_usuario** y **contraseña_del_usuario** con los valores adecuados para tu configuración de MySQL.</code></pre>
+<p>Asegúrate de reemplazar <strong>nombre_de_la_base_de_datos</strong>, <strong>nombre_de_usuario</strong> y <strong>contraseña_del_usuario</strong> con los valores adecuados para tu configuración de MySQL.</p>
 <ol start="7" type="1">
 <li><strong>Realizar migraciones:</strong> Una vez configurada la base de datos en Django, es necesario aplicar las migraciones para crear las tablas y campos correspondientes. Ejecuta el siguiente comando para aplicar las migraciones:</li>
 </ol>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1"></a><span class="ex">python</span> manage.py migrate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1"></a><span class="ex">python</span> manage.py migrate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="8" type="1">
 <li><p><strong>Verificar la conexión:</strong> Finalmente, verifica que la conexión con la base de datos de MySQL se haya establecido correctamente y que puedas realizar consultas y operaciones desde tu proyecto Django.</p>
-<p>Con estos pasos, tendrás configurada la conexión con la base de datos de MySQL en tu proyecto de Django y podrás utilizarla para almacenar y recuperar datos de forma local en tu máquina.</p></li>
+<p>Con estos pasos, tendrás configurada la conexión con la base de datos de MySQL en tu proyecto de Django y podrás utilizarla para almacenar y recuperar datos de forma local en tu máquina.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td><img data-src="images/paste-1.png" data-fig-align="center"></td>
+</tr>
+<tr class="even">
+<td><img data-src="images/paste-2.png" data-fig-align="center"></td>
+</tr>
+<tr class="odd">
+<td><img data-src="images/paste-3.png" data-fig-align="center"></td>
+</tr>
+<tr class="even">
+<td><img data-src="images/paste-4.png" data-fig-align="center"></td>
+</tr>
+</tbody>
+</table></li>
 </ol>
 </section>
 <section id="mongodb" class="slide level2">
@@ -784,36 +800,65 @@ Para hacerlo, modifica el archivo settings.py de tu proyecto Django y ajusta la 
 <li><p><strong>Configurar el servidor MongoDB:</strong> Una vez que hayas instalado MongoDB, es necesario configurar el servidor.</p>
 <p>Por defecto, MongoDB se ejecuta en el puerto 27017. Asegúrate de que el servidor MongoDB esté en funcionamiento antes de continuar.</p></li>
 <li><p><strong>Instalar el controlador de MongoDB para Django:</strong> Para conectar Django con MongoDB, necesitas instalar el controlador de MongoDB para Django, llamado “djongo”. Puedes instalarlo utilizando el gestor de paquetes pip:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1"></a><span class="ex">pip</span> install djongo==1.3.1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1"></a><span class="ex">pip</span> install djongo==1.3.1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p><strong>Configurar Django para usar MongoDB:</strong></p>
 <p>Modifica el archivo settings.py de tu proyecto Django y ajusta la configuración de la base de datos:</p></li>
 </ol>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a> <span class="co"># settings.py</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a></span>
-<span id="cb25-3"><a href="#cb25-3"></a>DATABASES <span class="op">=</span> {</span>
-<span id="cb25-4"><a href="#cb25-4"></a>    <span class="st">'default'</span>: {</span>
-<span id="cb25-5"><a href="#cb25-5"></a>        <span class="st">'ENGINE'</span>: <span class="st">'djongo'</span>,</span>
-<span id="cb25-6"><a href="#cb25-6"></a>        <span class="st">'NAME'</span>: <span class="st">'nombre_de_la_base_de_datos'</span>,</span>
-<span id="cb25-7"><a href="#cb25-7"></a>        <span class="st">'CLIENT'</span>: {</span>
-<span id="cb25-8"><a href="#cb25-8"></a>            <span class="st">'host'</span>: <span class="st">'localhost'</span>, <span class="co"># Cambia esta dirección si tu servidor MongoDB está en otro equipo</span></span>
-<span id="cb25-9"><a href="#cb25-9"></a>            <span class="st">'port'</span>: <span class="dv">27017</span>,       <span class="co"># Puerto de MongoDB (por defecto es 27017)</span></span>
-<span id="cb25-10"><a href="#cb25-10"></a>        },</span>
-<span id="cb25-11"><a href="#cb25-11"></a>    }</span>
-<span id="cb25-12"><a href="#cb25-12"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a> <span class="co"># settings.py</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a></span>
+<span id="cb24-3"><a href="#cb24-3"></a>INSTALLED_APPS <span class="op">=</span> [</span>
+<span id="cb24-4"><a href="#cb24-4"></a>    <span class="st">'django.contrib.admin'</span>,</span>
+<span id="cb24-5"><a href="#cb24-5"></a>    <span class="st">'django.contrib.auth'</span>,</span>
+<span id="cb24-6"><a href="#cb24-6"></a>    <span class="st">'django.contrib.contenttypes'</span>,</span>
+<span id="cb24-7"><a href="#cb24-7"></a>    <span class="st">'django.contrib.sessions'</span>,</span>
+<span id="cb24-8"><a href="#cb24-8"></a>    <span class="st">'django.contrib.messages'</span>,</span>
+<span id="cb24-9"><a href="#cb24-9"></a>    <span class="st">'django.contrib.staticfiles'</span>,</span>
+<span id="cb24-10"><a href="#cb24-10"></a>    <span class="st">'publicaciones'</span>,</span>
+<span id="cb24-11"><a href="#cb24-11"></a>    <span class="st">'djongo'</span>,</span>
+<span id="cb24-12"><a href="#cb24-12"></a>]</span>
+<span id="cb24-13"><a href="#cb24-13"></a></span>
+<span id="cb24-14"><a href="#cb24-14"></a>DATABASES <span class="op">=</span> {</span>
+<span id="cb24-15"><a href="#cb24-15"></a>    <span class="st">'default'</span>: {</span>
+<span id="cb24-16"><a href="#cb24-16"></a>        <span class="st">'ENGINE'</span>: <span class="st">'djongo'</span>,</span>
+<span id="cb24-17"><a href="#cb24-17"></a>        <span class="st">'NAME'</span>: <span class="st">'nombre_de_la_base_de_datos'</span>,</span>
+<span id="cb24-18"><a href="#cb24-18"></a>        <span class="st">'CLIENT'</span>: {</span>
+<span id="cb24-19"><a href="#cb24-19"></a>            <span class="st">'host'</span>: <span class="st">'localhost'</span>, <span class="co"># Cambia esta dirección si tu servidor MongoDB está en otro equipo</span></span>
+<span id="cb24-20"><a href="#cb24-20"></a>            <span class="st">'port'</span>: <span class="dv">27017</span>,       <span class="co"># Puerto de MongoDB (por defecto es 27017)</span></span>
+<span id="cb24-21"><a href="#cb24-21"></a>        },</span>
+<span id="cb24-22"><a href="#cb24-22"></a>    }</span>
+<span id="cb24-23"><a href="#cb24-23"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Asegúrate de reemplazar <strong>nombre_de_la_base_de_datos</strong> con el nombre que deseas para tu base de datos MongoDB.</p>
 <ol start="7" type="1">
 <li><strong>Realizar migraciones:</strong></li>
 </ol>
-<p>Una vez configurada la base de datos en Django, es necesario aplicar las migraciones para crear las colecciones y documentos correspondientes. Ejecuta el siguiente comando para aplicar las migraciones:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1"></a><span class="ex">python</span> manage.py migrate </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Una vez configurada la base de datos en Django, es necesario aplicar las migraciones para crear las colecciones y documentos correspondientes.</p>
+<p>Ejecuta el siguiente comando para aplicar las migraciones:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1"></a><span class="ex">python</span> manage.py makemigrations</span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="ex">python</span> manage.py migrate </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li><strong>Verificar la conexión:</strong></li>
 </ol>
 <p>Finalmente, verifica que la conexión con MongoDB se haya establecido correctamente y que puedas realizar consultas y operaciones desde tu proyecto Django.</p>
 <p>Con estos pasos, tendrás configurada la conexión con MongoDB en tu proyecto de Django y podrás utilizarla para almacenar y recuperar datos.</p>
 <p>Es importante mencionar que MongoDB es una base de datos NoSQL, lo que significa que utiliza un modelo de datos basado en documentos en lugar de tablas y filas como las bases de datos relacionales. Esto permite una mayor flexibilidad y escalabilidad en el almacenamiento de datos.</p>
-
-<img src="img/logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<table>
+<tbody>
+<tr class="odd">
+<td><img data-src="images/paste-9.png" data-fig-align="center"></td>
+</tr>
+<tr class="even">
+<td><img data-src="images/paste-6.png" data-fig-align="center"></td>
+</tr>
+<tr class="odd">
+<td><img data-src="images/paste-7.png" data-fig-align="center"></td>
+</tr>
+<tr class="even">
+<td><img data-src="images/paste-8.png" data-fig-align="center"></td>
+</tr>
+</tbody>
+</table>
+<p><img src="img/logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
 <p><a href="https://abacom.edu.ec" class="uri">https://abacom.edu.ec</a></p>
 </div>
 </section></section>
