@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="Lcdo. Diego Medardo Saavedra García. Mgtr.">
-  <meta name="dcterms.date" content="2023-07-21">
+  <meta name="dcterms.date" content="2023-07-24">
   <title>Curso de Django</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -405,7 +405,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 </div>
 </div>
 
-  <p class="date">2023-07-21</p>
+  <p class="date">2023-07-24</p>
 </section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Tabla de contenidos</h2>
@@ -432,6 +432,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <li><a href="#/ejemplo-de-conexión-del-proyecto-blog-con-bases-de-datos" id="/toc-ejemplo-de-conexión-del-proyecto-blog-con-bases-de-datos">Ejemplo de Conexión del Proyecto Blog con Bases de Datos</a></li>
 <li><a href="#/sqlite" id="/toc-sqlite">1. SQLite:</a></li>
 <li><a href="#/mysql" id="/toc-mysql">2. MySQL:</a></li>
+<li><a href="#/mongodb" id="/toc-mongodb">3. <strong>MongoDB:</strong></a></li>
 </ul></li>
 </ul>
 </nav>
@@ -522,7 +523,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <p>Finalmente creamos un superusuario para acceder a la administración de nuestro proyecto.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="ex">python</span> manage.py createsuperuser</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Llenamos un pequeño formulario que nos pide: nombre de usuario, correo electrónico (no obligatorio), password, repeat again password.</p>
-<p>Y listo para poder acceder a la administración de nuestro proyecto nos dirigimos a la siguiente url <a href="http://127.0.0.1:8000/admin">http://127.0.0.1:8000/admin</a></p>
+<p>Y listo para poder acceder a la administración de nuestro proyecto nos dirigimos a la siguiente url <a href="http://127.0.0.1:8000/admin" class="uri">http://127.0.0.1:8000/admin</a></p>
 <p>De forma gráfica ingresamos nuestro usuario y contraseña creado.</p>
 
 <img data-src="images/ingreso_credenciales.png" class="r-stretch quarto-figure-center"></section>
@@ -737,7 +738,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <h2>2. MySQL:</h2>
 <p>Para conectar la base de datos de MySQL de <strong>forma local en tu máquina</strong>, necesitarás seguir estos pasos:</p>
 <ol type="1">
-<li><p><strong>Instalar MySQL Server:</strong> Lo primero que necesitas es tener instalado el servidor de MySQL en tu máquina. Puedes descargar la versión correspondiente para tu sistema operativo desde el sitio web oficial de MySQL: <a href="https://dev.mysql.com/downloads/mysql/">https://dev.mysql.com/downloads/mysql/</a></p></li>
+<li><p><strong>Instalar MySQL Server:</strong> Lo primero que necesitas es tener instalado el servidor de MySQL en tu máquina. Puedes descargar la versión correspondiente para tu sistema operativo desde el sitio web oficial de MySQL: <a href="https://dev.mysql.com/downloads/mysql/" class="uri">https://dev.mysql.com/downloads/mysql/</a></p></li>
 <li><p><strong>Configurar el servidor:</strong> Una vez que hayas instalado MySQL, debes configurar el servidor.</p>
 <p>Durante la instalación, se te pedirá establecer una contraseña para el usuario “root” que será el administrador del servidor.</p>
 <p>Asegúrate de recordar esta contraseña, ya que la necesitarás más adelante.</p></li>
@@ -747,7 +748,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <p>Puedes hacerlo desde la línea de comandos utilizando el cliente de MySQL o usando una herramienta de administración como phpMyAdmin.</p></li>
 <li><p><strong>Crear una base de datos:</strong> Antes de conectar Django a la base de datos, necesitas crear una base de datos vacía para tu proyecto.</p>
 <p>Puedes hacerlo desde el cliente de MySQL o desde una herramienta de administración.</p></li>
-<li><p><strong>Configurar Django para usar MySQL:</strong> Ahora que tienes el servidor de MySQL funcionando y una base de datos creada, puedes configurar Django para que utilice MySQL como base de datos.</p>
+<li><p><strong>Configurar Django para usar MySQL:</strong> Ahora que tienes el servidor de MySQL funcionando y una base de datos creada, puedes configurar Django para que utilice MySQL como base de datos, puedes instalar el cliente de MySQL <a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a>.</p>
 <p>Ahora es necesario instalar el connector entre Django y nuestra base de datos, lo podemos hacer con el gestor de paquetes <strong>pip</strong></p></li>
 </ol>
 <div class="sourceCode" id="cb19"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1"></a><span class="ex">pip</span> install mysqlclient</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -775,6 +776,42 @@ Para hacerlo, modifica el archivo settings.py de tu proyecto Django y ajusta la 
 <li><p><strong>Verificar la conexión:</strong> Finalmente, verifica que la conexión con la base de datos de MySQL se haya establecido correctamente y que puedas realizar consultas y operaciones desde tu proyecto Django.</p>
 <p>Con estos pasos, tendrás configurada la conexión con la base de datos de MySQL en tu proyecto de Django y podrás utilizarla para almacenar y recuperar datos de forma local en tu máquina.</p></li>
 </ol>
+</section>
+<section id="mongodb" class="slide level2">
+<h2>3. <strong>MongoDB:</strong></h2>
+<ol type="1">
+<li><p>Lo primero que necesitas es instalar <strong>MongoDB</strong> en tu sistema operativo. Puedes descargar la versión correspondiente para tu sistema desde el sitio web oficial de MongoDB: <a href="https://www.mongodb.com/try/download/community" class="uri">https://www.mongodb.com/try/download/community</a></p></li>
+<li><p><strong>Configurar el servidor MongoDB:</strong> Una vez que hayas instalado MongoDB, es necesario configurar el servidor.</p>
+<p>Por defecto, MongoDB se ejecuta en el puerto 27017. Asegúrate de que el servidor MongoDB esté en funcionamiento antes de continuar.</p></li>
+<li><p><strong>Instalar el controlador de MongoDB para Django:</strong> Para conectar Django con MongoDB, necesitas instalar el controlador de MongoDB para Django, llamado “djongo”. Puedes instalarlo utilizando el gestor de paquetes pip:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1"></a><span class="ex">pip</span> install djongo==1.3.1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p><strong>Configurar Django para usar MongoDB:</strong></p>
+<p>Modifica el archivo settings.py de tu proyecto Django y ajusta la configuración de la base de datos:</p></li>
+</ol>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a> <span class="co"># settings.py</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a></span>
+<span id="cb25-3"><a href="#cb25-3"></a>DATABASES <span class="op">=</span> {</span>
+<span id="cb25-4"><a href="#cb25-4"></a>    <span class="st">'default'</span>: {</span>
+<span id="cb25-5"><a href="#cb25-5"></a>        <span class="st">'ENGINE'</span>: <span class="st">'djongo'</span>,</span>
+<span id="cb25-6"><a href="#cb25-6"></a>        <span class="st">'NAME'</span>: <span class="st">'nombre_de_la_base_de_datos'</span>,</span>
+<span id="cb25-7"><a href="#cb25-7"></a>        <span class="st">'CLIENT'</span>: {</span>
+<span id="cb25-8"><a href="#cb25-8"></a>            <span class="st">'host'</span>: <span class="st">'localhost'</span>, <span class="co"># Cambia esta dirección si tu servidor MongoDB está en otro equipo</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a>            <span class="st">'port'</span>: <span class="dv">27017</span>,       <span class="co"># Puerto de MongoDB (por defecto es 27017)</span></span>
+<span id="cb25-10"><a href="#cb25-10"></a>        },</span>
+<span id="cb25-11"><a href="#cb25-11"></a>    }</span>
+<span id="cb25-12"><a href="#cb25-12"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Asegúrate de reemplazar <strong>nombre_de_la_base_de_datos</strong> con el nombre que deseas para tu base de datos MongoDB.</p>
+<ol start="7" type="1">
+<li><strong>Realizar migraciones:</strong></li>
+</ol>
+<p>Una vez configurada la base de datos en Django, es necesario aplicar las migraciones para crear las colecciones y documentos correspondientes. Ejecuta el siguiente comando para aplicar las migraciones:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1"></a><span class="ex">python</span> manage.py migrate </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li><strong>Verificar la conexión:</strong></li>
+</ol>
+<p>Finalmente, verifica que la conexión con MongoDB se haya establecido correctamente y que puedas realizar consultas y operaciones desde tu proyecto Django.</p>
+<p>Con estos pasos, tendrás configurada la conexión con MongoDB en tu proyecto de Django y podrás utilizarla para almacenar y recuperar datos.</p>
+<p>Es importante mencionar que MongoDB es una base de datos NoSQL, lo que significa que utiliza un modelo de datos basado en documentos en lugar de tablas y filas como las bases de datos relacionales. Esto permite una mayor flexibilidad y escalabilidad en el almacenamiento de datos.</p>
 
 <img src="img/logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://abacom.edu.ec" class="uri">https://abacom.edu.ec</a></p>
