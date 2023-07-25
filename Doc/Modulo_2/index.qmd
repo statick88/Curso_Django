@@ -553,7 +553,7 @@ A continuación, se presentará un ejemplo de configuración de Django para
 conectar el proyecto de blog a tres bases de datos diferentes: SQLite,
 MySQL, MongoDB y PostgreSQL.
 
-## 1. SQLite:
+## **SQLite**:
 
 SQLite es una base de datos incorporada en Django por defecto. No
 requiere configuración adicional para usarla, ya que Django creará
@@ -571,7 +571,7 @@ DATABASES = {
 }
 ```
 
-## 2. MySQL:
+## **MySQL**:
 
 Para conectar la base de datos de MySQL de **forma local en tu
 máquina**, necesitarás seguir estos pasos:
@@ -672,7 +672,91 @@ python manage.py migrate
     | ![](images/paste-3.png){fig-align="center"} |
     | ![](images/paste-4.png){fig-align="center"} |
 
-## 3. **MongoDB:**
+## **PostgreSQL:**
+
+Lo primero que necesitas es instalar PostgreSQL en tu sistema operativo.
+
+Puedes descargar la versión correspondiente para tu sistema desde el
+sitio web oficial de PostgreSQL: <https://www.postgresql.org/download/>
+
+1.  **Configurar PostgreSQL:** Durante la instalación, se te pedirá
+    establecer una contraseña para el usuario "postgres" que será el
+    administrador del servidor PostgreSQL. Asegúrate de recordar esta
+    contraseña, ya que la necesitarás más adelante.
+
+2.  **Iniciar el servidor PostgreSQL:** Después de instalar PostgreSQL,
+    debes iniciar el servidor. Esto puede variar dependiendo de tu
+    sistema operativo, pero generalmente puedes hacerlo desde la línea
+    de comandos o utilizando una herramienta específica para administrar
+    servidores de bases de datos.
+
+3.  **Verificar la conexión:** Una vez que el servidor esté en
+    funcionamiento, verifica que puedas conectarte a él. Puedes hacerlo
+    desde la línea de comandos utilizando el cliente psql o usando una
+    herramienta de administración gráfica como pgAdmin.
+
+4.  **Instalar el controlador de PostgreSQL para Django:** Para conectar
+    Django con PostgreSQL, necesitas instalar el controlador psycopg2.
+    Puedes instalarlo utilizando el gestor de paquetes pip:
+
+    ``` bash
+    pip install psycopg2 
+    ```
+
+5.  **Configurar Django para usar PostgreSQL:**
+
+    Modifica el archivo settings.py de tu proyecto Django y ajusta la
+    configuración de la base de datos:
+
+``` python
+# settings.py
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'nombre_de_la_base_de_datos',
+        'USER': 'nombre_de_usuario',
+        'PASSWORD': 'contraseña_del_usuario',
+        'HOST': 'localhost',  # Puedes cambiar esta dirección si PostgreSQL está en otro equipo
+        'PORT': '',          # Por defecto es el puerto 5432
+    }
+}
+```
+
+Asegúrate de reemplazar **nombre_de_la_base_de_datos**,
+**nombre_de_usuario** y **contraseña_del_usuario** con los valores
+adecuados para tu configuración de PostgreSQL.
+
+8.  **Realizar migraciones:**
+
+    Una vez configurada la base de datos en Django, es necesario aplicar
+    las migraciones para crear las tablas y campos correspondientes.
+    Ejecuta el siguiente comando para aplicar las migraciones:
+
+``` bash
+python manage.py migrate 
+```
+
+2.  **Verificar la conexión:**
+
+Finalmente, verifica que la conexión con PostgreSQL se haya establecido
+correctamente y que puedas realizar consultas y operaciones desde tu
+proyecto Django.
+
+Con estos pasos, tendrás configurada la conexión con PostgreSQL en tu
+proyecto de Django y podrás utilizarla para almacenar y recuperar datos.
+
+PostgreSQL es una base de datos relacional que ofrece características
+avanzadas y es ampliamente utilizada en aplicaciones web y proyectos de
+desarrollo.
+
+|                                              |
+|----------------------------------------------|
+| ![](images/paste-11.png){fig-align="center"} |
+| ![](images/paste-12.png){fig-align="center"} |
+| ![](images/paste-13.png){fig-align="center"} |
+
+## **MongoDB:**
 
 1.  Lo primero que necesitas es instalar **MongoDB** en tu sistema
     operativo. Puedes descargar la versión correspondiente para tu
@@ -754,9 +838,9 @@ significa que utiliza un modelo de datos basado en documentos en lugar
 de tablas y filas como las bases de datos relacionales. Esto permite una
 mayor flexibilidad y escalabilidad en el almacenamiento de datos.
 
-|                                             |
-|---------------------------------------------|
-| ![](images/paste-9.png){fig-align="center"} |
-| ![](images/paste-6.png){fig-align="center"} |
-| ![](images/paste-7.png){fig-align="center"} |
-| ![](images/paste-8.png){fig-align="center"} |
+|                                              |
+|----------------------------------------------|
+| ![](images/paste-10.png){fig-align="center"} |
+| ![](images/paste-11.png){fig-align="center"} |
+| ![](images/paste-12.png){fig-align="center"} |
+| ![](images/paste-13.png){fig-align="center"} |
