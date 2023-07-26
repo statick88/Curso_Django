@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="Lcdo. Diego Medardo Saavedra García. Mgtr.">
-  <meta name="dcterms.date" content="2023-07-24">
+  <meta name="dcterms.date" content="2023-07-25">
   <title>Curso de Django</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -405,7 +405,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 </div>
 </div>
 
-  <p class="date">2023-07-24</p>
+  <p class="date">2023-07-25</p>
 </section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Tabla de contenidos</h2>
@@ -430,9 +430,31 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <li><a href="#/clave-foránea." id="/toc-clave-foránea.">Clave Foránea.</a></li>
 <li><a href="#/relaciones-entre-modelos-de-django" id="/toc-relaciones-entre-modelos-de-django">Relaciones entre Modelos de Django:</a></li>
 <li><a href="#/ejemplo-de-conexión-del-proyecto-blog-con-bases-de-datos" id="/toc-ejemplo-de-conexión-del-proyecto-blog-con-bases-de-datos">Ejemplo de Conexión del Proyecto Blog con Bases de Datos</a></li>
-<li><a href="#/sqlite" id="/toc-sqlite">1. SQLite:</a></li>
-<li><a href="#/mysql" id="/toc-mysql">2. MySQL:</a></li>
-<li><a href="#/mongodb" id="/toc-mongodb">3. <strong>MongoDB:</strong></a></li>
+<li><a href="#/sqlite" id="/toc-sqlite"><strong>SQLite</strong>:</a></li>
+<li><a href="#/mysql" id="/toc-mysql"><strong>MySQL</strong>:</a></li>
+<li><a href="#/postgresql" id="/toc-postgresql"><strong>PostgreSQL:</strong></a></li>
+<li><a href="#/mongodb" id="/toc-mongodb"><strong>MongoDB:</strong></a></li>
+<li><a href="#/crear-formularios" id="/toc-crear-formularios">Crear Formularios:</a></li>
+<li><a href="#/vistas-para-los-formularios" id="/toc-vistas-para-los-formularios">Vistas para los Formularios:</a></li>
+<li><a href="#/plantilla-para-los-formularios" id="/toc-plantilla-para-los-formularios">Plantilla para los Formularios:</a></li>
+<li><a href="#/configurar-urls" id="/toc-configurar-urls">Configurar URLs:</a></li>
+<li><a href="#/vistas-de-la-aplicación" id="/toc-vistas-de-la-aplicación">Vistas de la Aplicación:</a></li>
+</ul></li>
+<li><a href="#/ejemplo-práctico" id="/toc-ejemplo-práctico">Ejemplo Práctico:</a>
+<ul>
+<li><a href="#/diseño-de-un-modelo-de-usuarios-y-publicaciones-en-un-blog." id="/toc-diseño-de-un-modelo-de-usuarios-y-publicaciones-en-un-blog.">Diseño de un Modelo de Usuarios y Publicaciones en un Blog.</a>
+<ul>
+<li><a href="#/diseño-de-un-modelo-de-usuarios-y-publicaciones-en-un-blog." id="/toc-importación-de-módulos-necesarios">Importación de módulos necesarios:</a></li>
+<li><a href="#/diseño-de-un-modelo-de-usuarios-y-publicaciones-en-un-blog." id="/toc-definición-del-modelo-usuario">Definición del modelo “Usuario”:</a></li>
+<li><a href="#/diseño-de-un-modelo-de-usuarios-y-publicaciones-en-un-blog." id="/toc-definición-del-modelo-publicacion">Definición del modelo “Publicacion”:</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#/actividad-práctica" id="/toc-actividad-práctica">Actividad Práctica:</a>
+<ul>
+<li><a href="#/agrega-un-campo-adicional-al-modelo-de-publicaciones" id="/toc-agrega-un-campo-adicional-al-modelo-de-publicaciones">Agrega un Campo Adicional al Modelo de Publicaciones</a></li>
+<li><a href="#/resolución-de-la-actividad-práctica." id="/toc-resolución-de-la-actividad-práctica.">Resolución de la Actividad Práctica.</a></li>
+<li><a href="#/extra." id="/toc-extra.">Extra.</a></li>
+<li><a href="#/conclusión." id="/toc-conclusión.">Conclusión.</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -723,7 +745,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <p>A continuación, se presentará un ejemplo de configuración de Django para conectar el proyecto de blog a tres bases de datos diferentes: SQLite, MySQL, MongoDB y PostgreSQL.</p>
 </section>
 <section id="sqlite" class="slide level2">
-<h2>1. SQLite:</h2>
+<h2><strong>SQLite</strong>:</h2>
 <p>SQLite es una base de datos incorporada en Django por defecto. No requiere configuración adicional para usarla, ya que Django creará automáticamente un archivo de base de datos SQLite en el directorio del proyecto.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># En el archivo settings.py del proyecto "mi_blog"</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a></span>
@@ -735,7 +757,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <span id="cb18-8"><a href="#cb18-8"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="mysql" class="slide level2">
-<h2>2. MySQL:</h2>
+<h2><strong>MySQL</strong>:</h2>
 <p>Para conectar la base de datos de MySQL de <strong>forma local en tu máquina</strong>, necesitarás seguir estos pasos:</p>
 <ol type="1">
 <li><p><strong>Instalar MySQL Server:</strong> Lo primero que necesitas es tener instalado el servidor de MySQL en tu máquina. Puedes descargar la versión correspondiente para tu sistema operativo desde el sitio web oficial de MySQL: <a href="https://dev.mysql.com/downloads/mysql/" class="uri">https://dev.mysql.com/downloads/mysql/</a></p></li>
@@ -793,48 +815,101 @@ Para hacerlo, modifica el archivo settings.py de tu proyecto Django y ajusta la 
 </table></li>
 </ol>
 </section>
+<section id="postgresql" class="slide level2">
+<h2><strong>PostgreSQL:</strong></h2>
+<p>Lo primero que necesitas es instalar PostgreSQL en tu sistema operativo.</p>
+<p>Puedes descargar la versión correspondiente para tu sistema desde el sitio web oficial de PostgreSQL: <a href="https://www.postgresql.org/download/" class="uri">https://www.postgresql.org/download/</a></p>
+<ol type="1">
+<li><p><strong>Configurar PostgreSQL:</strong> Durante la instalación, se te pedirá establecer una contraseña para el usuario “postgres” que será el administrador del servidor PostgreSQL. Asegúrate de recordar esta contraseña, ya que la necesitarás más adelante.</p></li>
+<li><p><strong>Iniciar el servidor PostgreSQL:</strong> Después de instalar PostgreSQL, debes iniciar el servidor. Esto puede variar dependiendo de tu sistema operativo, pero generalmente puedes hacerlo desde la línea de comandos o utilizando una herramienta específica para administrar servidores de bases de datos.</p></li>
+<li><p><strong>Verificar la conexión:</strong> Una vez que el servidor esté en funcionamiento, verifica que puedas conectarte a él. Puedes hacerlo desde la línea de comandos utilizando el cliente psql o usando una herramienta de administración gráfica como pgAdmin.</p></li>
+<li><p><strong>Instalar el controlador de PostgreSQL para Django:</strong> Para conectar Django con PostgreSQL, necesitas instalar el controlador psycopg2. Puedes instalarlo utilizando el gestor de paquetes pip:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1"></a><span class="ex">pip</span> install psycopg2 </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p><strong>Configurar Django para usar PostgreSQL:</strong></p>
+<p>Modifica el archivo settings.py de tu proyecto Django y ajusta la configuración de la base de datos:</p></li>
+</ol>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># settings.py</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a></span>
+<span id="cb24-3"><a href="#cb24-3"></a>DATABASES <span class="op">=</span> {</span>
+<span id="cb24-4"><a href="#cb24-4"></a>    <span class="st">'default'</span>: {</span>
+<span id="cb24-5"><a href="#cb24-5"></a>        <span class="st">'ENGINE'</span>: <span class="st">'django.db.backends.postgresql'</span>,</span>
+<span id="cb24-6"><a href="#cb24-6"></a>        <span class="st">'NAME'</span>: <span class="st">'nombre_de_la_base_de_datos'</span>,</span>
+<span id="cb24-7"><a href="#cb24-7"></a>        <span class="st">'USER'</span>: <span class="st">'nombre_de_usuario'</span>,</span>
+<span id="cb24-8"><a href="#cb24-8"></a>        <span class="st">'PASSWORD'</span>: <span class="st">'contraseña_del_usuario'</span>,</span>
+<span id="cb24-9"><a href="#cb24-9"></a>        <span class="st">'HOST'</span>: <span class="st">'localhost'</span>,  <span class="co"># Puedes cambiar esta dirección si PostgreSQL está en otro equipo</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a>        <span class="st">'PORT'</span>: <span class="st">''</span>,          <span class="co"># Por defecto es el puerto 5432</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a>    }</span>
+<span id="cb24-12"><a href="#cb24-12"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Asegúrate de reemplazar <strong>nombre_de_la_base_de_datos</strong>, <strong>nombre_de_usuario</strong> y <strong>contraseña_del_usuario</strong> con los valores adecuados para tu configuración de PostgreSQL.</p>
+<ol start="8" type="1">
+<li><p><strong>Realizar migraciones:</strong></p>
+<p>Una vez configurada la base de datos en Django, es necesario aplicar las migraciones para crear las tablas y campos correspondientes. Ejecuta el siguiente comando para aplicar las migraciones:</p></li>
+</ol>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1"></a><span class="ex">python</span> manage.py migrate </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li><strong>Verificar la conexión:</strong></li>
+</ol>
+<p>Finalmente, verifica que la conexión con PostgreSQL se haya establecido correctamente y que puedas realizar consultas y operaciones desde tu proyecto Django.</p>
+<p>Con estos pasos, tendrás configurada la conexión con PostgreSQL en tu proyecto de Django y podrás utilizarla para almacenar y recuperar datos.</p>
+<p>PostgreSQL es una base de datos relacional que ofrece características avanzadas y es ampliamente utilizada en aplicaciones web y proyectos de desarrollo.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td><img data-src="images/paste-11.png" data-fig-align="center"></td>
+</tr>
+<tr class="even">
+<td><img data-src="images/paste-12.png" data-fig-align="center"></td>
+</tr>
+<tr class="odd">
+<td><img data-src="images/paste-13.png" data-fig-align="center"></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="mongodb" class="slide level2">
-<h2>3. <strong>MongoDB:</strong></h2>
+<h2><strong>MongoDB:</strong></h2>
 <ol type="1">
 <li><p>Lo primero que necesitas es instalar <strong>MongoDB</strong> en tu sistema operativo. Puedes descargar la versión correspondiente para tu sistema desde el sitio web oficial de MongoDB: <a href="https://www.mongodb.com/try/download/community" class="uri">https://www.mongodb.com/try/download/community</a></p></li>
 <li><p><strong>Configurar el servidor MongoDB:</strong> Una vez que hayas instalado MongoDB, es necesario configurar el servidor.</p>
 <p>Por defecto, MongoDB se ejecuta en el puerto 27017. Asegúrate de que el servidor MongoDB esté en funcionamiento antes de continuar.</p></li>
 <li><p><strong>Instalar el controlador de MongoDB para Django:</strong> Para conectar Django con MongoDB, necesitas instalar el controlador de MongoDB para Django, llamado “djongo”. Puedes instalarlo utilizando el gestor de paquetes pip:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1"></a><span class="ex">pip</span> install djongo==1.3.1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1"></a><span class="ex">pip</span> install djongo==1.3.1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Para que todo funcione con normalidad, es necesario incluir el paquete <strong>pymongo</strong>, para ello se sugiere utilizar el siguiente comando.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1"></a><span class="ex">pip</span> install pymongo==3.12.1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p><strong>Configurar Django para usar MongoDB:</strong></p>
 <p>Modifica el archivo settings.py de tu proyecto Django y ajusta la configuración de la base de datos:</p></li>
 </ol>
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a> <span class="co"># settings.py</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a></span>
-<span id="cb24-3"><a href="#cb24-3"></a>INSTALLED_APPS <span class="op">=</span> [</span>
-<span id="cb24-4"><a href="#cb24-4"></a>    <span class="st">'django.contrib.admin'</span>,</span>
-<span id="cb24-5"><a href="#cb24-5"></a>    <span class="st">'django.contrib.auth'</span>,</span>
-<span id="cb24-6"><a href="#cb24-6"></a>    <span class="st">'django.contrib.contenttypes'</span>,</span>
-<span id="cb24-7"><a href="#cb24-7"></a>    <span class="st">'django.contrib.sessions'</span>,</span>
-<span id="cb24-8"><a href="#cb24-8"></a>    <span class="st">'django.contrib.messages'</span>,</span>
-<span id="cb24-9"><a href="#cb24-9"></a>    <span class="st">'django.contrib.staticfiles'</span>,</span>
-<span id="cb24-10"><a href="#cb24-10"></a>    <span class="st">'publicaciones'</span>,</span>
-<span id="cb24-11"><a href="#cb24-11"></a>    <span class="st">'djongo'</span>,</span>
-<span id="cb24-12"><a href="#cb24-12"></a>]</span>
-<span id="cb24-13"><a href="#cb24-13"></a></span>
-<span id="cb24-14"><a href="#cb24-14"></a>DATABASES <span class="op">=</span> {</span>
-<span id="cb24-15"><a href="#cb24-15"></a>    <span class="st">'default'</span>: {</span>
-<span id="cb24-16"><a href="#cb24-16"></a>        <span class="st">'ENGINE'</span>: <span class="st">'djongo'</span>,</span>
-<span id="cb24-17"><a href="#cb24-17"></a>        <span class="st">'NAME'</span>: <span class="st">'nombre_de_la_base_de_datos'</span>,</span>
-<span id="cb24-18"><a href="#cb24-18"></a>        <span class="st">'CLIENT'</span>: {</span>
-<span id="cb24-19"><a href="#cb24-19"></a>            <span class="st">'host'</span>: <span class="st">'localhost'</span>, <span class="co"># Cambia esta dirección si tu servidor MongoDB está en otro equipo</span></span>
-<span id="cb24-20"><a href="#cb24-20"></a>            <span class="st">'port'</span>: <span class="dv">27017</span>,       <span class="co"># Puerto de MongoDB (por defecto es 27017)</span></span>
-<span id="cb24-21"><a href="#cb24-21"></a>        },</span>
-<span id="cb24-22"><a href="#cb24-22"></a>    }</span>
-<span id="cb24-23"><a href="#cb24-23"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a> <span class="co"># settings.py</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a></span>
+<span id="cb28-3"><a href="#cb28-3"></a>INSTALLED_APPS <span class="op">=</span> [</span>
+<span id="cb28-4"><a href="#cb28-4"></a>    <span class="st">'django.contrib.admin'</span>,</span>
+<span id="cb28-5"><a href="#cb28-5"></a>    <span class="st">'django.contrib.auth'</span>,</span>
+<span id="cb28-6"><a href="#cb28-6"></a>    <span class="st">'django.contrib.contenttypes'</span>,</span>
+<span id="cb28-7"><a href="#cb28-7"></a>    <span class="st">'django.contrib.sessions'</span>,</span>
+<span id="cb28-8"><a href="#cb28-8"></a>    <span class="st">'django.contrib.messages'</span>,</span>
+<span id="cb28-9"><a href="#cb28-9"></a>    <span class="st">'django.contrib.staticfiles'</span>,</span>
+<span id="cb28-10"><a href="#cb28-10"></a>    <span class="st">'publicaciones'</span>,</span>
+<span id="cb28-11"><a href="#cb28-11"></a>    <span class="st">'djongo'</span>,</span>
+<span id="cb28-12"><a href="#cb28-12"></a>]</span>
+<span id="cb28-13"><a href="#cb28-13"></a></span>
+<span id="cb28-14"><a href="#cb28-14"></a>DATABASES <span class="op">=</span> {</span>
+<span id="cb28-15"><a href="#cb28-15"></a>    <span class="st">'default'</span>: {</span>
+<span id="cb28-16"><a href="#cb28-16"></a>        <span class="st">'ENGINE'</span>: <span class="st">'djongo'</span>,</span>
+<span id="cb28-17"><a href="#cb28-17"></a>        <span class="st">'NAME'</span>: <span class="st">'nombre_de_la_base_de_datos'</span>,</span>
+<span id="cb28-18"><a href="#cb28-18"></a>        <span class="st">'CLIENT'</span>: {</span>
+<span id="cb28-19"><a href="#cb28-19"></a>            <span class="st">'host'</span>: <span class="st">'localhost'</span>, <span class="co"># Cambia esta dirección si tu servidor MongoDB está en otro equipo</span></span>
+<span id="cb28-20"><a href="#cb28-20"></a>            <span class="st">'port'</span>: <span class="dv">27017</span>,       <span class="co"># Puerto de MongoDB (por defecto es 27017)</span></span>
+<span id="cb28-21"><a href="#cb28-21"></a>        },</span>
+<span id="cb28-22"><a href="#cb28-22"></a>    }</span>
+<span id="cb28-23"><a href="#cb28-23"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Asegúrate de reemplazar <strong>nombre_de_la_base_de_datos</strong> con el nombre que deseas para tu base de datos MongoDB.</p>
 <ol start="7" type="1">
 <li><strong>Realizar migraciones:</strong></li>
 </ol>
 <p>Una vez configurada la base de datos en Django, es necesario aplicar las migraciones para crear las colecciones y documentos correspondientes.</p>
 <p>Ejecuta el siguiente comando para aplicar las migraciones:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1"></a><span class="ex">python</span> manage.py makemigrations</span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="ex">python</span> manage.py migrate </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1"></a><span class="ex">python</span> manage.py makemigrations</span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="ex">python</span> manage.py migrate </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li><strong>Verificar la conexión:</strong></li>
 </ol>
@@ -844,21 +919,234 @@ Para hacerlo, modifica el archivo settings.py de tu proyecto Django y ajusta la 
 <table>
 <tbody>
 <tr class="odd">
-<td><img data-src="images/paste-9.png" data-fig-align="center"></td>
+<td><img data-src="images/paste-10.png" data-fig-align="center"></td>
 </tr>
 <tr class="even">
-<td><img data-src="images/paste-6.png" data-fig-align="center"></td>
+<td><img data-src="images/paste-11.png" data-fig-align="center"></td>
 </tr>
 <tr class="odd">
-<td><img data-src="images/paste-7.png" data-fig-align="center"></td>
+<td><img data-src="images/paste-12.png" data-fig-align="center"></td>
 </tr>
 <tr class="even">
-<td><img data-src="images/paste-8.png" data-fig-align="center"></td>
+<td><img data-src="images/paste-13.png" data-fig-align="center"></td>
 </tr>
 </tbody>
 </table>
-<p><img src="img/logo.png" class="slide-logo"></p>
-<div class="footer footer-default">
+</section>
+<section id="crear-formularios" class="slide level2">
+<h2>Crear Formularios:</h2>
+<p>En el archivo <strong>forms.py</strong> de la aplicación “blog” (o la que corresponda), crea dos clases de formulario, una para Publicación y otra para Comentario.</p>
+<p>Estos formularios se basarán en los modelos correspondientes y permitirán ingresar datos para crear o editar objetos en la base de datos.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># forms.py</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a></span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="im">from</span> django <span class="im">import</span> forms</span>
+<span id="cb30-4"><a href="#cb30-4"></a><span class="im">from</span> .models <span class="im">import</span> Publicacion, Comentario</span>
+<span id="cb30-5"><a href="#cb30-5"></a></span>
+<span id="cb30-6"><a href="#cb30-6"></a><span class="kw">class</span> PublicacionForm(forms.ModelForm):</span>
+<span id="cb30-7"><a href="#cb30-7"></a>    <span class="kw">class</span> Meta:</span>
+<span id="cb30-8"><a href="#cb30-8"></a>        model <span class="op">=</span> Publicacion</span>
+<span id="cb30-9"><a href="#cb30-9"></a>        fields <span class="op">=</span> [<span class="st">'titulo'</span>, <span class="st">'contenido'</span>, <span class="st">'fecha_publicacion'</span>]</span>
+<span id="cb30-10"><a href="#cb30-10"></a></span>
+<span id="cb30-11"><a href="#cb30-11"></a><span class="kw">class</span> ComentarioForm(forms.ModelForm):</span>
+<span id="cb30-12"><a href="#cb30-12"></a>    <span class="kw">class</span> Meta:</span>
+<span id="cb30-13"><a href="#cb30-13"></a>        model <span class="op">=</span> Comentario</span>
+<span id="cb30-14"><a href="#cb30-14"></a>        fields <span class="op">=</span> [<span class="st">'texto'</span>, <span class="st">'autor'</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="vistas-para-los-formularios" class="slide level2">
+<h2>Vistas para los Formularios:</h2>
+<p>En el archivo views.py de la aplicación, importa los formularios que acabas de crear y crea dos vistas, una para manejar la creación de nuevas publicaciones y otra para crear nuevos comentarios.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># views.py</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a></span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="im">from</span> django.shortcuts <span class="im">import</span> render, redirect</span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="im">from</span> .forms <span class="im">import</span> PublicacionForm, ComentarioForm</span>
+<span id="cb31-5"><a href="#cb31-5"></a></span>
+<span id="cb31-6"><a href="#cb31-6"></a><span class="kw">def</span> crear_publicacion(request):</span>
+<span id="cb31-7"><a href="#cb31-7"></a>    <span class="cf">if</span> request.method <span class="op">==</span> <span class="st">'POST'</span>:</span>
+<span id="cb31-8"><a href="#cb31-8"></a>        form <span class="op">=</span> PublicacionForm(request.POST)</span>
+<span id="cb31-9"><a href="#cb31-9"></a>        <span class="cf">if</span> form.is_valid():</span>
+<span id="cb31-10"><a href="#cb31-10"></a>            form.save()</span>
+<span id="cb31-11"><a href="#cb31-11"></a>            <span class="cf">return</span> redirect(<span class="st">'nombre_de_la_vista'</span>)  <span class="co"># Cambiar 'nombre_de_la_vista' por la vista a la que deseas redirigir después de guardar la publicación</span></span>
+<span id="cb31-12"><a href="#cb31-12"></a>    <span class="cf">else</span>:</span>
+<span id="cb31-13"><a href="#cb31-13"></a>        form <span class="op">=</span> PublicacionForm()</span>
+<span id="cb31-14"><a href="#cb31-14"></a>    <span class="cf">return</span> render(request, <span class="st">'nombre_de_la_plantilla.html'</span>, {<span class="st">'form'</span>: form})</span>
+<span id="cb31-15"><a href="#cb31-15"></a></span>
+<span id="cb31-16"><a href="#cb31-16"></a><span class="kw">def</span> crear_comentario(request):</span>
+<span id="cb31-17"><a href="#cb31-17"></a>    <span class="cf">if</span> request.method <span class="op">==</span> <span class="st">'POST'</span>:</span>
+<span id="cb31-18"><a href="#cb31-18"></a>        form <span class="op">=</span> ComentarioForm(request.POST)</span>
+<span id="cb31-19"><a href="#cb31-19"></a>        <span class="cf">if</span> form.is_valid():</span>
+<span id="cb31-20"><a href="#cb31-20"></a>            form.save()</span>
+<span id="cb31-21"><a href="#cb31-21"></a>            <span class="cf">return</span> redirect(<span class="st">'nombre_de_la_vista'</span>)  <span class="co"># Cambiar 'nombre_de_la_vista' por la vista a la que deseas redirigir después de guardar el comentario</span></span>
+<span id="cb31-22"><a href="#cb31-22"></a>    <span class="cf">else</span>:</span>
+<span id="cb31-23"><a href="#cb31-23"></a>        form <span class="op">=</span> ComentarioForm()</span>
+<span id="cb31-24"><a href="#cb31-24"></a>    <span class="cf">return</span> render(request, <span class="st">'nombre_de_la_plantilla.html'</span>, {<span class="st">'form'</span>: form})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="plantilla-para-los-formularios" class="slide level2">
+<h2>Plantilla para los Formularios:</h2>
+<p>Crea una plantilla HTML para cada formulario en el directorio templates de la aplicación. En este ejemplo, llamaremos a la plantilla para la publicación publicacion_form.html y la plantilla para el comentario comentario_form.html.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb32-1"><a href="#cb32-1"></a><span class="co">&lt;!-- publicacion_form.html --&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="kw">&lt;form</span> <span class="er">method</span><span class="ot">=</span><span class="st">"post"</span><span class="kw">&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a>    {% csrf_token %}</span>
+<span id="cb32-4"><a href="#cb32-4"></a>    {{ form.as_p }}</span>
+<span id="cb32-5"><a href="#cb32-5"></a>    <span class="kw">&lt;button</span> <span class="er">type</span><span class="ot">=</span><span class="st">"submit"</span><span class="kw">&gt;</span>Guardar Publicación<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="kw">&lt;/form&gt;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb33-1"><a href="#cb33-1"></a><span class="co">&lt;!-- comentario_form.html --&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="kw">&lt;form</span> <span class="er">method</span><span class="ot">=</span><span class="st">"post"</span><span class="kw">&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a>    {% csrf_token %}</span>
+<span id="cb33-4"><a href="#cb33-4"></a>    {{ form.as_p }}</span>
+<span id="cb33-5"><a href="#cb33-5"></a>    <span class="kw">&lt;button</span> <span class="er">type</span><span class="ot">=</span><span class="st">"submit"</span><span class="kw">&gt;</span>Guardar Comentario<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb33-6"><a href="#cb33-6"></a><span class="kw">&lt;/form&gt;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="configurar-urls" class="slide level2">
+<h2>Configurar URLs:</h2>
+<p>En el archivo urls.py de la aplicación, configura las URLs para las vistas de creación de publicaciones y comentarios.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># urls.py</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="im">from</span> django.urls <span class="im">import</span> path</span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="im">from</span> . <span class="im">import</span> views</span>
+<span id="cb34-5"><a href="#cb34-5"></a></span>
+<span id="cb34-6"><a href="#cb34-6"></a>urlpatterns <span class="op">=</span> [</span>
+<span id="cb34-7"><a href="#cb34-7"></a>    path(<span class="st">'crear-publicacion/'</span>, views.crear_publicacion, name<span class="op">=</span><span class="st">'crear_publicacion'</span>),</span>
+<span id="cb34-8"><a href="#cb34-8"></a>    path(<span class="st">'crear-comentario/'</span>, views.crear_comentario, name<span class="op">=</span><span class="st">'crear_comentario'</span>),</span>
+<span id="cb34-9"><a href="#cb34-9"></a>    <span class="co"># Añadir otras URLs si es necesario</span></span>
+<span id="cb34-10"><a href="#cb34-10"></a>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="vistas-de-la-aplicación" class="slide level2">
+<h2>Vistas de la Aplicación:</h2>
+<p>Finalmente, asegúrate de que las vistas de creación de publicaciones y comentarios sean accesibles desde las vistas de tu proyecto Django. Puedes enlazar a estas vistas desde otras vistas o desde plantillas de tu proyecto.</p>
+</section></section>
+<section>
+<section id="ejemplo-práctico" class="title-slide slide level1 center">
+<h1>Ejemplo Práctico:</h1>
+
+</section>
+<section id="diseño-de-un-modelo-de-usuarios-y-publicaciones-en-un-blog." class="slide level2">
+<h2>Diseño de un Modelo de Usuarios y Publicaciones en un Blog.</h2>
+<h3 id="importación-de-módulos-necesarios">Importación de módulos necesarios:</h3>
+<p>Para definir los modelos en Django, primero importamos los módulos necesarios desde la biblioteca Django.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># models.py</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="im">from</span> django.contrib.auth.models <span class="im">import</span> AbstractUser</span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="im">from</span> django.db <span class="im">import</span> models</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="definición-del-modelo-usuario">Definición del modelo “Usuario”:</h3>
+<p>El modelo de “Usuario” se crea mediante la herencia de la clase “AbstractUser” proporcionada por Django. Esto nos permite utilizar la funcionalidad de autenticación y autorización incorporada en Django. También podemos agregar campos adicionales según sea necesario.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># models.py</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="kw">class</span> Usuario(AbstractUser):</span>
+<span id="cb36-4"><a href="#cb36-4"></a>    <span class="co"># Agrega campos adicionales si es necesario</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a>    <span class="cf">pass</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>En el modelo “Usuario”, podemos agregar campos adicionales según las necesidades específicas de nuestra aplicación. Al heredar de la clase “AbstractUser” proporcionada por Django, ya contamos con campos comunes para autenticación, como “username”, “email” y “password”.</p>
+<p>Además de los campos heredados, algunos ejemplos de campos adicionales que podríamos agregar al modelo “Usuario” son:</p>
+<p><strong>Nombre completo:</strong> Podemos agregar un campo para almacenar el nombre completo del usuario.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">class</span> Usuario(AbstractUser):</span>
+<span id="cb37-2"><a href="#cb37-2"></a>    <span class="co"># Campos heredados de AbstractUser</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a>    ...</span>
+<span id="cb37-4"><a href="#cb37-4"></a></span>
+<span id="cb37-5"><a href="#cb37-5"></a>    <span class="co"># Campo adicional</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a>    nombre_completo <span class="op">=</span> models.CharField(max_length<span class="op">=</span><span class="dv">255</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Fecha de nacimiento:</strong> Podemos incluir un campo para registrar la fecha de nacimiento del usuario.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">class</span> Usuario(AbstractUser):</span>
+<span id="cb38-2"><a href="#cb38-2"></a>    <span class="co"># Campos heredados de AbstractUser</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>    ...</span>
+<span id="cb38-4"><a href="#cb38-4"></a></span>
+<span id="cb38-5"><a href="#cb38-5"></a>    <span class="co"># Campo adicional</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a>    fecha_nacimiento <span class="op">=</span> models.DateField()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Biografía:</strong> Podemos permitir que los usuarios agreguen una breve biografía sobre ellos mismos.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">class</span> Usuario(AbstractUser):</span>
+<span id="cb39-2"><a href="#cb39-2"></a>    <span class="co"># Campos heredados de AbstractUser</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a>    ...</span>
+<span id="cb39-4"><a href="#cb39-4"></a></span>
+<span id="cb39-5"><a href="#cb39-5"></a>    <span class="co"># Campo adicional</span></span>
+<span id="cb39-6"><a href="#cb39-6"></a>    biografia <span class="op">=</span> models.TextField(blank<span class="op">=</span><span class="va">True</span>, null<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Imagen de perfil:</strong> Podemos agregar un campo para que los usuarios carguen una imagen de perfil.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">class</span> Usuario(AbstractUser):</span>
+<span id="cb40-2"><a href="#cb40-2"></a>    <span class="co"># Campos heredados de AbstractUser</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a>    ...</span>
+<span id="cb40-4"><a href="#cb40-4"></a></span>
+<span id="cb40-5"><a href="#cb40-5"></a>    <span class="co"># Campo adicional</span></span>
+<span id="cb40-6"><a href="#cb40-6"></a>    imagen_perfil <span class="op">=</span> models.ImageField(upload_to<span class="op">=</span><span class="st">'imagenes_perfil/'</span>, blank<span class="op">=</span><span class="va">True</span>, null<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estos son solo algunos ejemplos de los campos adicionales que podríamos agregar al modelo “Usuario”. La elección de los campos depende de los requisitos específicos de la aplicación y qué información adicional deseamos almacenar para nuestros usuarios.</p>
+<p>Django proporciona una amplia variedad de tipos de campos para adaptarse a diferentes tipos de datos y necesidades.</p>
+<h3 id="definición-del-modelo-publicacion">Definición del modelo “Publicacion”:</h3>
+<p>El modelo “Publicacion” se crea como una subclase de “models.Model”.</p>
+<p>Aquí definimos los campos que representarán los atributos de una publicación en el blog, como “titulo”, “contenido” y “fecha_publicacion”. Cada campo es una instancia de una clase de campo de Django que define el tipo y las propiedades del campo.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a><span class="co"># models.py</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a></span>
+<span id="cb41-3"><a href="#cb41-3"></a><span class="kw">class</span> Publicacion(models.Model):</span>
+<span id="cb41-4"><a href="#cb41-4"></a>    titulo <span class="op">=</span> models.CharField(max_length<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb41-5"><a href="#cb41-5"></a>    contenido <span class="op">=</span> models.TextField()</span>
+<span id="cb41-6"><a href="#cb41-6"></a>    fecha_publicacion <span class="op">=</span> models.DateTimeField()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Método “str”:</p>
+<p>En el modelo “Publicacion”, hemos definido el método “str” que devuelve el título de la publicación cuando se imprime una instancia de la clase.</p>
+<p>Esto hace que sea más fácil identificar las publicaciones en el administrador de Django y en cualquier otra parte donde se muestren objetos de la clase “Publicacion”.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># models.py</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a></span>
+<span id="cb42-3"><a href="#cb42-3"></a><span class="kw">class</span> Publicacion(models.Model):</span>
+<span id="cb42-4"><a href="#cb42-4"></a>    <span class="co"># Campos de la publicación...</span></span>
+<span id="cb42-5"><a href="#cb42-5"></a></span>
+<span id="cb42-6"><a href="#cb42-6"></a>    <span class="kw">def</span> <span class="fu">__str__</span>(<span class="va">self</span>):</span>
+<span id="cb42-7"><a href="#cb42-7"></a>        <span class="cf">return</span> <span class="va">self</span>.titulo</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Con estos pasos, hemos definido los modelos “Usuario” y “Publicacion” en Django. Estos modelos representarán las tablas “Usuario” y “Publicacion” en la base de datos y nos permitirán interactuar con ellos mediante el ORM de Django.</p>
+</section></section>
+<section>
+<section id="actividad-práctica" class="title-slide slide level1 center">
+<h1>Actividad Práctica:</h1>
+
+</section>
+<section id="agrega-un-campo-adicional-al-modelo-de-publicaciones" class="slide level2">
+<h2>Agrega un Campo Adicional al Modelo de Publicaciones</h2>
+<p>[ ] Agrega un Campo Adicional al Modelo de Publicaciones y Realiza la Migración Correspondiente</p>
+<p>[ ] En el modelo de Publicaciones, agrega un nuevo campo “imagen” de tipo “ImageField”.</p>
+<p>[ ] Crea una migración para aplicar los cambios al modelo usando el comando</p>
+<p>[ ] Aplica la migración a la base de datos.</p>
+</section>
+<section id="resolución-de-la-actividad-práctica." class="slide level2">
+<h2>Resolución de la Actividad Práctica.</h2>
+<p><strong>Paso 1:</strong> Agregar un Campo Adicional al Modelo de Publicaciones</p>
+<p>En el archivo “models.py” de la aplicación “blog”, agregamos un nuevo campo llamado “imagen” de tipo “ImageField” al modelo “Publicacion”. Esto nos permitirá almacenar imágenes relacionadas con cada publicación.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="co"># models.py</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a></span>
+<span id="cb43-3"><a href="#cb43-3"></a><span class="im">from</span> django.db <span class="im">import</span> models</span>
+<span id="cb43-4"><a href="#cb43-4"></a></span>
+<span id="cb43-5"><a href="#cb43-5"></a><span class="kw">class</span> Publicacion(models.Model):</span>
+<span id="cb43-6"><a href="#cb43-6"></a>    titulo <span class="op">=</span> models.CharField(max_length<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb43-7"><a href="#cb43-7"></a>    contenido <span class="op">=</span> models.TextField()</span>
+<span id="cb43-8"><a href="#cb43-8"></a>    fecha_publicacion <span class="op">=</span> models.DateTimeField()</span>
+<span id="cb43-9"><a href="#cb43-9"></a>    imagen <span class="op">=</span> models.ImageField(upload_to<span class="op">=</span><span class="st">'publicaciones/'</span>, blank<span class="op">=</span><span class="va">True</span>, null<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb43-10"><a href="#cb43-10"></a></span>
+<span id="cb43-11"><a href="#cb43-11"></a>    <span class="kw">def</span> <span class="fu">__str__</span>(<span class="va">self</span>):</span>
+<span id="cb43-12"><a href="#cb43-12"></a>        <span class="cf">return</span> <span class="va">self</span>.titulo</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 2:</strong> Crear una Migración para Aplicar los Cambios</p>
+<p>Después de agregar el nuevo campo “imagen” al modelo, necesitamos crear una migración para aplicar los cambios a la base de datos. Django nos proporciona un comando para generar automáticamente la migración.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1"></a><span class="co"># Ejecutar en la terminal o consola</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a><span class="ex">python</span> manage.py makemigrations</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 3:</strong> Aplicar la Migración a la Base de Datos</p>
+<p>Una vez que se ha creado la migración, la aplicamos a la base de datos con el siguiente comando:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1"></a><span class="co"># Ejecutar en la terminal o consola</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a><span class="ex">python</span> manage.py migrate</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Con estos pasos, hemos agregado con éxito un campo adicional “imagen” al modelo de Publicaciones y hemos aplicado la migración a la base de datos para reflejar el cambio. Ahora, cada publicación en el blog tendrá un campo para asociar una imagen, lo que mejorará la experiencia visual para los usuarios.</p>
+</section>
+<section id="extra." class="slide level2">
+<h2>Extra.</h2>
+<p>Para poder manejar el modelo de Publicaciones desde la administración de Django, es necesario registrar el modelo en el archivo “admin.py” de la aplicación “blog”. De esta manera, podremos acceder a las publicaciones y administrarlas desde la interfaz de administración de Django.</p>
+<p><strong>Paso 4:</strong> Registro del Modelo en el Administrador de Django</p>
+<p>En el archivo “admin.py” de la aplicación “blog”, registramos el modelo “Publicacion” para que sea accesible desde la interfaz de administración.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># admin.py</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a></span>
+<span id="cb46-3"><a href="#cb46-3"></a><span class="im">from</span> django.contrib <span class="im">import</span> admin</span>
+<span id="cb46-4"><a href="#cb46-4"></a><span class="im">from</span> .models <span class="im">import</span> Publicacion</span>
+<span id="cb46-5"><a href="#cb46-5"></a></span>
+<span id="cb46-6"><a href="#cb46-6"></a>admin.site.register(Publicacion)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Con este registro, el modelo “Publicacion” estará disponible en la interfaz de administración de Django.</p>
+<p>Ahora, cuando ingreses a la URL “/admin/” en tu aplicación, podrás iniciar sesión como superusuario y ver la sección de “Publicacions”, donde podrás agregar, editar y eliminar publicaciones desde la interfaz de administración.</p>
+<p>Esto facilitará el manejo de las publicaciones sin tener que acceder directamente a la base de datos.</p>
+</section>
+<section id="conclusión." class="slide level2">
+<h2>Conclusión.</h2>
+<p>Con esto, hemos completado el Módulo 2 de Modelos y Bases de Datos en Django.</p>
+<p>Has aprendido a diseñar modelos en Django, realizar migraciones de la base de datos, hacer consultas utilizando el ORM de Django, establecer relaciones entre modelos y usar formularios en Django.</p>
+<p>En el próximo módulo, continuaremos explorando más características de Django, como vistas y plantillas.</p>
+
+<img src="img/logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://abacom.edu.ec" class="uri">https://abacom.edu.ec</a></p>
 </div>
 </section></section>

@@ -778,6 +778,14 @@ desarrollo.
     pip install djongo==1.3.1
     ```
 
+    Para que todo funcione con normalidad, es necesario incluir el
+    paquete **pymongo**, para ello se sugiere utilizar el siguiente
+    comando.
+
+    ``` bash
+    pip install pymongo==3.12.1
+    ```
+
 4.  **Configurar Django para usar MongoDB:**
 
     Modifica el archivo settings.py de tu proyecto Django y ajusta la
@@ -844,3 +852,250 @@ mayor flexibilidad y escalabilidad en el almacenamiento de datos.
 | ![](images/paste-11.png){fig-align="center"} |
 | ![](images/paste-12.png){fig-align="center"} |
 | ![](images/paste-13.png){fig-align="center"} |
+
+# Ejemplo Práctico:
+
+## Diseño de un Modelo de Usuarios y Publicaciones en un Blog.
+
+### Importación de módulos necesarios:
+
+Para definir los modelos en Django, primero importamos los módulos
+necesarios desde la biblioteca Django.
+
+``` python
+# models.py
+
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+```
+
+### Definición del modelo "Usuario":
+
+El modelo de "Usuario" se crea mediante la herencia de la clase
+"AbstractUser" proporcionada por Django. Esto nos permite utilizar la
+funcionalidad de autenticación y autorización incorporada en Django.
+También podemos agregar campos adicionales según sea necesario.
+
+``` python
+# models.py
+
+class Usuario(AbstractUser):
+    # Agrega campos adicionales si es necesario
+    pass
+```
+
+En el modelo "Usuario", podemos agregar campos adicionales según las
+necesidades específicas de nuestra aplicación. Al heredar de la clase
+"AbstractUser" proporcionada por Django, ya contamos con campos comunes
+para autenticación, como "username", "email" y "password".
+
+Además de los campos heredados, algunos ejemplos de campos adicionales
+que podríamos agregar al modelo "Usuario" son:
+
+**Nombre completo:** Podemos agregar un campo para almacenar el nombre
+completo del usuario.
+
+``` python
+class Usuario(AbstractUser):
+    # Campos heredados de AbstractUser
+    ...
+
+    # Campo adicional
+    nombre_completo = models.CharField(max_length=255)
+```
+
+**Fecha de nacimiento:** Podemos incluir un campo para registrar la
+fecha de nacimiento del usuario.
+
+``` python
+class Usuario(AbstractUser):
+    # Campos heredados de AbstractUser
+    ...
+
+    # Campo adicional
+    fecha_nacimiento = models.DateField()
+```
+
+**Biografía:** Podemos permitir que los usuarios agreguen una breve
+biografía sobre ellos mismos.
+
+``` python
+class Usuario(AbstractUser):
+    # Campos heredados de AbstractUser
+    ...
+
+    # Campo adicional
+    biografia = models.TextField(blank=True, null=True)
+```
+
+**Imagen de perfil:** Podemos agregar un campo para que los usuarios
+carguen una imagen de perfil.
+
+``` python
+class Usuario(AbstractUser):
+    # Campos heredados de AbstractUser
+    ...
+
+    # Campo adicional
+    imagen_perfil = models.ImageField(upload_to='imagenes_perfil/', blank=True, null=True)
+```
+
+Estos son solo algunos ejemplos de los campos adicionales que podríamos
+agregar al modelo "Usuario". La elección de los campos depende de los
+requisitos específicos de la aplicación y qué información adicional
+deseamos almacenar para nuestros usuarios.
+
+Django proporciona una amplia variedad de tipos de campos para adaptarse
+a diferentes tipos de datos y necesidades.
+
+### Definición del modelo "Publicacion":
+
+El modelo "Publicacion" se crea como una subclase de "models.Model".
+
+Aquí definimos los campos que representarán los atributos de una
+publicación en el blog, como "titulo", "contenido" y
+"fecha_publicacion". Cada campo es una instancia de una clase de campo
+de Django que define el tipo y las propiedades del campo.
+
+``` python
+# models.py
+
+class Publicacion(models.Model):
+    titulo = models.CharField(max_length=200)
+    contenido = models.TextField()
+    fecha_publicacion = models.DateTimeField()
+```
+
+Método "str":
+
+En el modelo "Publicacion", hemos definido el método "str" que devuelve
+el título de la publicación cuando se imprime una instancia de la clase.
+
+Esto hace que sea más fácil identificar las publicaciones en el
+administrador de Django y en cualquier otra parte donde se muestren
+objetos de la clase "Publicacion".
+
+``` python
+# models.py
+
+class Publicacion(models.Model):
+    # Campos de la publicación...
+
+    def __str__(self):
+        return self.titulo
+```
+
+Con estos pasos, hemos definido los modelos "Usuario" y "Publicacion" en
+Django. Estos modelos representarán las tablas "Usuario" y "Publicacion"
+en la base de datos y nos permitirán interactuar con ellos mediante el
+ORM de Django.
+
+# Actividad Práctica:
+
+## Agrega un Campo Adicional al Modelo de Publicaciones
+
+[ ] Agrega un Campo Adicional al Modelo de Publicaciones y Realiza la
+Migración Correspondiente
+
+[ ] En el modelo de Publicaciones, agrega un nuevo campo "imagen" de
+tipo "ImageField".
+
+[ ] Crea una migración para aplicar los cambios al modelo usando el
+comando
+
+[ ] Aplica la migración a la base de datos.
+
+## Resolución de la Actividad Práctica.
+
+**Paso 1:** Agregar un Campo Adicional al Modelo de Publicaciones
+
+En el archivo "models.py" de la aplicación "blog", agregamos un nuevo
+campo llamado "imagen" de tipo "ImageField" al modelo "Publicacion".
+Esto nos permitirá almacenar imágenes relacionadas con cada publicación.
+
+``` python
+# models.py
+
+from django.db import models
+
+class Publicacion(models.Model):
+    titulo = models.CharField(max_length=200)
+    contenido = models.TextField()
+    fecha_publicacion = models.DateTimeField()
+    imagen = models.ImageField(upload_to='publicaciones/', blank=True, null=True)
+
+    def __str__(self):
+        return self.titulo
+```
+
+**Paso 2:** Crear una Migración para Aplicar los Cambios
+
+Después de agregar el nuevo campo "imagen" al modelo, necesitamos crear
+una migración para aplicar los cambios a la base de datos. Django nos
+proporciona un comando para generar automáticamente la migración.
+
+``` bash
+# Ejecutar en la terminal o consola
+python manage.py makemigrations
+```
+
+**Paso 3:** Aplicar la Migración a la Base de Datos
+
+Una vez que se ha creado la migración, la aplicamos a la base de datos
+con el siguiente comando:
+
+``` bash
+# Ejecutar en la terminal o consola
+python manage.py migrate
+```
+
+Con estos pasos, hemos agregado con éxito un campo adicional "imagen" al
+modelo de Publicaciones y hemos aplicado la migración a la base de datos
+para reflejar el cambio. Ahora, cada publicación en el blog tendrá un
+campo para asociar una imagen, lo que mejorará la experiencia visual
+para los usuarios.
+
+## Extra.
+
+Para poder manejar el modelo de Publicaciones desde la administración de
+Django, es necesario registrar el modelo en el archivo "admin.py" de la
+aplicación "blog". De esta manera, podremos acceder a las publicaciones
+y administrarlas desde la interfaz de administración de Django.
+
+**Paso 4:** Registro del Modelo en el Administrador de Django
+
+En el archivo "admin.py" de la aplicación "blog", registramos el modelo
+"Publicacion" para que sea accesible desde la interfaz de
+administración.
+
+``` python
+# admin.py
+
+from django.contrib import admin
+from .models import Publicacion
+
+admin.site.register(Publicacion)
+```
+
+Con este registro, el modelo "Publicacion" estará disponible en la
+interfaz de administración de Django.
+
+Ahora, cuando ingreses a la URL "/admin/" en tu aplicación, podrás
+iniciar sesión como superusuario y ver la sección de "Publicacions",
+donde podrás agregar, editar y eliminar publicaciones desde la interfaz
+de administración.
+
+Esto facilitará el manejo de las publicaciones sin tener que acceder
+directamente a la base de datos.
+
+## Conclusión.
+
+Con esto, hemos completado el Módulo 2 de Modelos y Bases de Datos en
+Django.
+
+Has aprendido a diseñar modelos en Django, realizar migraciones de la
+base de datos, hacer consultas utilizando el ORM de Django, establecer
+relaciones entre modelos y usar formularios en Django.
+
+En el próximo módulo, continuaremos explorando más características de
+Django, como vistas y plantillas.
