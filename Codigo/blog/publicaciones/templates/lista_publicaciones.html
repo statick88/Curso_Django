@@ -1,0 +1,28 @@
+<!-- lista_publicaciones.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Publicaciones</title>
+</head>
+<body>
+    <h1>Lista de Publicaciones</h1>
+    <ul>
+        {% for publicacion in publicaciones %}
+        <li>
+            <h2>{{ publicacion.titulo }}</h2>
+            <p>{{ publicacion.contenido }}</p>
+            <a href="{% url 'detalle_publicacion' pk=publicacion.pk %}">Ver detalles</a>
+            <a href="{% url 'actualizar_publicacion' pk=publicacion.pk %}">Actualizar</a>
+            <a href="{% url 'eliminar_publicacion' pk=publicacion.pk %}">Eliminar</a>
+            <ul>
+                {% for comentario in publicacion.comentarios %}
+                <li>{{ comentario.texto }}</li>
+                <a href="{% url 'actualizar_comentario' pk=comentario.pk %}">Actualizar</a>
+                <a href="{% url 'eliminar_comentario' pk=comentario.pk %}">Eliminar</a>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
