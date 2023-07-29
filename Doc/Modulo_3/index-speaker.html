@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="Lcdo. Diego Medardo Saavedra García. Mgtr.">
-  <meta name="dcterms.date" content="2023-07-26">
+  <meta name="dcterms.date" content="2023-07-28">
   <title>Curso de Django</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -405,7 +405,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 </div>
 </div>
 
-  <p class="date">2023-07-26</p>
+  <p class="date">2023-07-28</p>
 </section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Tabla de contenidos</h2>
@@ -438,6 +438,8 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <li><a href="#/para-las-publicaciones" id="/toc-para-las-publicaciones">Para las Publicaciones:</a></li>
 <li><a href="#/para-los-comentarios" id="/toc-para-los-comentarios">Para los Comentarios:</a></li>
 <li><a href="#/corregir-el-modelo" id="/toc-corregir-el-modelo">Corregir el Modelo</a></li>
+<li><a href="#/backend-construcción-de-una-api-con-django-rest-framework" id="/toc-backend-construcción-de-una-api-con-django-rest-framework">Backend: Construcción de una API con Django Rest Framework</a></li>
+<li><a href="#/documentación-de-las-api" id="/toc-documentación-de-las-api">Documentación de las API</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1378,6 +1380,129 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <p>En este código, hemos modificado el campo autor en ambos modelos para que sea un <strong>ForeignKey</strong> que apunta al modelo <strong>User de Django</strong>.</p>
 <p>Con esto, cada publicación y comentario estará asociado a un usuario registrado en el sistema.</p>
 <p>El argumento <strong>on_delete=models.CASCADE</strong> en el campo autor de Comentario asegura que si un usuario es eliminado, también se eliminarán todos sus comentarios relacionados, pero ten en cuenta que esto es opcional y depende de la lógica de negocio que desees implementar.</p>
+</section>
+<section id="backend-construcción-de-una-api-con-django-rest-framework" class="slide level2">
+<h2>Backend: Construcción de una API con Django Rest Framework</h2>
+<p>En esta sección, dividiremos todo lo que hemos realizado hasta ahora en una API utilizando Django Rest Framework (DRF). Esto nos permitirá exponer nuestros modelos (Publicacion y Comentario) como puntos finales (endpoints) para realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) a través de peticiones HTTP.</p>
+<p><strong>Paso 1:</strong> Instalar Django Rest Framework</p>
+<p>Primero, debemos instalar Django Rest Framework en nuestro entorno virtual. Ejecuta el siguiente comando:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1"></a><span class="ex">pip</span> install djangorestframework</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 2:</strong> Configurar Django Rest Framework en el Proyecto</p>
+<p>En el archivo settings.py del proyecto, agrega ‘rest_framework’ a la lista de aplicaciones instaladas:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a>INSTALLED_APPS <span class="op">=</span> [</span>
+<span id="cb54-2"><a href="#cb54-2"></a>    <span class="co"># Otras aplicaciones...</span></span>
+<span id="cb54-3"><a href="#cb54-3"></a>    <span class="st">'rest_framework'</span>,</span>
+<span id="cb54-4"><a href="#cb54-4"></a>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 3:</strong> Serializadores</p>
+<p>En DRF, los serializadores se utilizan para convertir nuestros modelos de Django en formatos JSON y viceversa. Vamos a crear los serializadores para los modelos Publicacion y Comentario en un archivo serializers.py dentro de la aplicación publicaciones.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a><span class="co"># serializers.py</span></span>
+<span id="cb55-2"><a href="#cb55-2"></a><span class="im">from</span> rest_framework <span class="im">import</span> serializers</span>
+<span id="cb55-3"><a href="#cb55-3"></a><span class="im">from</span> .models <span class="im">import</span> Publicacion, Comentario</span>
+<span id="cb55-4"><a href="#cb55-4"></a></span>
+<span id="cb55-5"><a href="#cb55-5"></a><span class="kw">class</span> ComentarioSerializer(serializers.ModelSerializer):</span>
+<span id="cb55-6"><a href="#cb55-6"></a>    <span class="kw">class</span> Meta:</span>
+<span id="cb55-7"><a href="#cb55-7"></a>        model <span class="op">=</span> Comentario</span>
+<span id="cb55-8"><a href="#cb55-8"></a>        fields <span class="op">=</span> <span class="st">'__all__'</span></span>
+<span id="cb55-9"><a href="#cb55-9"></a></span>
+<span id="cb55-10"><a href="#cb55-10"></a><span class="kw">class</span> PublicacionSerializer(serializers.ModelSerializer):</span>
+<span id="cb55-11"><a href="#cb55-11"></a>    comentarios <span class="op">=</span> ComentarioSerializer(many<span class="op">=</span><span class="va">True</span>, read_only<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb55-12"><a href="#cb55-12"></a></span>
+<span id="cb55-13"><a href="#cb55-13"></a>    <span class="kw">class</span> Meta:</span>
+<span id="cb55-14"><a href="#cb55-14"></a>        model <span class="op">=</span> Publicacion</span>
+<span id="cb55-15"><a href="#cb55-15"></a>        fields <span class="op">=</span> <span class="st">'__all__'</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>En este código, creamos dos serializadores, ComentarioSerializer y PublicacionSerializer, que utilizan el modelo correspondiente y definen los campos que queremos exponer en nuestra API. En el caso de la publicación, utilizamos comentarios para mostrar los comentarios relacionados.</p>
+<p><strong>Paso 4:</strong> Vistas</p>
+<p>Vamos a modificar nuestras vistas para utilizar los serializadores y convertir nuestros datos en formato JSON. En el archivo views.py de la aplicación publicaciones, actualiza el contenido de las vistas de la siguiente manera:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a><span class="co"># views.py</span></span>
+<span id="cb56-2"><a href="#cb56-2"></a><span class="im">from</span> rest_framework <span class="im">import</span> generics</span>
+<span id="cb56-3"><a href="#cb56-3"></a><span class="im">from</span> .models <span class="im">import</span> Publicacion, Comentario</span>
+<span id="cb56-4"><a href="#cb56-4"></a><span class="im">from</span> .serializers <span class="im">import</span> PublicacionSerializer, ComentarioSerializer</span>
+<span id="cb56-5"><a href="#cb56-5"></a></span>
+<span id="cb56-6"><a href="#cb56-6"></a><span class="kw">class</span> ListaPublicaciones(generics.ListCreateAPIView):</span>
+<span id="cb56-7"><a href="#cb56-7"></a>    queryset <span class="op">=</span> Publicacion.objects.<span class="bu">all</span>()</span>
+<span id="cb56-8"><a href="#cb56-8"></a>    serializer_class <span class="op">=</span> PublicacionSerializer</span>
+<span id="cb56-9"><a href="#cb56-9"></a></span>
+<span id="cb56-10"><a href="#cb56-10"></a><span class="kw">class</span> DetallePublicacion(generics.RetrieveUpdateDestroyAPIView):</span>
+<span id="cb56-11"><a href="#cb56-11"></a>    queryset <span class="op">=</span> Publicacion.objects.<span class="bu">all</span>()</span>
+<span id="cb56-12"><a href="#cb56-12"></a>    serializer_class <span class="op">=</span> PublicacionSerializer</span>
+<span id="cb56-13"><a href="#cb56-13"></a></span>
+<span id="cb56-14"><a href="#cb56-14"></a><span class="kw">class</span> ListaComentarios(generics.ListCreateAPIView):</span>
+<span id="cb56-15"><a href="#cb56-15"></a>    queryset <span class="op">=</span> Comentario.objects.<span class="bu">all</span>()</span>
+<span id="cb56-16"><a href="#cb56-16"></a>    serializer_class <span class="op">=</span> ComentarioSerializer</span>
+<span id="cb56-17"><a href="#cb56-17"></a></span>
+<span id="cb56-18"><a href="#cb56-18"></a><span class="kw">class</span> DetalleComentario(generics.RetrieveUpdateDestroyAPIView):</span>
+<span id="cb56-19"><a href="#cb56-19"></a>    queryset <span class="op">=</span> Comentario.objects.<span class="bu">all</span>()</span>
+<span id="cb56-20"><a href="#cb56-20"></a>    serializer_class <span class="op">=</span> ComentarioSerializer</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 5:</strong> URLs</p>
+<p>Ahora, vamos a configurar las URLs de nuestra API en el archivo urls.py de la aplicación publicaciones.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a><span class="co"># urls.py</span></span>
+<span id="cb57-2"><a href="#cb57-2"></a><span class="im">from</span> django.urls <span class="im">import</span> path</span>
+<span id="cb57-3"><a href="#cb57-3"></a><span class="im">from</span> . <span class="im">import</span> views</span>
+<span id="cb57-4"><a href="#cb57-4"></a></span>
+<span id="cb57-5"><a href="#cb57-5"></a>urlpatterns <span class="op">=</span> [</span>
+<span id="cb57-6"><a href="#cb57-6"></a>    path(<span class="st">'publicaciones/'</span>, views.ListaPublicaciones.as_view(), name<span class="op">=</span><span class="st">'lista_publicaciones'</span>),</span>
+<span id="cb57-7"><a href="#cb57-7"></a>    path(<span class="st">'publicaciones/&lt;int:pk&gt;/'</span>, views.DetallePublicacion.as_view(), name<span class="op">=</span><span class="st">'detalle_publicacion'</span>),</span>
+<span id="cb57-8"><a href="#cb57-8"></a>    path(<span class="st">'comentarios/'</span>, views.ListaComentarios.as_view(), name<span class="op">=</span><span class="st">'lista_comentarios'</span>),</span>
+<span id="cb57-9"><a href="#cb57-9"></a>    path(<span class="st">'comentarios/&lt;int:pk&gt;/'</span>, views.DetalleComentario.as_view(), name<span class="op">=</span><span class="st">'detalle_comentario'</span>),</span>
+<span id="cb57-10"><a href="#cb57-10"></a>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>En este código, configuramos las URLs de nuestras vistas utilizando las vistas basadas en clases proporcionadas por DRF. Creamos puntos finales (endpoints) para listar, crear, ver, actualizar y eliminar publicaciones y comentarios.</p>
+<p>¡Hemos construido una API básica para nuestro proyecto “Blog” utilizando Django Rest Framework!</p>
+<p>Ahora podemos realizar operaciones CRUD a través de las peticiones HTTP en nuestros modelos de Publicacion y Comentario.</p>
+</section>
+<section id="documentación-de-las-api" class="slide level2">
+<h2>Documentación de las API</h2>
+<p>Para documentar las API, podemos utilizar la herramienta <strong>drf-yasg</strong>. La información la vamos a obtener de la documentación oficial en el siguiente link</p>
+<p><a href="https://drf-yasg.readthedocs.io/en/stable/readme.html#installation">Documentación de drf-yasg</a></p>
+<p><strong>Paso 1:</strong> Instalar drf-yasg</p>
+<p>Primero, debemos instalar drf-yasg en nuestro entorno virtual. Ejecuta el siguiente comando:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1"></a><span class="ex">pip</span> install <span class="at">-U</span> drf-yasg</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 2:</strong> Configurar drf-yasg en el Proyecto</p>
+<p>En el archivo settings.py del proyecto, agrega ‘drf_yasg’ a la lista de aplicaciones instaladas:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a>INSTALLED_APPS <span class="op">=</span> [</span>
+<span id="cb59-2"><a href="#cb59-2"></a>    <span class="co"># Otras aplicaciones...</span></span>
+<span id="cb59-3"><a href="#cb59-3"></a>    <span class="st">'drf_yasg'</span>,</span>
+<span id="cb59-4"><a href="#cb59-4"></a>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 3:</strong> Configurar drf-yasg en el archivo urls.py</p>
+<p>En el archivo urls.py del proyecto, agrega las siguientes líneas de código:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a><span class="co"># urls.py</span></span>
+<span id="cb60-2"><a href="#cb60-2"></a>...</span>
+<span id="cb60-3"><a href="#cb60-3"></a><span class="im">from</span> django.urls <span class="im">import</span> re_path</span>
+<span id="cb60-4"><a href="#cb60-4"></a><span class="im">from</span> rest_framework <span class="im">import</span> permissions</span>
+<span id="cb60-5"><a href="#cb60-5"></a><span class="im">from</span> drf_yasg.views <span class="im">import</span> get_schema_view</span>
+<span id="cb60-6"><a href="#cb60-6"></a><span class="im">from</span> drf_yasg <span class="im">import</span> openapi</span>
+<span id="cb60-7"><a href="#cb60-7"></a></span>
+<span id="cb60-8"><a href="#cb60-8"></a>...</span>
+<span id="cb60-9"><a href="#cb60-9"></a></span>
+<span id="cb60-10"><a href="#cb60-10"></a>schema_view <span class="op">=</span> get_schema_view(</span>
+<span id="cb60-11"><a href="#cb60-11"></a>    openapi.Info(</span>
+<span id="cb60-12"><a href="#cb60-12"></a>        title<span class="op">=</span><span class="st">"Snippets API"</span>,</span>
+<span id="cb60-13"><a href="#cb60-13"></a>        default_version<span class="op">=</span><span class="st">'v1'</span>,</span>
+<span id="cb60-14"><a href="#cb60-14"></a>        description<span class="op">=</span><span class="st">"Test description"</span>,</span>
+<span id="cb60-15"><a href="#cb60-15"></a>        terms_of_service<span class="op">=</span><span class="st">"https://www.google.com/policies/terms/"</span>,</span>
+<span id="cb60-16"><a href="#cb60-16"></a>        contact<span class="op">=</span>openapi.Contact(email<span class="op">=</span><span class="st">"contact@snippets.local"</span>),</span>
+<span id="cb60-17"><a href="#cb60-17"></a>        license<span class="op">=</span>openapi.License(name<span class="op">=</span><span class="st">"BSD License"</span>),</span>
+<span id="cb60-18"><a href="#cb60-18"></a>    ),</span>
+<span id="cb60-19"><a href="#cb60-19"></a>    public<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb60-20"><a href="#cb60-20"></a>    permission_classes<span class="op">=</span>(permissions.AllowAny,),</span>
+<span id="cb60-21"><a href="#cb60-21"></a>)</span>
+<span id="cb60-22"><a href="#cb60-22"></a></span>
+<span id="cb60-23"><a href="#cb60-23"></a>urlpatterns <span class="op">=</span> [</span>
+<span id="cb60-24"><a href="#cb60-24"></a>    path(<span class="st">'swagger&lt;format&gt;/'</span>, schema_view.without_ui(cache_timeout<span class="op">=</span><span class="dv">0</span>), name<span class="op">=</span><span class="st">'schema-json'</span>),</span>
+<span id="cb60-25"><a href="#cb60-25"></a>    path(<span class="st">'swagger/'</span>, schema_view.with_ui(<span class="st">'swagger'</span>, cache_timeout<span class="op">=</span><span class="dv">0</span>), name<span class="op">=</span><span class="st">'schema-swagger-ui'</span>),</span>
+<span id="cb60-26"><a href="#cb60-26"></a>    path(<span class="st">'redoc/'</span>, schema_view.with_ui(<span class="st">'redoc'</span>, cache_timeout<span class="op">=</span><span class="dv">0</span>), name<span class="op">=</span><span class="st">'schema-redoc'</span>),</span>
+<span id="cb60-27"><a href="#cb60-27"></a>    ...</span>
+<span id="cb60-28"><a href="#cb60-28"></a>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 4:</strong> Agregar la variable autenticacion_classes.</p>
+<p>En el archivo url.py del proyecto agregar la variable authentication_classes para que no nos pida autenticación para poder ver la documentación de las API.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a><span class="co"># urls.py</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a>...</span>
+<span id="cb61-3"><a href="#cb61-3"></a>authentication_classes <span class="op">=</span> []</span>
+<span id="cb61-4"><a href="#cb61-4"></a>...</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 5:</strong> Ejecutar el servidor</p>
+<p>Ejecuta el servidor y en el navegador ingresa a http://localhost:8000/swagger o http://localhost:8000/redoc</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1"></a><span class="ex">python</span> manage.py runserver</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Tambien puedes probar los plugins de VSCode RappidApi Client o Thunder Client para poder ver la documentación de las API desde el editor de código.</p>
+<p>En la siguiente sección, construiremos el frontend para consumir esta API.</p>
 
 <img src="img/logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://abacom.edu.ec" class="uri">https://abacom.edu.ec</a></p>

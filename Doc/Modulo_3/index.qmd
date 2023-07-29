@@ -5,27 +5,27 @@ date: "today"
 author: "Lcdo. Diego Medardo Saavedra García. Mgtr."
 lang: "es"
 format:
-    # revealjs:
-    #     #chalkboard: 
-    #         #buttons: false
-    #     toc: true
-    #     incremental: false
-    #     slide-number: true
-    #     preview-links: auto
-    #     logo: img/logo.png
-    #     footer: <https://abacom.edu.ec>
-    #     theme: dark
-    #     makeindex: true
-    #     multiplex: true
-    #     transition: fade
-    #     chalkboard: true #Pizarra
-    #     auto-stretch: true
-    #     smaller: false
-    #     scrollable: true
-    #     menu: true
-    #     codeBlock: {data-trim: true}
-    #     execute: false
-    #     executeCode: true
+    revealjs:
+        #chalkboard: 
+            #buttons: false
+        toc: true
+        incremental: false
+        slide-number: true
+        preview-links: auto
+        logo: img/logo.png
+        footer: <https://abacom.edu.ec>
+        theme: dark
+        makeindex: true
+        multiplex: true
+        transition: fade
+        chalkboard: true #Pizarra
+        auto-stretch: true
+        smaller: false
+        scrollable: true
+        menu: true
+        codeBlock: {data-trim: true}
+        execute: false
+        executeCode: true
     pdf:
         toc: true
         number-sections: true
@@ -1250,3 +1250,177 @@ En este código, hemos modificado el campo autor en ambos modelos para que sea u
 Con esto, cada publicación y comentario estará asociado a un usuario registrado en el sistema. 
 
 El argumento **on_delete=models.CASCADE** en el campo autor de Comentario asegura que si un usuario es eliminado, también se eliminarán todos sus comentarios relacionados, pero ten en cuenta que esto es opcional y depende de la lógica de negocio que desees implementar.
+
+## Backend: Construcción de una API con Django Rest Framework
+
+En esta sección, dividiremos todo lo que hemos realizado hasta ahora en una API utilizando Django Rest Framework (DRF). Esto nos permitirá exponer nuestros modelos (Publicacion y Comentario) como puntos finales (endpoints) para realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) a través de peticiones HTTP.
+
+**Paso 1:** Instalar Django Rest Framework
+
+Primero, debemos instalar Django Rest Framework en nuestro entorno virtual. Ejecuta el siguiente comando:
+
+``` bash
+pip install djangorestframework
+```
+**Paso 2:** Configurar Django Rest Framework en el Proyecto
+
+En el archivo settings.py del proyecto, agrega 'rest_framework' a la lista de aplicaciones instaladas:
+
+``` python
+INSTALLED_APPS = [
+    # Otras aplicaciones...
+    'rest_framework',
+]
+```
+**Paso 3:** Serializadores
+
+En DRF, los serializadores se utilizan para convertir nuestros modelos de Django en formatos JSON y viceversa. Vamos a crear los serializadores para los modelos Publicacion y Comentario en un archivo serializers.py dentro de la aplicación publicaciones.
+
+``` python
+# serializers.py
+from rest_framework import serializers
+from .models import Publicacion, Comentario
+
+class ComentarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comentario
+        fields = '__all__'
+
+class PublicacionSerializer(serializers.ModelSerializer):
+    comentarios = ComentarioSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Publicacion
+        fields = '__all__'
+```
+En este código, creamos dos serializadores, ComentarioSerializer y PublicacionSerializer, que utilizan el modelo correspondiente y definen los campos que queremos exponer en nuestra API. En el caso de la publicación, utilizamos comentarios para mostrar los comentarios relacionados.
+
+**Paso 4:** Vistas
+
+Vamos a modificar nuestras vistas para utilizar los serializadores y convertir nuestros datos en formato JSON. En el archivo views.py de la aplicación publicaciones, actualiza el contenido de las vistas de la siguiente manera:
+
+``` python
+# views.py
+from rest_framework import generics
+from .models import Publicacion, Comentario
+from .serializers import PublicacionSerializer, ComentarioSerializer
+
+class ListaPublicaciones(generics.ListCreateAPIView):
+    queryset = Publicacion.objects.all()
+    serializer_class = PublicacionSerializer
+
+class DetallePublicacion(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Publicacion.objects.all()
+    serializer_class = PublicacionSerializer
+
+class ListaComentarios(generics.ListCreateAPIView):
+    queryset = Comentario.objects.all()
+    serializer_class = ComentarioSerializer
+
+class DetalleComentario(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comentario.objects.all()
+    serializer_class = ComentarioSerializer
+```
+**Paso 5:** URLs
+
+Ahora, vamos a configurar las URLs de nuestra API en el archivo urls.py de la aplicación publicaciones.
+
+``` python
+# urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('publicaciones/', views.ListaPublicaciones.as_view(), name='lista_publicaciones'),
+    path('publicaciones/<int:pk>/', views.DetallePublicacion.as_view(), name='detalle_publicacion'),
+    path('comentarios/', views.ListaComentarios.as_view(), name='lista_comentarios'),
+    path('comentarios/<int:pk>/', views.DetalleComentario.as_view(), name='detalle_comentario'),
+]
+```
+En este código, configuramos las URLs de nuestras vistas utilizando las vistas basadas en clases proporcionadas por DRF. Creamos puntos finales (endpoints) para listar, crear, ver, actualizar y eliminar publicaciones y comentarios.
+
+¡Hemos construido una API básica para nuestro proyecto "Blog" utilizando Django Rest Framework! 
+
+Ahora podemos realizar operaciones CRUD a través de las peticiones HTTP en nuestros modelos de Publicacion y Comentario. 
+
+## Documentación de las API
+
+Para documentar las API, podemos utilizar la herramienta **drf-yasg**. La información la vamos a obtener de la documentación oficial en el siguiente link
+
+[Documentación de drf-yasg](https://drf-yasg.readthedocs.io/en/stable/readme.html#installation)
+
+**Paso 1:** Instalar drf-yasg
+
+Primero, debemos instalar drf-yasg en nuestro entorno virtual. Ejecuta el siguiente comando:
+
+``` bash
+pip install -U drf-yasg
+```
+**Paso 2:** Configurar drf-yasg en el Proyecto
+
+En el archivo settings.py del proyecto, agrega 'drf_yasg' a la lista de aplicaciones instaladas:
+
+``` python
+INSTALLED_APPS = [
+    # Otras aplicaciones...
+    'drf_yasg',
+]
+```
+
+**Paso 3:** Configurar drf-yasg en el archivo urls.py
+
+En el archivo urls.py del proyecto, agrega las siguientes líneas de código:
+
+``` python
+# urls.py
+...
+from django.urls import re_path
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+...
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Snippets API",
+        default_version='v1',
+        description="Test description",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
+
+urlpatterns = [
+    path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    ...
+]
+```
+
+**Paso 4:** Agregar la variable autenticacion_classes.
+
+En el archivo url.py del proyecto agregar la variable authentication_classes para que no nos pida autenticación para poder ver la documentación de las API.
+
+``` python
+# urls.py
+...
+authentication_classes = []
+...
+```
+
+**Paso 5:** Ejecutar el servidor
+
+Ejecuta el servidor y en el navegador ingresa a http://localhost:8000/swagger o http://localhost:8000/redoc
+
+``` bash
+python manage.py runserver
+```
+
+Tambien puedes probar los plugins de VSCode RappidApi Client o Thunder Client para poder ver la documentación de las API desde el editor de código.
+
+En la siguiente sección, construiremos el frontend para consumir esta API.
