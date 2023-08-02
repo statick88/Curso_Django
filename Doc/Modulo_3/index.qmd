@@ -5,27 +5,27 @@ date: "today"
 author: "Lcdo. Diego Medardo Saavedra García. Mgtr."
 lang: "es"
 format:
-    revealjs:
-        #chalkboard: 
-            #buttons: false
-        toc: true
-        incremental: false
-        slide-number: true
-        preview-links: auto
-        logo: img/logo.png
-        footer: <https://abacom.edu.ec>
-        theme: dark
-        makeindex: true
-        multiplex: true
-        transition: fade
-        chalkboard: true #Pizarra
-        auto-stretch: true
-        smaller: false
-        scrollable: true
-        menu: true
-        codeBlock: {data-trim: true}
-        execute: false
-        executeCode: true
+    # revealjs:
+    #     #chalkboard: 
+    #         #buttons: false
+    #     toc: true
+    #     incremental: false
+    #     slide-number: true
+    #     preview-links: auto
+    #     logo: img/logo.png
+    #     footer: <https://abacom.edu.ec>
+    #     theme: dark
+    #     makeindex: true
+    #     multiplex: true
+    #     transition: fade
+    #     chalkboard: true #Pizarra
+    #     auto-stretch: true
+    #     smaller: false
+    #     scrollable: true
+    #     menu: true
+    #     codeBlock: {data-trim: true}
+    #     execute: false
+    #     executeCode: true
     pdf:
         toc: true
         number-sections: true
@@ -1424,3 +1424,787 @@ python manage.py runserver
 Tambien puedes probar los plugins de VSCode RappidApi Client o Thunder Client para poder ver la documentación de las API desde el editor de código.
 
 En la siguiente sección, construiremos el frontend para consumir esta API.
+
+# FRONTEND: Herencia de Plantillas con Django.
+
+## Herencia de Plantillas
+
+Para iniciar con el tema de herencia de plantillas de django, es necesario generar un archivo base.html que será nuestra plantilla base para la generación de las demás plantillas.
+
+En esta plantilla base incluiremos una barra de navegación con accesos a archivos estáticos de **Home**, **Contacto**, **Quienes somos** y **Crear Publicación**.
+
+- Abre el archivo base.html en el directorio templates de tu proyecto.
+
+- Agrega el siguiente código para definir la barra de navegación:
+
+``` html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Mi Blog{% endblock %}</title>
+    <!-- Agregar enlaces a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Mi Blog</a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Creditos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'quienes_somos' %}">Quienes Somos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'crear_publicacion' %}">Crear</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Agregar enlaces a Bootstrap JS y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+```	
+En este código, hemos definido una etiqueta <nav> que contiene enlaces <a> para "Home", "Contacto", "Quienes Somos" y "Crear". Los enlaces utilizan las etiquetas {% url %} de Django para generar las URLs correspondientes a cada vista.
+
+- En cada plantilla que extienda de base.html, asegúrate de agregar bloques de contenido para el título y el contenido específico de cada página:
+
+Por ejemplo, en la plantilla lista_publicaciones.html:
+
+``` html
+{% extends 'base.html' %}
+
+{% block title %}Lista de Publicaciones{% endblock %}
+
+{% block content %}
+<h1>Lista de Publicaciones</h1>
+<!-- Contenido de la lista de publicaciones -->
+{% endblock %}
+```
+En la plantilla detalle_publicacion.html:
+``` html
+{% extends 'base.html' %}
+
+{% block title %}Detalle de Publicación{% endblock %}
+
+{% block content %}
+<h1>Detalle de Publicación</h1>
+<!-- Contenido del detalle de la publicación -->
+{% endblock %}
+```
+Y así sucesivamente para las demás plantillas que extiendan de base.html.
+
+## Modificación de Views.
+
+Vista y URL para la página "Home":
+
+``` html
+# views.py
+from django.shortcuts import render
+
+def home_view(request):
+    return render(request, 'home.html')
+
+# urls.py del proyecto
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('home/', views.home_view, name='home'),
+    # otras URLs de tu proyecto
+]
+```
+
+- Vista y URL para la página "Contacto":
+
+``` html
+# views.py
+from django.shortcuts import render
+
+def contacto_view(request):
+    return render(request, 'contacto.html')
+
+# urls.py del proyecto
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # otras URLs de tu proyecto
+    path('contacto/', views.contacto_view, name='contacto'),
+]
+```
+Vista y URL para la página "Quienes Somos":
+
+``` html
+# views.py
+from django.shortcuts import render
+
+def quienes_somos_view(request):
+    return render(request, 'quienes_somos.html')
+
+# urls.py del proyecto
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # otras URLs de tu proyecto
+    path('quienes_somos/', views.quienes_somos_view, name='quienes_somos'),
+]
+```
+- Vista y URL para la página "Crear":
+
+``` html
+# views.py
+from django.shortcuts import render
+
+def crear_view(request):
+    return render(request, 'crear.html')
+
+# urls.py del proyecto
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # otras URLs de tu proyecto
+    path('crear/', views.crear_view, name='crear_publicacion'),
+]
+```
+## Bootstrap en base.html
+
+Para incluir Bootstrap en el archivo base.html, debes agregar las etiquetas <link> y <script> necesarias en el <head> del archivo. Asegúrate de que los archivos de estilos y scripts de Bootstrap estén en la ubicación correcta dentro de tu proyecto.
+
+Aquí está el código para incluir Bootstrap en el archivo base.html:
+
+``` html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Mi Blog{% endblock %}</title>
+    <!-- Incluir archivos de estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+        <a class="navbar-brand" href="{% url 'contacto' %}">Contacto</a>
+        <a class="navbar-brand" href="{% url 'quienes_somos' %}">Quienes Somos</a>
+        <a class="navbar-brand" href="{% url 'crear_publicacion' %}">Crear</a>
+    </nav>
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!-- Incluir archivos de scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+```
+Este código incluye las hojas de estilos y scripts de Bootstrap desde sus respectivos CDNs (Content Delivery Network). Así no será necesario descargarlos ni alojarlos en tu proyecto. 
+
+Si prefieres tener los archivos locales en tu proyecto, simplemente descárgalos desde la página oficial de Bootstrap (https://getbootstrap.com/) y reemplaza las URL del código por las ubicaciones locales de los archivos.
+
+Con esta modificación, tu archivo base.html utilizará Bootstrap y tendrás una barra de navegación con el estilo proporcionado por Bootstrap. Además, cualquier contenido que agregues en los bloques {% block content %} se verá dentro de un contenedor con márgenes en la parte superior, dándole un espaciado agradable al contenido.
+
+## Inclusión de Herencia de Plantillas en las demás plantillas.
+
+1. Template de home.html.
+
+``` html
+{% extends 'base.html' %}
+
+{% block title %}Home - Mi Blog{% endblock %}
+
+{% block content %}
+<h1>Bienvenido a Mi Blog</h1>
+<p>Este es el contenido de la página de inicio.</p>
+{% endblock %}
+```
+2. Template de contacto.html.
+``` html
+{% extends 'base.html' %}
+
+{% block title %}Contacto - Mi Blog{% endblock %}
+
+{% block content %}
+<h1>Contacto</h1>
+<p>Información de contacto y formulario de contacto.</p>
+{% endblock %}
+```
+3. Template de quienes_somos.html.
+
+``` html
+{% extends 'base.html' %}
+
+{% block title %}Quienes Somos - Mi Blog{% endblock %}
+
+{% block content %}
+<h1>Quienes Somos</h1>
+<p>Información sobre nosotros y nuestra historia.</p>
+{% endblock %}
+```
+En cada uno de estos templates, utilizamos la etiqueta {% extends 'base.html' %} para indicar que estamos heredando el contenido y la estructura del archivo base.html. Luego, en el bloque {% block content %}, agregamos el contenido específico de cada página. 
+
+Cada template tiene su título personalizado en el bloque {% block title %}.
+
+Cuando se acceda a las URLs correspondientes a cada template, se mostrará el contenido específico de cada página dentro del contenedor proporcionado por el archivo base.html, y la barra de navegación con los enlaces a Home, Contacto, Quienes Somos y Crear se mantendrá visible en todas las páginas gracias a la herencia.
+
+## Agregando bootstrap a los templates.
+
+ara agregar Bootstrap a las plantillas anteriores, necesitaremos incluir los enlaces a los archivos CSS y JS de Bootstrap en el archivo base.html. Además, podemos utilizar las clases de Bootstrap para mejorar la apariencia de los elementos en cada página.
+
+A continuación, se muestran las plantillas actualizadas con Bootstrap:
+
+1. Template de base.html
+
+``` html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Mi Blog{% endblock %}</title>
+    <!-- Agregar enlaces a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Mi Blog</a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'quienes_somos' %}">Quienes Somos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'crear_publicacion' %}">Crear</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Agregar enlaces a Bootstrap JS y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+```
+2. Template de home.html.
+
+``` html
+{% extends 'base.html' %}
+
+{% block title %}Home - Mi Blog{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Bienvenido a Mi Blog</h1>
+    <p class="lead">Este es el contenido de la página de inicio.</p>
+</div>
+{% endblock %}
+```
+3. Template de contacto.html.
+
+``` html
+{% extends 'base.html' %}
+
+{% block title %}Contacto - Mi Blog{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <h1>Contacto</h1>
+        <p>Información de contacto y formulario de contacto.</p>
+    </div>
+</div>
+{% endblock %}
+```
+
+4. Template de quienes_somos.html
+
+``` html
+{% extends 'base.html' %}
+
+{% block title %}Quienes Somos - Mi Blog{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Quienes Somos</h1>
+    <p>Información sobre nosotros y nuestra historia.</p>
+</div>
+{% endblock %}
+```
+En estas plantillas, hemos utilizado las clases de Bootstrap para dar estilo a los elementos. Por ejemplo, en el archivo base.html, hemos utilizado la clase "navbar" para crear la barra de navegación y la clase "jumbotron" para resaltar el contenido de la página de inicio. Además, en los templates de contacto.html y quienes_somos.html, hemos utilizado la clase "container" para centrar el contenido y la clase "row" para crear una fila que contenga el contenido.
+
+# Reactjs
+
+## Frontend con Reactjs
+
+Para crear un proyecto desde cero en ReactJS que consuma los datos de la API creada con Django Rest Framework, sigue estos pasos:
+
+**Paso 1:** Verificar versiones de Node.js y npm.
+
+Antes de comenzar, asegúrate de tener Node.js y npm instalados en tu sistema. Abre la terminal y ejecuta los siguientes comandos para verificar las versiones:
+
+``` bash
+node -v
+npm -v
+```
+**Paso 2:** Crear un nuevo proyecto de React
+
+Crea un nuevo proyecto de React utilizando create-react-app. Ejecuta el siguiente comando en la terminal:
+
+``` bash
+npx create-react-app frontend
+```
+Esto creará una nueva carpeta llamada "frontend" con una estructura de proyecto de React preconfigurada.
+
+**Paso 3:** Instalar axios
+
+En la carpeta "frontend", instala la librería axios para realizar peticiones HTTP a la API de Django. Ejecuta el siguiente comando en la terminal:
+
+``` bash
+cd frontend
+npm install axios
+```
+**Paso 4:** Crear el componente ListaPublicaciones.js
+
+Crea el componente **ListaPublicaciones.js** en la carpeta "src/components" con el siguiente contenido:
+
+``` jsx
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const ListaPublicaciones = () => {
+  const [publicaciones, setPublicaciones] = useState([]);
+
+  useEffect(() => {
+    const fetchPublicaciones = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/publicaciones/');
+        setPublicaciones(response.data.results);
+      } catch (error) {
+        console.error('Error al obtener las publicaciones:', error);
+      }
+    };
+
+    fetchPublicaciones();
+  }, []);
+
+  return (
+    <div>
+      <h1>Lista de Publicaciones</h1>
+      <ul>
+        {publicaciones.map((publicacion) => (
+          <li key={publicacion.id}>
+            <h2>{publicacion.titulo}</h2>
+            <p>{publicacion.contenido}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default ListaPublicaciones;
+```
+**Paso 5:** Crear el componente CrearPublicacion.js
+
+Crea el componente CrearPublicacion.js en la carpeta "src/components" con el siguiente contenido:
+
+``` jsx
+import React from 'react';
+import axios from 'axios';
+
+const CrearPublicacion = () => {
+  const [titulo, setTitulo] = React.useState('');
+  const [contenido, setContenido] = React.useState('');
+
+  // Replace "1" with the ID of the author you want to associate with the publicación
+  const autorId = 1;
+
+  const handleCrear = async () => {
+    try {
+      await axios.post('http://localhost:8000/publicaciones/', {
+        titulo,
+        contenido,
+        autor: autorId,
+      });
+      alert('Publicación creada correctamente.');
+      setTitulo('');
+      setContenido('');
+    } catch (error) {
+      console.error('Error al crear la publicación:', error);
+    }
+  };
+
+  return (
+    <div>
+      <h1>Crear Publicación</h1>
+      <label>
+        Título:
+        <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+      </label>
+      <br />
+      <label>
+        Contenido:
+        <textarea value={contenido} onChange={(e) => setContenido(e.target.value)} />
+      </label>
+      <br />
+      <button onClick={handleCrear}>Crear</button>
+    </div>
+  );
+};
+
+export default CrearPublicacion;
+```
+**Paso 6:** Crear el componente ActualizarPublicacion.js
+
+Crea el componente ActualizarPublicacion.js en la carpeta "src/components" con el siguiente contenido:
+
+``` jsx
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const ActualizarPublicacion = () => {
+  const [titulo, setTitulo] = useState('');
+  const [contenido, setContenido] = useState('');
+  const [autor, setAutor] = useState('');
+
+  // Replace "3" with the ID of the publicación you want to update
+  const publicacionId = 3;
+
+  useEffect(() => {
+    const fetchPublicacion = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/publicaciones/${publicacionId}/`);
+        const { titulo, contenido, autor } = response.data;
+        setTitulo(titulo);
+        setContenido(contenido);
+        setAutor(autor);
+      } catch (error) {
+        console.error('Error al obtener la publicación:', error);
+      }
+    };
+
+    fetchPublicacion();
+  }, [publicacionId]);
+
+  const handleActualizar = async () => {
+    try {
+      await axios.put(`http://localhost:8000/publicaciones/${publicacionId}/`, {
+        titulo,
+        contenido,
+        autor,
+      });
+      alert('Publicación actualizada correctamente.');
+    } catch (error) {
+      console.error('Error al actualizar la publicación:', error);
+    }
+  };
+
+  return (
+    <div>
+      <h1>Actualizar Publicación</h1>
+      <label>
+        Título:
+        <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+      </label>
+      <br />
+      <label>
+        Contenido:
+        <textarea value={contenido} onChange={(e) => setContenido(e.target.value)} />
+      </label>
+      <br />
+      <label>
+        Autor:
+        <input type="number" value={autor} onChange={(e) => setAutor(Number(e.target.value))} />
+      </label>
+      <br />
+      <button onClick={handleActualizar}>Actualizar</button>
+    </div>
+  );
+};
+
+export default ActualizarPublicacion;
+```
+**Paso 7:** Crear el componente EliminarPublicacion.js
+
+Crea el componente EliminarPublicacion.js en la carpeta "src/components" con el siguiente contenido:
+
+``` jsx
+import React, { useEffect } from 'react';
+import axios from 'axios';
+
+const EliminarPublicacion = () => {
+  // Replace "2" with the ID of the publicación you want to delete
+  const publicacionId = 2;
+
+  useEffect(() => {
+    const fetchPublicacion = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/publicaciones/${publicacionId}/`);
+        const { titulo, contenido, autor } = response.data;
+        console.log('Publicación a eliminar:', { titulo, contenido, autor });
+      } catch (error) {
+        console.error('Error al obtener la publicación:', error);
+      }
+    };
+
+    fetchPublicacion();
+  }, [publicacionId]);
+
+  const handleEliminar = async () => {
+    try {
+      await axios.delete(`http://localhost:8000/publicaciones/${publicacionId}/`);
+      alert('Publicación eliminada correctamente.');
+    } catch (error) {
+      console.error('Error al eliminar la publicación:', error);
+    }
+  };
+
+  return (
+    <div>
+      <h1>Eliminar Publicación</h1>
+      <p>¿Estás seguro de que deseas eliminar esta publicación?</p>
+      <button onClick={handleEliminar}>Eliminar</button>
+    </div>
+  );
+};
+
+export default EliminarPublicacion;
+```
+**Paso 8:** Crear el componente Home.js
+
+Crea el componente Home.js en la carpeta "src/components" con el siguiente contenido:
+
+``` jsx
+import React from 'react';
+
+const Home = () => {
+  return (
+    <div>
+      <h1>Bienvenido a la página de inicio</h1>
+    </div>
+  );
+};
+
+export default Home;
+```
+**Paso 9:** Crear el componente NavBar.js
+
+Crea el componente NavBar.js en la carpeta "src/components" con el siguiente contenido:
+
+``` jsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const NavBar = () => {
+  return (
+    <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <div className="container">
+        <Link className="navbar-brand" to="/">Mi Blog</Link>
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/">Home</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/crear">Crear</Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+};
+
+export default NavBar;
+```
+**Paso 10:** Actualizar el archivo App.js
+
+Actualiza el archivo App.js en la carpeta "src" con el siguiente contenido:
+
+``` jsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import ListaPublicaciones from './components/ListaPublicaciones';
+import CrearPublicacion from './components/CrearPublicacion';
+import DetallePublicacion from './components/DetallePublicacion';
+import ActualizarPublicacion from './components/ActualizarPublicacion';
+import EliminarPublicacion from './components/EliminarPublicacion';
+
+const App = () => {
+  return (
+    <Router>
+      <div>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<ListaPublicaciones />} />
+          <Route path="/crear" element={<CrearPublicacion />} />
+          <Route path="/publicaciones/:id" element={<DetallePublicacion />} />
+          <Route path="/publicaciones/:id/actualizar" element={<ActualizarPublicacion />} />
+          <Route path="/publicaciones/:id/eliminar" element={<EliminarPublicacion />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+};
+
+export default App;
+```
+**Paso 11:** Estilos CSS con los archivos index.css y App.css
+
+En una aplicación React, los estilos CSS se aplican a los componentes para mejorar la apariencia y el diseño de la interfaz de usuario. Por defecto, React crea dos archivos para estilos: index.css y App.css.
+
+**index.css:** Este archivo contiene estilos globales que se aplican a toda la aplicación.
+
+**App.css:** Este archivo contiene estilos específicos para el componente principal de la aplicación (en este caso, el componente App.js).
+
+A continuación, se muestra cómo puedes usar estos archivos CSS en tu aplicación React:
+
+### 1. index.css
+
+En el directorio src, crea un archivo llamado index.css y agrega los estilos globales que deseas aplicar a toda la aplicación. Por ejemplo:
+
+``` css
+/* index.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+```
+### 2. App.css
+
+En el directorio src, ya deberías tener un archivo llamado App.css. Puedes agregar estilos específicos para el componente App.js aquí. Por ejemplo:
+
+``` css
+/* App.css */
+.header {
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 1rem;
+  text-align: center;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  margin-right: 1rem;
+}
+
+.nav-link:hover {
+  color: #0056b3;
+}
+```
+### 3. Importar los archivos CSS en App.js
+
+En el componente App.js, importa los archivos CSS para que los estilos se apliquen a la aplicación. Debes importar index.css al principio del archivo src/index.js, y App.css en App.js:
+
+``` jsx
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import './index.css'; // Importar index.css aquí
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+```
+``` jsx
+// src/App.js
+import React from 'react';
+import './App.css'; // Importar App.css aquí
+
+function App() {
+  // Código de la aplicación
+  return (
+    <div className="container">
+      <header className="header">
+        <nav>
+          <a className="nav-link" href="/">Home</a>
+          <a className="nav-link" href="/contacto">Contacto</a>
+          <a className="nav-link" href="/quienes_somos">Quienes Somos</a>
+          <a className="nav-link" href="/crear_publicacion">Crear</a>
+        </nav>
+      </header>
+      {/* Resto del contenido de la aplicación */}
+    </div>
+  );
+}
+
+export default App;
+```
+Con esto, tus estilos CSS definidos en index.css se aplicarán a toda la aplicación, y los estilos definidos en App.css se aplicarán específicamente al componente App.js. Recuerda adaptar los estilos a tus necesidades y preferencias.
+
+**Paso 12:** Importar estilos CSS
+
+En el archivo **index.js** en la carpeta **"src"**, importa el archivo **styles.css** para aplicar los estilos personalizados:
+
+``` jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+reportWebVitals();
+```
+Con esto, has creado un proyecto de React independiente que consume los datos de la API creada con Django Rest Framework. Puedes ejecutar el proyecto de React con el siguiente comando:
+
+``` bash
+npm start
+```
+Luego, podrás ver la aplicación en el navegador accediendo a [http://localhost:3000/](http://localhost:3000/). 
+
+Los componentes ListaPublicaciones, CrearPublicacion, ActualizarPublicacion y EliminarPublicacion estarán disponibles en sus respectivas rutas y consumirán datos de la API de Django.
+
+## Inconvenientes
+
+En caso de tener inconvenientes con las peticiones por parte de la aplicacion de React, se debe agregar la siguiente linea en el archivo settings.py de la carpeta "backend":
+
+``` python
+CORS_ORIGIN_ALLOW_ALL = True
+```

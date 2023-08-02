@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="Lcdo. Diego Medardo Saavedra García. Mgtr.">
-  <meta name="dcterms.date" content="2023-07-28">
+  <meta name="dcterms.date" content="2023-08-01">
   <title>Curso de Django</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -405,7 +405,7 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 </div>
 </div>
 
-  <p class="date">2023-07-28</p>
+  <p class="date">2023-08-01</p>
 </section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Tabla de contenidos</h2>
@@ -440,6 +440,23 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <li><a href="#/corregir-el-modelo" id="/toc-corregir-el-modelo">Corregir el Modelo</a></li>
 <li><a href="#/backend-construcción-de-una-api-con-django-rest-framework" id="/toc-backend-construcción-de-una-api-con-django-rest-framework">Backend: Construcción de una API con Django Rest Framework</a></li>
 <li><a href="#/documentación-de-las-api" id="/toc-documentación-de-las-api">Documentación de las API</a></li>
+</ul></li>
+<li><a href="#/frontend-herencia-de-plantillas-con-django." id="/toc-frontend-herencia-de-plantillas-con-django.">FRONTEND: Herencia de Plantillas con Django.</a>
+<ul>
+<li><a href="#/herencia-de-plantillas" id="/toc-herencia-de-plantillas">Herencia de Plantillas</a></li>
+<li><a href="#/modificación-de-views." id="/toc-modificación-de-views.">Modificación de Views.</a></li>
+<li><a href="#/bootstrap-en-base.html" id="/toc-bootstrap-en-base.html">Bootstrap en base.html</a></li>
+<li><a href="#/agregando-bootstrap-a-los-templates." id="/toc-agregando-bootstrap-a-los-templates.">Agregando bootstrap a los templates.</a></li>
+</ul></li>
+<li><a href="#/reactjs" id="/toc-reactjs">Reactjs</a>
+<ul>
+<li><a href="#/frontend-con-reactjs" id="/toc-frontend-con-reactjs">Frontend con Reactjs</a>
+<ul>
+<li><a href="#/frontend-con-reactjs" id="/toc-index.css">1. index.css</a></li>
+<li><a href="#/frontend-con-reactjs" id="/toc-app.css">2. App.css</a></li>
+<li><a href="#/frontend-con-reactjs" id="/toc-importar-los-archivos-css-en-app.js">3. Importar los archivos CSS en App.js</a></li>
+</ul></li>
+<li><a href="#/inconvenientes" id="/toc-inconvenientes">Inconvenientes</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1503,6 +1520,697 @@ Lcdo. Diego Medardo Saavedra García. Mgtr.
 <div class="sourceCode" id="cb62"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1"></a><span class="ex">python</span> manage.py runserver</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Tambien puedes probar los plugins de VSCode RappidApi Client o Thunder Client para poder ver la documentación de las API desde el editor de código.</p>
 <p>En la siguiente sección, construiremos el frontend para consumir esta API.</p>
+</section></section>
+<section>
+<section id="frontend-herencia-de-plantillas-con-django." class="title-slide slide level1 center">
+<h1>FRONTEND: Herencia de Plantillas con Django.</h1>
+
+</section>
+<section id="herencia-de-plantillas" class="slide level2">
+<h2>Herencia de Plantillas</h2>
+<p>Para iniciar con el tema de herencia de plantillas de django, es necesario generar un archivo base.html que será nuestra plantilla base para la generación de las demás plantillas.</p>
+<p>En esta plantilla base incluiremos una barra de navegación con accesos a archivos estáticos de <strong>Home</strong>, <strong>Contacto</strong>, <strong>Quienes somos</strong> y <strong>Crear Publicación</strong>.</p>
+<ul>
+<li><p>Abre el archivo base.html en el directorio templates de tu proyecto.</p></li>
+<li><p>Agrega el siguiente código para definir la barra de navegación:</p></li>
+</ul>
+<div class="sourceCode" id="cb63"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb63-1"><a href="#cb63-1"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb63-2"><a href="#cb63-2"></a><span class="kw">&lt;html&gt;</span></span>
+<span id="cb63-3"><a href="#cb63-3"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb63-4"><a href="#cb63-4"></a>    <span class="kw">&lt;title&gt;</span>{% block title %}Mi Blog{% endblock %}<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb63-5"><a href="#cb63-5"></a>    <span class="co">&lt;!-- Agregar enlaces a Bootstrap CSS --&gt;</span></span>
+<span id="cb63-6"><a href="#cb63-6"></a>    <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">"stylesheet"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"</span><span class="kw">&gt;</span></span>
+<span id="cb63-7"><a href="#cb63-7"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb63-8"><a href="#cb63-8"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb63-9"><a href="#cb63-9"></a>    <span class="kw">&lt;nav</span> <span class="er">class</span><span class="ot">=</span><span class="st">"navbar navbar-expand navbar-dark bg-dark"</span><span class="kw">&gt;</span></span>
+<span id="cb63-10"><a href="#cb63-10"></a>        <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"container"</span><span class="kw">&gt;</span></span>
+<span id="cb63-11"><a href="#cb63-11"></a>            <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"navbar-brand"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{% url 'home' %}"</span><span class="kw">&gt;</span>Mi Blog<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb63-12"><a href="#cb63-12"></a>            <span class="kw">&lt;ul</span> <span class="er">class</span><span class="ot">=</span><span class="st">"navbar-nav ml-auto"</span><span class="kw">&gt;</span></span>
+<span id="cb63-13"><a href="#cb63-13"></a>                <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-item"</span><span class="kw">&gt;</span></span>
+<span id="cb63-14"><a href="#cb63-14"></a>                    <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-link"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{% url 'home' %}"</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb63-15"><a href="#cb63-15"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb63-16"><a href="#cb63-16"></a>                <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-item"</span><span class="kw">&gt;</span></span>
+<span id="cb63-17"><a href="#cb63-17"></a>                    <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-link"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{% url 'home' %}"</span><span class="kw">&gt;</span>Creditos<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb63-18"><a href="#cb63-18"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb63-19"><a href="#cb63-19"></a>                <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-item"</span><span class="kw">&gt;</span></span>
+<span id="cb63-20"><a href="#cb63-20"></a>                    <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-link"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{% url 'contacto' %}"</span><span class="kw">&gt;</span>Contacto<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb63-21"><a href="#cb63-21"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb63-22"><a href="#cb63-22"></a>                <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-item"</span><span class="kw">&gt;</span></span>
+<span id="cb63-23"><a href="#cb63-23"></a>                    <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-link"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{% url 'quienes_somos' %}"</span><span class="kw">&gt;</span>Quienes Somos<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb63-24"><a href="#cb63-24"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb63-25"><a href="#cb63-25"></a>                <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-item"</span><span class="kw">&gt;</span></span>
+<span id="cb63-26"><a href="#cb63-26"></a>                    <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-link"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{% url 'crear_publicacion' %}"</span><span class="kw">&gt;</span>Crear<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb63-27"><a href="#cb63-27"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb63-28"><a href="#cb63-28"></a>            <span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb63-29"><a href="#cb63-29"></a>        <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb63-30"><a href="#cb63-30"></a>    <span class="kw">&lt;/nav&gt;</span></span>
+<span id="cb63-31"><a href="#cb63-31"></a></span>
+<span id="cb63-32"><a href="#cb63-32"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"container mt-4"</span><span class="kw">&gt;</span></span>
+<span id="cb63-33"><a href="#cb63-33"></a>        {% block content %}</span>
+<span id="cb63-34"><a href="#cb63-34"></a>        {% endblock %}</span>
+<span id="cb63-35"><a href="#cb63-35"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb63-36"><a href="#cb63-36"></a></span>
+<span id="cb63-37"><a href="#cb63-37"></a>    <span class="co">&lt;!-- Agregar enlaces a Bootstrap JS y jQuery --&gt;</span></span>
+<span id="cb63-38"><a href="#cb63-38"></a>    <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">"https://code.jquery.com/jquery-3.5.1.slim.min.js"</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb63-39"><a href="#cb63-39"></a>    <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb63-40"><a href="#cb63-40"></a>    <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">"https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb63-41"><a href="#cb63-41"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb63-42"><a href="#cb63-42"></a><span class="kw">&lt;/html&gt;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+En este código, hemos definido una etiqueta
+<nav>
+<p>que contiene enlaces <a href=""> para “Home”, “Contacto”, “Quienes Somos” y “Crear”. Los enlaces utilizan las etiquetas {% url %} de Django para generar las URLs correspondientes a cada vista.</a></p><a href="">
+<ul>
+<li>En cada plantilla que extienda de base.html, asegúrate de agregar bloques de contenido para el título y el contenido específico de cada página:</li>
+</ul>
+<p>Por ejemplo, en la plantilla lista_publicaciones.html:</p>
+</a><div class="sourceCode" id="cb64"><a href=""></a><pre class="sourceCode numberSource html number-lines code-with-copy"><a href=""><code class="sourceCode html"><span id="cb64-1"></span></code></a><code class="sourceCode html"><a href="#cb64-1"></a>{% extends 'base.html' %}
+<span id="cb64-2"><a href="#cb64-2"></a></span>
+<span id="cb64-3"><a href="#cb64-3"></a>{% block title %}Lista de Publicaciones{% endblock %}</span>
+<span id="cb64-4"><a href="#cb64-4"></a></span>
+<span id="cb64-5"><a href="#cb64-5"></a>{% block content %}</span>
+<span id="cb64-6"><a href="#cb64-6"></a><span class="kw">&lt;h1&gt;</span>Lista de Publicaciones<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb64-7"><a href="#cb64-7"></a><span class="co">&lt;!-- Contenido de la lista de publicaciones --&gt;</span></span>
+<span id="cb64-8"><a href="#cb64-8"></a>{% endblock %}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>En la plantilla detalle_publicacion.html:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb65-1"><a href="#cb65-1"></a>{% extends 'base.html' %}</span>
+<span id="cb65-2"><a href="#cb65-2"></a></span>
+<span id="cb65-3"><a href="#cb65-3"></a>{% block title %}Detalle de Publicación{% endblock %}</span>
+<span id="cb65-4"><a href="#cb65-4"></a></span>
+<span id="cb65-5"><a href="#cb65-5"></a>{% block content %}</span>
+<span id="cb65-6"><a href="#cb65-6"></a><span class="kw">&lt;h1&gt;</span>Detalle de Publicación<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb65-7"><a href="#cb65-7"></a><span class="co">&lt;!-- Contenido del detalle de la publicación --&gt;</span></span>
+<span id="cb65-8"><a href="#cb65-8"></a>{% endblock %}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Y así sucesivamente para las demás plantillas que extiendan de base.html.</p>
+</nav></section>
+<section id="modificación-de-views." class="slide level2">
+<h2>Modificación de Views.</h2>
+<p>Vista y URL para la página “Home”:</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb66-1"><a href="#cb66-1"></a># views.py</span>
+<span id="cb66-2"><a href="#cb66-2"></a>from django.shortcuts import render</span>
+<span id="cb66-3"><a href="#cb66-3"></a></span>
+<span id="cb66-4"><a href="#cb66-4"></a>def home_view(request):</span>
+<span id="cb66-5"><a href="#cb66-5"></a>    return render(request, 'home.html')</span>
+<span id="cb66-6"><a href="#cb66-6"></a></span>
+<span id="cb66-7"><a href="#cb66-7"></a># urls.py del proyecto</span>
+<span id="cb66-8"><a href="#cb66-8"></a>from django.urls import path</span>
+<span id="cb66-9"><a href="#cb66-9"></a>from . import views</span>
+<span id="cb66-10"><a href="#cb66-10"></a></span>
+<span id="cb66-11"><a href="#cb66-11"></a>urlpatterns = [</span>
+<span id="cb66-12"><a href="#cb66-12"></a>    path('home/', views.home_view, name='home'),</span>
+<span id="cb66-13"><a href="#cb66-13"></a>    # otras URLs de tu proyecto</span>
+<span id="cb66-14"><a href="#cb66-14"></a>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Vista y URL para la página “Contacto”:</li>
+</ul>
+<div class="sourceCode" id="cb67"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb67-1"><a href="#cb67-1"></a># views.py</span>
+<span id="cb67-2"><a href="#cb67-2"></a>from django.shortcuts import render</span>
+<span id="cb67-3"><a href="#cb67-3"></a></span>
+<span id="cb67-4"><a href="#cb67-4"></a>def contacto_view(request):</span>
+<span id="cb67-5"><a href="#cb67-5"></a>    return render(request, 'contacto.html')</span>
+<span id="cb67-6"><a href="#cb67-6"></a></span>
+<span id="cb67-7"><a href="#cb67-7"></a># urls.py del proyecto</span>
+<span id="cb67-8"><a href="#cb67-8"></a>from django.urls import path</span>
+<span id="cb67-9"><a href="#cb67-9"></a>from . import views</span>
+<span id="cb67-10"><a href="#cb67-10"></a></span>
+<span id="cb67-11"><a href="#cb67-11"></a>urlpatterns = [</span>
+<span id="cb67-12"><a href="#cb67-12"></a>    # otras URLs de tu proyecto</span>
+<span id="cb67-13"><a href="#cb67-13"></a>    path('contacto/', views.contacto_view, name='contacto'),</span>
+<span id="cb67-14"><a href="#cb67-14"></a>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Vista y URL para la página “Quienes Somos”:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb68-1"><a href="#cb68-1"></a># views.py</span>
+<span id="cb68-2"><a href="#cb68-2"></a>from django.shortcuts import render</span>
+<span id="cb68-3"><a href="#cb68-3"></a></span>
+<span id="cb68-4"><a href="#cb68-4"></a>def quienes_somos_view(request):</span>
+<span id="cb68-5"><a href="#cb68-5"></a>    return render(request, 'quienes_somos.html')</span>
+<span id="cb68-6"><a href="#cb68-6"></a></span>
+<span id="cb68-7"><a href="#cb68-7"></a># urls.py del proyecto</span>
+<span id="cb68-8"><a href="#cb68-8"></a>from django.urls import path</span>
+<span id="cb68-9"><a href="#cb68-9"></a>from . import views</span>
+<span id="cb68-10"><a href="#cb68-10"></a></span>
+<span id="cb68-11"><a href="#cb68-11"></a>urlpatterns = [</span>
+<span id="cb68-12"><a href="#cb68-12"></a>    # otras URLs de tu proyecto</span>
+<span id="cb68-13"><a href="#cb68-13"></a>    path('quienes_somos/', views.quienes_somos_view, name='quienes_somos'),</span>
+<span id="cb68-14"><a href="#cb68-14"></a>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Vista y URL para la página “Crear”:</li>
+</ul>
+<div class="sourceCode" id="cb69"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb69-1"><a href="#cb69-1"></a># views.py</span>
+<span id="cb69-2"><a href="#cb69-2"></a>from django.shortcuts import render</span>
+<span id="cb69-3"><a href="#cb69-3"></a></span>
+<span id="cb69-4"><a href="#cb69-4"></a>def crear_view(request):</span>
+<span id="cb69-5"><a href="#cb69-5"></a>    return render(request, 'crear.html')</span>
+<span id="cb69-6"><a href="#cb69-6"></a></span>
+<span id="cb69-7"><a href="#cb69-7"></a># urls.py del proyecto</span>
+<span id="cb69-8"><a href="#cb69-8"></a>from django.urls import path</span>
+<span id="cb69-9"><a href="#cb69-9"></a>from . import views</span>
+<span id="cb69-10"><a href="#cb69-10"></a></span>
+<span id="cb69-11"><a href="#cb69-11"></a>urlpatterns = [</span>
+<span id="cb69-12"><a href="#cb69-12"></a>    # otras URLs de tu proyecto</span>
+<span id="cb69-13"><a href="#cb69-13"></a>    path('crear/', views.crear_view, name='crear_publicacion'),</span>
+<span id="cb69-14"><a href="#cb69-14"></a>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="bootstrap-en-base.html" class="slide level2">
+<h2>Bootstrap en base.html</h2>
+Para incluir Bootstrap en el archivo base.html, debes agregar las etiquetas <link> y
+<script> necesarias en el <head> del archivo. Asegúrate de que los archivos de estilos y scripts de Bootstrap estén en la ubicación correcta dentro de tu proyecto.
+
+Aquí está el código para incluir Bootstrap en el archivo base.html:
+
+``` html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Mi Blog{% endblock %}</title>
+    <!-- Incluir archivos de estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+        <a class="navbar-brand" href="{% url 'contacto' %}">Contacto</a>
+        <a class="navbar-brand" href="{% url 'quienes_somos' %}">Quienes Somos</a>
+        <a class="navbar-brand" href="{% url 'crear_publicacion' %}">Crear</a>
+    </nav>
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!-- Incluir archivos de scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"&gt;&lt;/script&gt;</code></pre>
+
+
+<pre><code>Este código incluye las hojas de estilos y scripts de Bootstrap desde sus respectivos CDNs (Content Delivery Network). Así no será necesario descargarlos ni alojarlos en tu proyecto. 
+
+Si prefieres tener los archivos locales en tu proyecto, simplemente descárgalos desde la página oficial de Bootstrap (https://getbootstrap.com/) y reemplaza las URL del código por las ubicaciones locales de los archivos.
+
+Con esta modificación, tu archivo base.html utilizará Bootstrap y tendrás una barra de navegación con el estilo proporcionado por Bootstrap. Además, cualquier contenido que agregues en los bloques {% block content %} se verá dentro de un contenedor con márgenes en la parte superior, dándole un espaciado agradable al contenido.
+
+## Inclusión de Herencia de Plantillas en las demás plantillas.
+
+1. Template de home.html.
+
+``` html
+{% extends 'base.html' %}
+
+{% block title %}Home - Mi Blog{% endblock %}
+
+{% block content %}
+&lt;h1&gt;Bienvenido a Mi Blog&lt;/h1&gt;
+&lt;p&gt;Este es el contenido de la página de inicio.&lt;/p&gt;
+{% endblock %}</code></pre>
+<ol start="2" type="1">
+<li>Template de contacto.html.</li>
+</ol>
+<div class="sourceCode" id="cb72"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb72-1"><a href="#cb72-1"></a>{% extends 'base.html' %}</span>
+<span id="cb72-2"><a href="#cb72-2"></a></span>
+<span id="cb72-3"><a href="#cb72-3"></a>{% block title %}Contacto - Mi Blog{% endblock %}</span>
+<span id="cb72-4"><a href="#cb72-4"></a></span>
+<span id="cb72-5"><a href="#cb72-5"></a>{% block content %}</span>
+<span id="cb72-6"><a href="#cb72-6"></a><span class="kw">&lt;h1&gt;</span>Contacto<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb72-7"><a href="#cb72-7"></a><span class="kw">&lt;p&gt;</span>Información de contacto y formulario de contacto.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb72-8"><a href="#cb72-8"></a>{% endblock %}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li>Template de quienes_somos.html.</li>
+</ol>
+<div class="sourceCode" id="cb73"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb73-1"><a href="#cb73-1"></a>{% extends 'base.html' %}</span>
+<span id="cb73-2"><a href="#cb73-2"></a></span>
+<span id="cb73-3"><a href="#cb73-3"></a>{% block title %}Quienes Somos - Mi Blog{% endblock %}</span>
+<span id="cb73-4"><a href="#cb73-4"></a></span>
+<span id="cb73-5"><a href="#cb73-5"></a>{% block content %}</span>
+<span id="cb73-6"><a href="#cb73-6"></a><span class="kw">&lt;h1&gt;</span>Quienes Somos<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb73-7"><a href="#cb73-7"></a><span class="kw">&lt;p&gt;</span>Información sobre nosotros y nuestra historia.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb73-8"><a href="#cb73-8"></a>{% endblock %}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>En cada uno de estos templates, utilizamos la etiqueta {% extends ‘base.html’ %} para indicar que estamos heredando el contenido y la estructura del archivo base.html. Luego, en el bloque {% block content %}, agregamos el contenido específico de cada página.</p>
+<p>Cada template tiene su título personalizado en el bloque {% block title %}.</p>
+<p>Cuando se acceda a las URLs correspondientes a cada template, se mostrará el contenido específico de cada página dentro del contenedor proporcionado por el archivo base.html, y la barra de navegación con los enlaces a Home, Contacto, Quienes Somos y Crear se mantendrá visible en todas las páginas gracias a la herencia.</p>
+</section>
+<section id="agregando-bootstrap-a-los-templates." class="slide level2">
+<h2>Agregando bootstrap a los templates.</h2>
+<p>ara agregar Bootstrap a las plantillas anteriores, necesitaremos incluir los enlaces a los archivos CSS y JS de Bootstrap en el archivo base.html. Además, podemos utilizar las clases de Bootstrap para mejorar la apariencia de los elementos en cada página.</p>
+<p>A continuación, se muestran las plantillas actualizadas con Bootstrap:</p>
+<ol type="1">
+<li>Template de base.html</li>
+</ol>
+<div class="sourceCode" id="cb74"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb74-1"><a href="#cb74-1"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb74-2"><a href="#cb74-2"></a><span class="kw">&lt;html&gt;</span></span>
+<span id="cb74-3"><a href="#cb74-3"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb74-4"><a href="#cb74-4"></a>    <span class="kw">&lt;title&gt;</span>{% block title %}Mi Blog{% endblock %}<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb74-5"><a href="#cb74-5"></a>    <span class="co">&lt;!-- Agregar enlaces a Bootstrap CSS --&gt;</span></span>
+<span id="cb74-6"><a href="#cb74-6"></a>    <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">"stylesheet"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"</span><span class="kw">&gt;</span></span>
+<span id="cb74-7"><a href="#cb74-7"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb74-8"><a href="#cb74-8"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb74-9"><a href="#cb74-9"></a>    <span class="kw">&lt;nav</span> <span class="er">class</span><span class="ot">=</span><span class="st">"navbar navbar-expand navbar-dark bg-dark"</span><span class="kw">&gt;</span></span>
+<span id="cb74-10"><a href="#cb74-10"></a>        <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"container"</span><span class="kw">&gt;</span></span>
+<span id="cb74-11"><a href="#cb74-11"></a>            <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"navbar-brand"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{% url 'home' %}"</span><span class="kw">&gt;</span>Mi Blog<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb74-12"><a href="#cb74-12"></a>            <span class="kw">&lt;ul</span> <span class="er">class</span><span class="ot">=</span><span class="st">"navbar-nav ml-auto"</span><span class="kw">&gt;</span></span>
+<span id="cb74-13"><a href="#cb74-13"></a>                <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-item"</span><span class="kw">&gt;</span></span>
+<span id="cb74-14"><a href="#cb74-14"></a>                    <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-link"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{% url 'home' %}"</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb74-15"><a href="#cb74-15"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb74-16"><a href="#cb74-16"></a>                <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-item"</span><span class="kw">&gt;</span></span>
+<span id="cb74-17"><a href="#cb74-17"></a>                    <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-link"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{% url 'contacto' %}"</span><span class="kw">&gt;</span>Contacto<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb74-18"><a href="#cb74-18"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb74-19"><a href="#cb74-19"></a>                <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-item"</span><span class="kw">&gt;</span></span>
+<span id="cb74-20"><a href="#cb74-20"></a>                    <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-link"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{% url 'quienes_somos' %}"</span><span class="kw">&gt;</span>Quienes Somos<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb74-21"><a href="#cb74-21"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb74-22"><a href="#cb74-22"></a>                <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-item"</span><span class="kw">&gt;</span></span>
+<span id="cb74-23"><a href="#cb74-23"></a>                    <span class="kw">&lt;a</span> <span class="er">class</span><span class="ot">=</span><span class="st">"nav-link"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{% url 'crear_publicacion' %}"</span><span class="kw">&gt;</span>Crear<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb74-24"><a href="#cb74-24"></a>                <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb74-25"><a href="#cb74-25"></a>            <span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb74-26"><a href="#cb74-26"></a>        <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb74-27"><a href="#cb74-27"></a>    <span class="kw">&lt;/nav&gt;</span></span>
+<span id="cb74-28"><a href="#cb74-28"></a></span>
+<span id="cb74-29"><a href="#cb74-29"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"container mt-4"</span><span class="kw">&gt;</span></span>
+<span id="cb74-30"><a href="#cb74-30"></a>        {% block content %}</span>
+<span id="cb74-31"><a href="#cb74-31"></a>        {% endblock %}</span>
+<span id="cb74-32"><a href="#cb74-32"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb74-33"><a href="#cb74-33"></a></span>
+<span id="cb74-34"><a href="#cb74-34"></a>    <span class="co">&lt;!-- Agregar enlaces a Bootstrap JS y jQuery --&gt;</span></span>
+<span id="cb74-35"><a href="#cb74-35"></a>    <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">"https://code.jquery.com/jquery-3.5.1.slim.min.js"</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb74-36"><a href="#cb74-36"></a>    <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb74-37"><a href="#cb74-37"></a>    <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">"https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb74-38"><a href="#cb74-38"></a><span class="kw">&lt;/body&gt;</span></span>
+<span id="cb74-39"><a href="#cb74-39"></a><span class="kw">&lt;/html&gt;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li>Template de home.html.</li>
+</ol>
+<div class="sourceCode" id="cb75"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb75-1"><a href="#cb75-1"></a>{% extends 'base.html' %}</span>
+<span id="cb75-2"><a href="#cb75-2"></a></span>
+<span id="cb75-3"><a href="#cb75-3"></a>{% block title %}Home - Mi Blog{% endblock %}</span>
+<span id="cb75-4"><a href="#cb75-4"></a></span>
+<span id="cb75-5"><a href="#cb75-5"></a>{% block content %}</span>
+<span id="cb75-6"><a href="#cb75-6"></a><span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"jumbotron"</span><span class="kw">&gt;</span></span>
+<span id="cb75-7"><a href="#cb75-7"></a>    <span class="kw">&lt;h1</span> <span class="er">class</span><span class="ot">=</span><span class="st">"display-4"</span><span class="kw">&gt;</span>Bienvenido a Mi Blog<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb75-8"><a href="#cb75-8"></a>    <span class="kw">&lt;p</span> <span class="er">class</span><span class="ot">=</span><span class="st">"lead"</span><span class="kw">&gt;</span>Este es el contenido de la página de inicio.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb75-9"><a href="#cb75-9"></a><span class="kw">&lt;/div&gt;</span></span>
+<span id="cb75-10"><a href="#cb75-10"></a>{% endblock %}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li>Template de contacto.html.</li>
+</ol>
+<div class="sourceCode" id="cb76"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb76-1"><a href="#cb76-1"></a>{% extends 'base.html' %}</span>
+<span id="cb76-2"><a href="#cb76-2"></a></span>
+<span id="cb76-3"><a href="#cb76-3"></a>{% block title %}Contacto - Mi Blog{% endblock %}</span>
+<span id="cb76-4"><a href="#cb76-4"></a></span>
+<span id="cb76-5"><a href="#cb76-5"></a>{% block content %}</span>
+<span id="cb76-6"><a href="#cb76-6"></a><span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"row"</span><span class="kw">&gt;</span></span>
+<span id="cb76-7"><a href="#cb76-7"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"col-md-6 mx-auto"</span><span class="kw">&gt;</span></span>
+<span id="cb76-8"><a href="#cb76-8"></a>        <span class="kw">&lt;h1&gt;</span>Contacto<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb76-9"><a href="#cb76-9"></a>        <span class="kw">&lt;p&gt;</span>Información de contacto y formulario de contacto.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb76-10"><a href="#cb76-10"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb76-11"><a href="#cb76-11"></a><span class="kw">&lt;/div&gt;</span></span>
+<span id="cb76-12"><a href="#cb76-12"></a>{% endblock %}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="4" type="1">
+<li>Template de quienes_somos.html</li>
+</ol>
+<div class="sourceCode" id="cb77"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb77-1"><a href="#cb77-1"></a>{% extends 'base.html' %}</span>
+<span id="cb77-2"><a href="#cb77-2"></a></span>
+<span id="cb77-3"><a href="#cb77-3"></a>{% block title %}Quienes Somos - Mi Blog{% endblock %}</span>
+<span id="cb77-4"><a href="#cb77-4"></a></span>
+<span id="cb77-5"><a href="#cb77-5"></a>{% block content %}</span>
+<span id="cb77-6"><a href="#cb77-6"></a><span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"container"</span><span class="kw">&gt;</span></span>
+<span id="cb77-7"><a href="#cb77-7"></a>    <span class="kw">&lt;h1&gt;</span>Quienes Somos<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb77-8"><a href="#cb77-8"></a>    <span class="kw">&lt;p&gt;</span>Información sobre nosotros y nuestra historia.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb77-9"><a href="#cb77-9"></a><span class="kw">&lt;/div&gt;</span></span>
+<span id="cb77-10"><a href="#cb77-10"></a>{% endblock %}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>En estas plantillas, hemos utilizado las clases de Bootstrap para dar estilo a los elementos. Por ejemplo, en el archivo base.html, hemos utilizado la clase “navbar” para crear la barra de navegación y la clase “jumbotron” para resaltar el contenido de la página de inicio. Además, en los templates de contacto.html y quienes_somos.html, hemos utilizado la clase “container” para centrar el contenido y la clase “row” para crear una fila que contenga el contenido.</p>
+</section></section>
+<section>
+<section id="reactjs" class="title-slide slide level1 center">
+<h1>Reactjs</h1>
+
+</section>
+<section id="frontend-con-reactjs" class="slide level2">
+<h2>Frontend con Reactjs</h2>
+<p>Para crear un proyecto desde cero en ReactJS que consuma los datos de la API creada con Django Rest Framework, sigue estos pasos:</p>
+<p><strong>Paso 1:</strong> Verificar versiones de Node.js y npm.</p>
+<p>Antes de comenzar, asegúrate de tener Node.js y npm instalados en tu sistema. Abre la terminal y ejecuta los siguientes comandos para verificar las versiones:</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb78-1"><a href="#cb78-1"></a><span class="ex">node</span> <span class="at">-v</span></span>
+<span id="cb78-2"><a href="#cb78-2"></a><span class="ex">npm</span> <span class="at">-v</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 2:</strong> Crear un nuevo proyecto de React</p>
+<p>Crea un nuevo proyecto de React utilizando create-react-app. Ejecuta el siguiente comando en la terminal:</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb79-1"><a href="#cb79-1"></a><span class="ex">npx</span> create-react-app frontend</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Esto creará una nueva carpeta llamada “frontend” con una estructura de proyecto de React preconfigurada.</p>
+<p><strong>Paso 3:</strong> Instalar axios</p>
+<p>En la carpeta “frontend”, instala la librería axios para realizar peticiones HTTP a la API de Django. Ejecuta el siguiente comando en la terminal:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb80-1"><a href="#cb80-1"></a><span class="bu">cd</span> frontend</span>
+<span id="cb80-2"><a href="#cb80-2"></a><span class="ex">npm</span> install axios</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 4:</strong> Crear el componente ListaPublicaciones.js</p>
+<p>Crea el componente <strong>ListaPublicaciones.js</strong> en la carpeta “src/components” con el siguiente contenido:</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode numberSource jsx number-lines code-with-copy"><code class="sourceCode javascriptreact"><span id="cb81-1"><a href="#cb81-1"></a><span class="im">import</span> React<span class="op">,</span> { useState<span class="op">,</span> useEffect } <span class="im">from</span> <span class="st">'react'</span><span class="op">;</span></span>
+<span id="cb81-2"><a href="#cb81-2"></a><span class="im">import</span> axios <span class="im">from</span> <span class="st">'axios'</span><span class="op">;</span></span>
+<span id="cb81-3"><a href="#cb81-3"></a></span>
+<span id="cb81-4"><a href="#cb81-4"></a><span class="kw">const</span> ListaPublicaciones <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb81-5"><a href="#cb81-5"></a>  <span class="kw">const</span> [publicaciones<span class="op">,</span> setPublicaciones] <span class="op">=</span> <span class="fu">useState</span>([])<span class="op">;</span></span>
+<span id="cb81-6"><a href="#cb81-6"></a></span>
+<span id="cb81-7"><a href="#cb81-7"></a>  <span class="fu">useEffect</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb81-8"><a href="#cb81-8"></a>    <span class="kw">const</span> fetchPublicaciones <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb81-9"><a href="#cb81-9"></a>      <span class="cf">try</span> {</span>
+<span id="cb81-10"><a href="#cb81-10"></a>        <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> axios<span class="op">.</span><span class="fu">get</span>(<span class="st">'http://localhost:8000/publicaciones/'</span>)<span class="op">;</span></span>
+<span id="cb81-11"><a href="#cb81-11"></a>        <span class="fu">setPublicaciones</span>(response<span class="op">.</span><span class="at">data</span><span class="op">.</span><span class="at">results</span>)<span class="op">;</span></span>
+<span id="cb81-12"><a href="#cb81-12"></a>      } <span class="cf">catch</span> (error) {</span>
+<span id="cb81-13"><a href="#cb81-13"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">'Error al obtener las publicaciones:'</span><span class="op">,</span> error)<span class="op">;</span></span>
+<span id="cb81-14"><a href="#cb81-14"></a>      }</span>
+<span id="cb81-15"><a href="#cb81-15"></a>    }<span class="op">;</span></span>
+<span id="cb81-16"><a href="#cb81-16"></a></span>
+<span id="cb81-17"><a href="#cb81-17"></a>    <span class="fu">fetchPublicaciones</span>()<span class="op">;</span></span>
+<span id="cb81-18"><a href="#cb81-18"></a>  }<span class="op">,</span> [])<span class="op">;</span></span>
+<span id="cb81-19"><a href="#cb81-19"></a></span>
+<span id="cb81-20"><a href="#cb81-20"></a>  <span class="cf">return</span> (</span>
+<span id="cb81-21"><a href="#cb81-21"></a>    <span class="kw">&lt;div&gt;</span></span>
+<span id="cb81-22"><a href="#cb81-22"></a>      <span class="kw">&lt;h1&gt;</span>Lista de Publicaciones<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb81-23"><a href="#cb81-23"></a>      <span class="kw">&lt;ul&gt;</span></span>
+<span id="cb81-24"><a href="#cb81-24"></a>        <span class="va">{</span>publicaciones<span class="op">.</span><span class="fu">map</span>((publicacion) <span class="kw">=&gt;</span> (</span>
+<span id="cb81-25"><a href="#cb81-25"></a>          <span class="kw">&lt;li</span> <span class="ot">key</span><span class="op">=</span><span class="va">{</span>publicacion<span class="op">.</span><span class="at">id</span><span class="va">}</span><span class="kw">&gt;</span></span>
+<span id="cb81-26"><a href="#cb81-26"></a>            <span class="kw">&lt;h2&gt;</span><span class="va">{</span>publicacion<span class="op">.</span><span class="at">titulo</span><span class="va">}</span><span class="kw">&lt;/h2&gt;</span></span>
+<span id="cb81-27"><a href="#cb81-27"></a>            <span class="kw">&lt;p&gt;</span><span class="va">{</span>publicacion<span class="op">.</span><span class="at">contenido</span><span class="va">}</span><span class="kw">&lt;/p&gt;</span></span>
+<span id="cb81-28"><a href="#cb81-28"></a>          <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb81-29"><a href="#cb81-29"></a>        ))<span class="va">}</span></span>
+<span id="cb81-30"><a href="#cb81-30"></a>      <span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb81-31"><a href="#cb81-31"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb81-32"><a href="#cb81-32"></a>  )<span class="op">;</span></span>
+<span id="cb81-33"><a href="#cb81-33"></a>}<span class="op">;</span></span>
+<span id="cb81-34"><a href="#cb81-34"></a></span>
+<span id="cb81-35"><a href="#cb81-35"></a><span class="im">export</span> <span class="im">default</span> ListaPublicaciones<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 5:</strong> Crear el componente CrearPublicacion.js</p>
+<p>Crea el componente CrearPublicacion.js en la carpeta “src/components” con el siguiente contenido:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode numberSource jsx number-lines code-with-copy"><code class="sourceCode javascriptreact"><span id="cb82-1"><a href="#cb82-1"></a><span class="im">import</span> React <span class="im">from</span> <span class="st">'react'</span><span class="op">;</span></span>
+<span id="cb82-2"><a href="#cb82-2"></a><span class="im">import</span> axios <span class="im">from</span> <span class="st">'axios'</span><span class="op">;</span></span>
+<span id="cb82-3"><a href="#cb82-3"></a></span>
+<span id="cb82-4"><a href="#cb82-4"></a><span class="kw">const</span> CrearPublicacion <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb82-5"><a href="#cb82-5"></a>  <span class="kw">const</span> [titulo<span class="op">,</span> setTitulo] <span class="op">=</span> React<span class="op">.</span><span class="fu">useState</span>(<span class="st">''</span>)<span class="op">;</span></span>
+<span id="cb82-6"><a href="#cb82-6"></a>  <span class="kw">const</span> [contenido<span class="op">,</span> setContenido] <span class="op">=</span> React<span class="op">.</span><span class="fu">useState</span>(<span class="st">''</span>)<span class="op">;</span></span>
+<span id="cb82-7"><a href="#cb82-7"></a></span>
+<span id="cb82-8"><a href="#cb82-8"></a>  <span class="co">// Replace "1" with the ID of the author you want to associate with the publicación</span></span>
+<span id="cb82-9"><a href="#cb82-9"></a>  <span class="kw">const</span> autorId <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb82-10"><a href="#cb82-10"></a></span>
+<span id="cb82-11"><a href="#cb82-11"></a>  <span class="kw">const</span> handleCrear <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb82-12"><a href="#cb82-12"></a>    <span class="cf">try</span> {</span>
+<span id="cb82-13"><a href="#cb82-13"></a>      <span class="cf">await</span> axios<span class="op">.</span><span class="fu">post</span>(<span class="st">'http://localhost:8000/publicaciones/'</span><span class="op">,</span> {</span>
+<span id="cb82-14"><a href="#cb82-14"></a>        titulo<span class="op">,</span></span>
+<span id="cb82-15"><a href="#cb82-15"></a>        contenido<span class="op">,</span></span>
+<span id="cb82-16"><a href="#cb82-16"></a>        <span class="dt">autor</span><span class="op">:</span> autorId<span class="op">,</span></span>
+<span id="cb82-17"><a href="#cb82-17"></a>      })<span class="op">;</span></span>
+<span id="cb82-18"><a href="#cb82-18"></a>      <span class="fu">alert</span>(<span class="st">'Publicación creada correctamente.'</span>)<span class="op">;</span></span>
+<span id="cb82-19"><a href="#cb82-19"></a>      <span class="fu">setTitulo</span>(<span class="st">''</span>)<span class="op">;</span></span>
+<span id="cb82-20"><a href="#cb82-20"></a>      <span class="fu">setContenido</span>(<span class="st">''</span>)<span class="op">;</span></span>
+<span id="cb82-21"><a href="#cb82-21"></a>    } <span class="cf">catch</span> (error) {</span>
+<span id="cb82-22"><a href="#cb82-22"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">'Error al crear la publicación:'</span><span class="op">,</span> error)<span class="op">;</span></span>
+<span id="cb82-23"><a href="#cb82-23"></a>    }</span>
+<span id="cb82-24"><a href="#cb82-24"></a>  }<span class="op">;</span></span>
+<span id="cb82-25"><a href="#cb82-25"></a></span>
+<span id="cb82-26"><a href="#cb82-26"></a>  <span class="cf">return</span> (</span>
+<span id="cb82-27"><a href="#cb82-27"></a>    <span class="kw">&lt;div&gt;</span></span>
+<span id="cb82-28"><a href="#cb82-28"></a>      <span class="kw">&lt;h1&gt;</span>Crear Publicación<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb82-29"><a href="#cb82-29"></a>      <span class="kw">&lt;label&gt;</span></span>
+<span id="cb82-30"><a href="#cb82-30"></a>        Título:</span>
+<span id="cb82-31"><a href="#cb82-31"></a>        <span class="kw">&lt;input</span> <span class="ot">type</span><span class="op">=</span><span class="st">"text"</span> <span class="ot">value</span><span class="op">=</span><span class="va">{</span>titulo<span class="va">}</span> <span class="ot">onChange</span><span class="op">=</span><span class="va">{</span>(e) <span class="kw">=&gt;</span> <span class="fu">setTitulo</span>(e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">value</span>)<span class="va">}</span> <span class="kw">/&gt;</span></span>
+<span id="cb82-32"><a href="#cb82-32"></a>      <span class="kw">&lt;/label&gt;</span></span>
+<span id="cb82-33"><a href="#cb82-33"></a>      <span class="kw">&lt;br</span> <span class="kw">/&gt;</span></span>
+<span id="cb82-34"><a href="#cb82-34"></a>      <span class="kw">&lt;label&gt;</span></span>
+<span id="cb82-35"><a href="#cb82-35"></a>        Contenido:</span>
+<span id="cb82-36"><a href="#cb82-36"></a>        <span class="kw">&lt;textarea</span> <span class="ot">value</span><span class="op">=</span><span class="va">{</span>contenido<span class="va">}</span> <span class="ot">onChange</span><span class="op">=</span><span class="va">{</span>(e) <span class="kw">=&gt;</span> <span class="fu">setContenido</span>(e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">value</span>)<span class="va">}</span> <span class="kw">/&gt;</span></span>
+<span id="cb82-37"><a href="#cb82-37"></a>      <span class="kw">&lt;/label&gt;</span></span>
+<span id="cb82-38"><a href="#cb82-38"></a>      <span class="kw">&lt;br</span> <span class="kw">/&gt;</span></span>
+<span id="cb82-39"><a href="#cb82-39"></a>      <span class="kw">&lt;button</span> <span class="ot">onClick</span><span class="op">=</span><span class="va">{</span>handleCrear<span class="va">}</span><span class="kw">&gt;</span>Crear<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb82-40"><a href="#cb82-40"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb82-41"><a href="#cb82-41"></a>  )<span class="op">;</span></span>
+<span id="cb82-42"><a href="#cb82-42"></a>}<span class="op">;</span></span>
+<span id="cb82-43"><a href="#cb82-43"></a></span>
+<span id="cb82-44"><a href="#cb82-44"></a><span class="im">export</span> <span class="im">default</span> CrearPublicacion<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 6:</strong> Crear el componente ActualizarPublicacion.js</p>
+<p>Crea el componente ActualizarPublicacion.js en la carpeta “src/components” con el siguiente contenido:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode numberSource jsx number-lines code-with-copy"><code class="sourceCode javascriptreact"><span id="cb83-1"><a href="#cb83-1"></a><span class="im">import</span> React<span class="op">,</span> { useState<span class="op">,</span> useEffect } <span class="im">from</span> <span class="st">'react'</span><span class="op">;</span></span>
+<span id="cb83-2"><a href="#cb83-2"></a><span class="im">import</span> axios <span class="im">from</span> <span class="st">'axios'</span><span class="op">;</span></span>
+<span id="cb83-3"><a href="#cb83-3"></a></span>
+<span id="cb83-4"><a href="#cb83-4"></a><span class="kw">const</span> ActualizarPublicacion <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb83-5"><a href="#cb83-5"></a>  <span class="kw">const</span> [titulo<span class="op">,</span> setTitulo] <span class="op">=</span> <span class="fu">useState</span>(<span class="st">''</span>)<span class="op">;</span></span>
+<span id="cb83-6"><a href="#cb83-6"></a>  <span class="kw">const</span> [contenido<span class="op">,</span> setContenido] <span class="op">=</span> <span class="fu">useState</span>(<span class="st">''</span>)<span class="op">;</span></span>
+<span id="cb83-7"><a href="#cb83-7"></a>  <span class="kw">const</span> [autor<span class="op">,</span> setAutor] <span class="op">=</span> <span class="fu">useState</span>(<span class="st">''</span>)<span class="op">;</span></span>
+<span id="cb83-8"><a href="#cb83-8"></a></span>
+<span id="cb83-9"><a href="#cb83-9"></a>  <span class="co">// Replace "3" with the ID of the publicación you want to update</span></span>
+<span id="cb83-10"><a href="#cb83-10"></a>  <span class="kw">const</span> publicacionId <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb83-11"><a href="#cb83-11"></a></span>
+<span id="cb83-12"><a href="#cb83-12"></a>  <span class="fu">useEffect</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb83-13"><a href="#cb83-13"></a>    <span class="kw">const</span> fetchPublicacion <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb83-14"><a href="#cb83-14"></a>      <span class="cf">try</span> {</span>
+<span id="cb83-15"><a href="#cb83-15"></a>        <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> axios<span class="op">.</span><span class="fu">get</span>(<span class="vs">`http://localhost:8000/publicaciones/</span><span class="sc">${</span>publicacionId<span class="sc">}</span><span class="vs">/`</span>)<span class="op">;</span></span>
+<span id="cb83-16"><a href="#cb83-16"></a>        <span class="kw">const</span> { titulo<span class="op">,</span> contenido<span class="op">,</span> autor } <span class="op">=</span> response<span class="op">.</span><span class="at">data</span><span class="op">;</span></span>
+<span id="cb83-17"><a href="#cb83-17"></a>        <span class="fu">setTitulo</span>(titulo)<span class="op">;</span></span>
+<span id="cb83-18"><a href="#cb83-18"></a>        <span class="fu">setContenido</span>(contenido)<span class="op">;</span></span>
+<span id="cb83-19"><a href="#cb83-19"></a>        <span class="fu">setAutor</span>(autor)<span class="op">;</span></span>
+<span id="cb83-20"><a href="#cb83-20"></a>      } <span class="cf">catch</span> (error) {</span>
+<span id="cb83-21"><a href="#cb83-21"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">'Error al obtener la publicación:'</span><span class="op">,</span> error)<span class="op">;</span></span>
+<span id="cb83-22"><a href="#cb83-22"></a>      }</span>
+<span id="cb83-23"><a href="#cb83-23"></a>    }<span class="op">;</span></span>
+<span id="cb83-24"><a href="#cb83-24"></a></span>
+<span id="cb83-25"><a href="#cb83-25"></a>    <span class="fu">fetchPublicacion</span>()<span class="op">;</span></span>
+<span id="cb83-26"><a href="#cb83-26"></a>  }<span class="op">,</span> [publicacionId])<span class="op">;</span></span>
+<span id="cb83-27"><a href="#cb83-27"></a></span>
+<span id="cb83-28"><a href="#cb83-28"></a>  <span class="kw">const</span> handleActualizar <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb83-29"><a href="#cb83-29"></a>    <span class="cf">try</span> {</span>
+<span id="cb83-30"><a href="#cb83-30"></a>      <span class="cf">await</span> axios<span class="op">.</span><span class="fu">put</span>(<span class="vs">`http://localhost:8000/publicaciones/</span><span class="sc">${</span>publicacionId<span class="sc">}</span><span class="vs">/`</span><span class="op">,</span> {</span>
+<span id="cb83-31"><a href="#cb83-31"></a>        titulo<span class="op">,</span></span>
+<span id="cb83-32"><a href="#cb83-32"></a>        contenido<span class="op">,</span></span>
+<span id="cb83-33"><a href="#cb83-33"></a>        autor<span class="op">,</span></span>
+<span id="cb83-34"><a href="#cb83-34"></a>      })<span class="op">;</span></span>
+<span id="cb83-35"><a href="#cb83-35"></a>      <span class="fu">alert</span>(<span class="st">'Publicación actualizada correctamente.'</span>)<span class="op">;</span></span>
+<span id="cb83-36"><a href="#cb83-36"></a>    } <span class="cf">catch</span> (error) {</span>
+<span id="cb83-37"><a href="#cb83-37"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">'Error al actualizar la publicación:'</span><span class="op">,</span> error)<span class="op">;</span></span>
+<span id="cb83-38"><a href="#cb83-38"></a>    }</span>
+<span id="cb83-39"><a href="#cb83-39"></a>  }<span class="op">;</span></span>
+<span id="cb83-40"><a href="#cb83-40"></a></span>
+<span id="cb83-41"><a href="#cb83-41"></a>  <span class="cf">return</span> (</span>
+<span id="cb83-42"><a href="#cb83-42"></a>    <span class="kw">&lt;div&gt;</span></span>
+<span id="cb83-43"><a href="#cb83-43"></a>      <span class="kw">&lt;h1&gt;</span>Actualizar Publicación<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb83-44"><a href="#cb83-44"></a>      <span class="kw">&lt;label&gt;</span></span>
+<span id="cb83-45"><a href="#cb83-45"></a>        Título:</span>
+<span id="cb83-46"><a href="#cb83-46"></a>        <span class="kw">&lt;input</span> <span class="ot">type</span><span class="op">=</span><span class="st">"text"</span> <span class="ot">value</span><span class="op">=</span><span class="va">{</span>titulo<span class="va">}</span> <span class="ot">onChange</span><span class="op">=</span><span class="va">{</span>(e) <span class="kw">=&gt;</span> <span class="fu">setTitulo</span>(e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">value</span>)<span class="va">}</span> <span class="kw">/&gt;</span></span>
+<span id="cb83-47"><a href="#cb83-47"></a>      <span class="kw">&lt;/label&gt;</span></span>
+<span id="cb83-48"><a href="#cb83-48"></a>      <span class="kw">&lt;br</span> <span class="kw">/&gt;</span></span>
+<span id="cb83-49"><a href="#cb83-49"></a>      <span class="kw">&lt;label&gt;</span></span>
+<span id="cb83-50"><a href="#cb83-50"></a>        Contenido:</span>
+<span id="cb83-51"><a href="#cb83-51"></a>        <span class="kw">&lt;textarea</span> <span class="ot">value</span><span class="op">=</span><span class="va">{</span>contenido<span class="va">}</span> <span class="ot">onChange</span><span class="op">=</span><span class="va">{</span>(e) <span class="kw">=&gt;</span> <span class="fu">setContenido</span>(e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">value</span>)<span class="va">}</span> <span class="kw">/&gt;</span></span>
+<span id="cb83-52"><a href="#cb83-52"></a>      <span class="kw">&lt;/label&gt;</span></span>
+<span id="cb83-53"><a href="#cb83-53"></a>      <span class="kw">&lt;br</span> <span class="kw">/&gt;</span></span>
+<span id="cb83-54"><a href="#cb83-54"></a>      <span class="kw">&lt;label&gt;</span></span>
+<span id="cb83-55"><a href="#cb83-55"></a>        Autor:</span>
+<span id="cb83-56"><a href="#cb83-56"></a>        <span class="kw">&lt;input</span> <span class="ot">type</span><span class="op">=</span><span class="st">"number"</span> <span class="ot">value</span><span class="op">=</span><span class="va">{</span>autor<span class="va">}</span> <span class="ot">onChange</span><span class="op">=</span><span class="va">{</span>(e) <span class="kw">=&gt;</span> <span class="fu">setAutor</span>(<span class="bu">Number</span>(e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">value</span>))<span class="va">}</span> <span class="kw">/&gt;</span></span>
+<span id="cb83-57"><a href="#cb83-57"></a>      <span class="kw">&lt;/label&gt;</span></span>
+<span id="cb83-58"><a href="#cb83-58"></a>      <span class="kw">&lt;br</span> <span class="kw">/&gt;</span></span>
+<span id="cb83-59"><a href="#cb83-59"></a>      <span class="kw">&lt;button</span> <span class="ot">onClick</span><span class="op">=</span><span class="va">{</span>handleActualizar<span class="va">}</span><span class="kw">&gt;</span>Actualizar<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb83-60"><a href="#cb83-60"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb83-61"><a href="#cb83-61"></a>  )<span class="op">;</span></span>
+<span id="cb83-62"><a href="#cb83-62"></a>}<span class="op">;</span></span>
+<span id="cb83-63"><a href="#cb83-63"></a></span>
+<span id="cb83-64"><a href="#cb83-64"></a><span class="im">export</span> <span class="im">default</span> ActualizarPublicacion<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 7:</strong> Crear el componente EliminarPublicacion.js</p>
+<p>Crea el componente EliminarPublicacion.js en la carpeta “src/components” con el siguiente contenido:</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode numberSource jsx number-lines code-with-copy"><code class="sourceCode javascriptreact"><span id="cb84-1"><a href="#cb84-1"></a><span class="im">import</span> React<span class="op">,</span> { useEffect } <span class="im">from</span> <span class="st">'react'</span><span class="op">;</span></span>
+<span id="cb84-2"><a href="#cb84-2"></a><span class="im">import</span> axios <span class="im">from</span> <span class="st">'axios'</span><span class="op">;</span></span>
+<span id="cb84-3"><a href="#cb84-3"></a></span>
+<span id="cb84-4"><a href="#cb84-4"></a><span class="kw">const</span> EliminarPublicacion <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb84-5"><a href="#cb84-5"></a>  <span class="co">// Replace "2" with the ID of the publicación you want to delete</span></span>
+<span id="cb84-6"><a href="#cb84-6"></a>  <span class="kw">const</span> publicacionId <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb84-7"><a href="#cb84-7"></a></span>
+<span id="cb84-8"><a href="#cb84-8"></a>  <span class="fu">useEffect</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb84-9"><a href="#cb84-9"></a>    <span class="kw">const</span> fetchPublicacion <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb84-10"><a href="#cb84-10"></a>      <span class="cf">try</span> {</span>
+<span id="cb84-11"><a href="#cb84-11"></a>        <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> axios<span class="op">.</span><span class="fu">get</span>(<span class="vs">`http://localhost:8000/publicaciones/</span><span class="sc">${</span>publicacionId<span class="sc">}</span><span class="vs">/`</span>)<span class="op">;</span></span>
+<span id="cb84-12"><a href="#cb84-12"></a>        <span class="kw">const</span> { titulo<span class="op">,</span> contenido<span class="op">,</span> autor } <span class="op">=</span> response<span class="op">.</span><span class="at">data</span><span class="op">;</span></span>
+<span id="cb84-13"><a href="#cb84-13"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">'Publicación a eliminar:'</span><span class="op">,</span> { titulo<span class="op">,</span> contenido<span class="op">,</span> autor })<span class="op">;</span></span>
+<span id="cb84-14"><a href="#cb84-14"></a>      } <span class="cf">catch</span> (error) {</span>
+<span id="cb84-15"><a href="#cb84-15"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">'Error al obtener la publicación:'</span><span class="op">,</span> error)<span class="op">;</span></span>
+<span id="cb84-16"><a href="#cb84-16"></a>      }</span>
+<span id="cb84-17"><a href="#cb84-17"></a>    }<span class="op">;</span></span>
+<span id="cb84-18"><a href="#cb84-18"></a></span>
+<span id="cb84-19"><a href="#cb84-19"></a>    <span class="fu">fetchPublicacion</span>()<span class="op">;</span></span>
+<span id="cb84-20"><a href="#cb84-20"></a>  }<span class="op">,</span> [publicacionId])<span class="op">;</span></span>
+<span id="cb84-21"><a href="#cb84-21"></a></span>
+<span id="cb84-22"><a href="#cb84-22"></a>  <span class="kw">const</span> handleEliminar <span class="op">=</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb84-23"><a href="#cb84-23"></a>    <span class="cf">try</span> {</span>
+<span id="cb84-24"><a href="#cb84-24"></a>      <span class="cf">await</span> axios<span class="op">.</span><span class="fu">delete</span>(<span class="vs">`http://localhost:8000/publicaciones/</span><span class="sc">${</span>publicacionId<span class="sc">}</span><span class="vs">/`</span>)<span class="op">;</span></span>
+<span id="cb84-25"><a href="#cb84-25"></a>      <span class="fu">alert</span>(<span class="st">'Publicación eliminada correctamente.'</span>)<span class="op">;</span></span>
+<span id="cb84-26"><a href="#cb84-26"></a>    } <span class="cf">catch</span> (error) {</span>
+<span id="cb84-27"><a href="#cb84-27"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">'Error al eliminar la publicación:'</span><span class="op">,</span> error)<span class="op">;</span></span>
+<span id="cb84-28"><a href="#cb84-28"></a>    }</span>
+<span id="cb84-29"><a href="#cb84-29"></a>  }<span class="op">;</span></span>
+<span id="cb84-30"><a href="#cb84-30"></a></span>
+<span id="cb84-31"><a href="#cb84-31"></a>  <span class="cf">return</span> (</span>
+<span id="cb84-32"><a href="#cb84-32"></a>    <span class="kw">&lt;div&gt;</span></span>
+<span id="cb84-33"><a href="#cb84-33"></a>      <span class="kw">&lt;h1&gt;</span>Eliminar Publicación<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb84-34"><a href="#cb84-34"></a>      <span class="kw">&lt;p&gt;</span>¿Estás seguro de que deseas eliminar esta publicación?<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb84-35"><a href="#cb84-35"></a>      <span class="kw">&lt;button</span> <span class="ot">onClick</span><span class="op">=</span><span class="va">{</span>handleEliminar<span class="va">}</span><span class="kw">&gt;</span>Eliminar<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb84-36"><a href="#cb84-36"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb84-37"><a href="#cb84-37"></a>  )<span class="op">;</span></span>
+<span id="cb84-38"><a href="#cb84-38"></a>}<span class="op">;</span></span>
+<span id="cb84-39"><a href="#cb84-39"></a></span>
+<span id="cb84-40"><a href="#cb84-40"></a><span class="im">export</span> <span class="im">default</span> EliminarPublicacion<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 8:</strong> Crear el componente Home.js</p>
+<p>Crea el componente Home.js en la carpeta “src/components” con el siguiente contenido:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode numberSource jsx number-lines code-with-copy"><code class="sourceCode javascriptreact"><span id="cb85-1"><a href="#cb85-1"></a><span class="im">import</span> React <span class="im">from</span> <span class="st">'react'</span><span class="op">;</span></span>
+<span id="cb85-2"><a href="#cb85-2"></a></span>
+<span id="cb85-3"><a href="#cb85-3"></a><span class="kw">const</span> Home <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb85-4"><a href="#cb85-4"></a>  <span class="cf">return</span> (</span>
+<span id="cb85-5"><a href="#cb85-5"></a>    <span class="kw">&lt;div&gt;</span></span>
+<span id="cb85-6"><a href="#cb85-6"></a>      <span class="kw">&lt;h1&gt;</span>Bienvenido a la página de inicio<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb85-7"><a href="#cb85-7"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb85-8"><a href="#cb85-8"></a>  )<span class="op">;</span></span>
+<span id="cb85-9"><a href="#cb85-9"></a>}<span class="op">;</span></span>
+<span id="cb85-10"><a href="#cb85-10"></a></span>
+<span id="cb85-11"><a href="#cb85-11"></a><span class="im">export</span> <span class="im">default</span> Home<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 9:</strong> Crear el componente NavBar.js</p>
+<p>Crea el componente NavBar.js en la carpeta “src/components” con el siguiente contenido:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode numberSource jsx number-lines code-with-copy"><code class="sourceCode javascriptreact"><span id="cb86-1"><a href="#cb86-1"></a><span class="im">import</span> React <span class="im">from</span> <span class="st">'react'</span><span class="op">;</span></span>
+<span id="cb86-2"><a href="#cb86-2"></a><span class="im">import</span> { Link } <span class="im">from</span> <span class="st">'react-router-dom'</span><span class="op">;</span></span>
+<span id="cb86-3"><a href="#cb86-3"></a></span>
+<span id="cb86-4"><a href="#cb86-4"></a><span class="kw">const</span> NavBar <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb86-5"><a href="#cb86-5"></a>  <span class="cf">return</span> (</span>
+<span id="cb86-6"><a href="#cb86-6"></a>    <span class="kw">&lt;nav</span> <span class="ot">className</span><span class="op">=</span><span class="st">"navbar navbar-expand navbar-dark bg-dark"</span><span class="kw">&gt;</span></span>
+<span id="cb86-7"><a href="#cb86-7"></a>      <span class="kw">&lt;div</span> <span class="ot">className</span><span class="op">=</span><span class="st">"container"</span><span class="kw">&gt;</span></span>
+<span id="cb86-8"><a href="#cb86-8"></a>        <span class="fu">&lt;Link</span> <span class="ot">className</span><span class="op">=</span><span class="st">"navbar-brand"</span> <span class="ot">to</span><span class="op">=</span><span class="st">"/"</span><span class="fu">&gt;</span>Mi Blog<span class="fu">&lt;/Link&gt;</span></span>
+<span id="cb86-9"><a href="#cb86-9"></a>        <span class="kw">&lt;ul</span> <span class="ot">className</span><span class="op">=</span><span class="st">"navbar-nav ml-auto"</span><span class="kw">&gt;</span></span>
+<span id="cb86-10"><a href="#cb86-10"></a>          <span class="kw">&lt;li</span> <span class="ot">className</span><span class="op">=</span><span class="st">"nav-item"</span><span class="kw">&gt;</span></span>
+<span id="cb86-11"><a href="#cb86-11"></a>            <span class="fu">&lt;Link</span> <span class="ot">className</span><span class="op">=</span><span class="st">"nav-link"</span> <span class="ot">to</span><span class="op">=</span><span class="st">"/"</span><span class="fu">&gt;</span>Home<span class="fu">&lt;/Link&gt;</span></span>
+<span id="cb86-12"><a href="#cb86-12"></a>          <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb86-13"><a href="#cb86-13"></a>          <span class="kw">&lt;li</span> <span class="ot">className</span><span class="op">=</span><span class="st">"nav-item"</span><span class="kw">&gt;</span></span>
+<span id="cb86-14"><a href="#cb86-14"></a>            <span class="fu">&lt;Link</span> <span class="ot">className</span><span class="op">=</span><span class="st">"nav-link"</span> <span class="ot">to</span><span class="op">=</span><span class="st">"/crear"</span><span class="fu">&gt;</span>Crear<span class="fu">&lt;/Link&gt;</span></span>
+<span id="cb86-15"><a href="#cb86-15"></a>          <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb86-16"><a href="#cb86-16"></a>        <span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb86-17"><a href="#cb86-17"></a>      <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb86-18"><a href="#cb86-18"></a>    <span class="kw">&lt;/nav&gt;</span></span>
+<span id="cb86-19"><a href="#cb86-19"></a>  )<span class="op">;</span></span>
+<span id="cb86-20"><a href="#cb86-20"></a>}<span class="op">;</span></span>
+<span id="cb86-21"><a href="#cb86-21"></a></span>
+<span id="cb86-22"><a href="#cb86-22"></a><span class="im">export</span> <span class="im">default</span> NavBar<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 10:</strong> Actualizar el archivo App.js</p>
+<p>Actualiza el archivo App.js en la carpeta “src” con el siguiente contenido:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode numberSource jsx number-lines code-with-copy"><code class="sourceCode javascriptreact"><span id="cb87-1"><a href="#cb87-1"></a><span class="im">import</span> React <span class="im">from</span> <span class="st">'react'</span><span class="op">;</span></span>
+<span id="cb87-2"><a href="#cb87-2"></a><span class="im">import</span> { BrowserRouter <span class="im">as</span> Router<span class="op">,</span> Routes<span class="op">,</span> Route } <span class="im">from</span> <span class="st">'react-router-dom'</span><span class="op">;</span></span>
+<span id="cb87-3"><a href="#cb87-3"></a><span class="im">import</span> NavBar <span class="im">from</span> <span class="st">'./components/NavBar'</span><span class="op">;</span></span>
+<span id="cb87-4"><a href="#cb87-4"></a><span class="im">import</span> ListaPublicaciones <span class="im">from</span> <span class="st">'./components/ListaPublicaciones'</span><span class="op">;</span></span>
+<span id="cb87-5"><a href="#cb87-5"></a><span class="im">import</span> CrearPublicacion <span class="im">from</span> <span class="st">'./components/CrearPublicacion'</span><span class="op">;</span></span>
+<span id="cb87-6"><a href="#cb87-6"></a><span class="im">import</span> DetallePublicacion <span class="im">from</span> <span class="st">'./components/DetallePublicacion'</span><span class="op">;</span></span>
+<span id="cb87-7"><a href="#cb87-7"></a><span class="im">import</span> ActualizarPublicacion <span class="im">from</span> <span class="st">'./components/ActualizarPublicacion'</span><span class="op">;</span></span>
+<span id="cb87-8"><a href="#cb87-8"></a><span class="im">import</span> EliminarPublicacion <span class="im">from</span> <span class="st">'./components/EliminarPublicacion'</span><span class="op">;</span></span>
+<span id="cb87-9"><a href="#cb87-9"></a></span>
+<span id="cb87-10"><a href="#cb87-10"></a><span class="kw">const</span> App <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb87-11"><a href="#cb87-11"></a>  <span class="cf">return</span> (</span>
+<span id="cb87-12"><a href="#cb87-12"></a>    <span class="fu">&lt;Router&gt;</span></span>
+<span id="cb87-13"><a href="#cb87-13"></a>      <span class="kw">&lt;div&gt;</span></span>
+<span id="cb87-14"><a href="#cb87-14"></a>        <span class="fu">&lt;NavBar</span> <span class="fu">/&gt;</span></span>
+<span id="cb87-15"><a href="#cb87-15"></a>        <span class="fu">&lt;Routes&gt;</span></span>
+<span id="cb87-16"><a href="#cb87-16"></a>          <span class="fu">&lt;Route</span> <span class="ot">path</span><span class="op">=</span><span class="st">"/"</span> <span class="ot">element</span><span class="op">=</span><span class="va">{</span><span class="fu">&lt;ListaPublicaciones</span> <span class="fu">/&gt;</span><span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb87-17"><a href="#cb87-17"></a>          <span class="fu">&lt;Route</span> <span class="ot">path</span><span class="op">=</span><span class="st">"/crear"</span> <span class="ot">element</span><span class="op">=</span><span class="va">{</span><span class="fu">&lt;CrearPublicacion</span> <span class="fu">/&gt;</span><span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb87-18"><a href="#cb87-18"></a>          <span class="fu">&lt;Route</span> <span class="ot">path</span><span class="op">=</span><span class="st">"/publicaciones/:id"</span> <span class="ot">element</span><span class="op">=</span><span class="va">{</span><span class="fu">&lt;DetallePublicacion</span> <span class="fu">/&gt;</span><span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb87-19"><a href="#cb87-19"></a>          <span class="fu">&lt;Route</span> <span class="ot">path</span><span class="op">=</span><span class="st">"/publicaciones/:id/actualizar"</span> <span class="ot">element</span><span class="op">=</span><span class="va">{</span><span class="fu">&lt;ActualizarPublicacion</span> <span class="fu">/&gt;</span><span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb87-20"><a href="#cb87-20"></a>          <span class="fu">&lt;Route</span> <span class="ot">path</span><span class="op">=</span><span class="st">"/publicaciones/:id/eliminar"</span> <span class="ot">element</span><span class="op">=</span><span class="va">{</span><span class="fu">&lt;EliminarPublicacion</span> <span class="fu">/&gt;</span><span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb87-21"><a href="#cb87-21"></a>        <span class="fu">&lt;/Routes&gt;</span></span>
+<span id="cb87-22"><a href="#cb87-22"></a>      <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb87-23"><a href="#cb87-23"></a>    <span class="fu">&lt;/Router&gt;</span></span>
+<span id="cb87-24"><a href="#cb87-24"></a>  )<span class="op">;</span></span>
+<span id="cb87-25"><a href="#cb87-25"></a>}<span class="op">;</span></span>
+<span id="cb87-26"><a href="#cb87-26"></a></span>
+<span id="cb87-27"><a href="#cb87-27"></a><span class="im">export</span> <span class="im">default</span> App<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paso 11:</strong> Estilos CSS con los archivos index.css y App.css</p>
+<p>En una aplicación React, los estilos CSS se aplican a los componentes para mejorar la apariencia y el diseño de la interfaz de usuario. Por defecto, React crea dos archivos para estilos: index.css y App.css.</p>
+<p><strong>index.css:</strong> Este archivo contiene estilos globales que se aplican a toda la aplicación.</p>
+<p><strong>App.css:</strong> Este archivo contiene estilos específicos para el componente principal de la aplicación (en este caso, el componente App.js).</p>
+<p>A continuación, se muestra cómo puedes usar estos archivos CSS en tu aplicación React:</p>
+<h3 id="index.css">1. index.css</h3>
+<p>En el directorio src, crea un archivo llamado index.css y agrega los estilos globales que deseas aplicar a toda la aplicación. Por ejemplo:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode numberSource css number-lines code-with-copy"><code class="sourceCode css"><span id="cb88-1"><a href="#cb88-1"></a><span class="co">/* index.css */</span></span>
+<span id="cb88-2"><a href="#cb88-2"></a>body {</span>
+<span id="cb88-3"><a href="#cb88-3"></a>  <span class="kw">font-family</span>: Arial<span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></span>
+<span id="cb88-4"><a href="#cb88-4"></a>  <span class="kw">margin</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb88-5"><a href="#cb88-5"></a>  <span class="kw">padding</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb88-6"><a href="#cb88-6"></a>}</span>
+<span id="cb88-7"><a href="#cb88-7"></a></span>
+<span id="cb88-8"><a href="#cb88-8"></a><span class="fu">.container</span> {</span>
+<span id="cb88-9"><a href="#cb88-9"></a>  <span class="kw">max-width</span>: <span class="dv">1200</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb88-10"><a href="#cb88-10"></a>  <span class="kw">margin</span>: <span class="dv">0</span> <span class="bu">auto</span><span class="op">;</span></span>
+<span id="cb88-11"><a href="#cb88-11"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="app.css">2. App.css</h3>
+<p>En el directorio src, ya deberías tener un archivo llamado App.css. Puedes agregar estilos específicos para el componente App.js aquí. Por ejemplo:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode numberSource css number-lines code-with-copy"><code class="sourceCode css"><span id="cb89-1"><a href="#cb89-1"></a><span class="co">/* App.css */</span></span>
+<span id="cb89-2"><a href="#cb89-2"></a><span class="fu">.header</span> {</span>
+<span id="cb89-3"><a href="#cb89-3"></a>  <span class="kw">background-color</span>: <span class="cn">#007bff</span><span class="op">;</span></span>
+<span id="cb89-4"><a href="#cb89-4"></a>  <span class="kw">color</span>: <span class="cn">#ffffff</span><span class="op">;</span></span>
+<span id="cb89-5"><a href="#cb89-5"></a>  <span class="kw">padding</span>: <span class="dv">1</span><span class="dt">rem</span><span class="op">;</span></span>
+<span id="cb89-6"><a href="#cb89-6"></a>  <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb89-7"><a href="#cb89-7"></a>}</span>
+<span id="cb89-8"><a href="#cb89-8"></a></span>
+<span id="cb89-9"><a href="#cb89-9"></a><span class="fu">.nav-link</span> {</span>
+<span id="cb89-10"><a href="#cb89-10"></a>  <span class="kw">color</span>: <span class="cn">#ffffff</span><span class="op">;</span></span>
+<span id="cb89-11"><a href="#cb89-11"></a>  <span class="kw">text-decoration</span>: <span class="dv">none</span><span class="op">;</span></span>
+<span id="cb89-12"><a href="#cb89-12"></a>  <span class="kw">margin-right</span>: <span class="dv">1</span><span class="dt">rem</span><span class="op">;</span></span>
+<span id="cb89-13"><a href="#cb89-13"></a>}</span>
+<span id="cb89-14"><a href="#cb89-14"></a></span>
+<span id="cb89-15"><a href="#cb89-15"></a><span class="fu">.nav-link</span><span class="in">:hover</span> {</span>
+<span id="cb89-16"><a href="#cb89-16"></a>  <span class="kw">color</span>: <span class="cn">#0056b3</span><span class="op">;</span></span>
+<span id="cb89-17"><a href="#cb89-17"></a>}</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="importar-los-archivos-css-en-app.js">3. Importar los archivos CSS en App.js</h3>
+<p>En el componente App.js, importa los archivos CSS para que los estilos se apliquen a la aplicación. Debes importar index.css al principio del archivo src/index.js, y App.css en App.js:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode numberSource jsx number-lines code-with-copy"><code class="sourceCode javascriptreact"><span id="cb90-1"><a href="#cb90-1"></a><span class="co">// src/index.js</span></span>
+<span id="cb90-2"><a href="#cb90-2"></a><span class="im">import</span> React <span class="im">from</span> <span class="st">'react'</span><span class="op">;</span></span>
+<span id="cb90-3"><a href="#cb90-3"></a><span class="im">import</span> ReactDOM <span class="im">from</span> <span class="st">'react-dom'</span><span class="op">;</span></span>
+<span id="cb90-4"><a href="#cb90-4"></a><span class="im">import</span> App <span class="im">from</span> <span class="st">'./App'</span><span class="op">;</span></span>
+<span id="cb90-5"><a href="#cb90-5"></a><span class="im">import</span> <span class="st">'./index.css'</span><span class="op">;</span> <span class="co">// Importar index.css aquí</span></span>
+<span id="cb90-6"><a href="#cb90-6"></a></span>
+<span id="cb90-7"><a href="#cb90-7"></a>ReactDOM<span class="op">.</span><span class="fu">render</span>(</span>
+<span id="cb90-8"><a href="#cb90-8"></a>  <span class="fu">&lt;React.StrictMode&gt;</span></span>
+<span id="cb90-9"><a href="#cb90-9"></a>    <span class="fu">&lt;App</span> <span class="fu">/&gt;</span></span>
+<span id="cb90-10"><a href="#cb90-10"></a>  <span class="fu">&lt;/React.StrictMode&gt;</span><span class="op">,</span></span>
+<span id="cb90-11"><a href="#cb90-11"></a>  <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">'root'</span>)</span>
+<span id="cb90-12"><a href="#cb90-12"></a>)<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode numberSource jsx number-lines code-with-copy"><code class="sourceCode javascriptreact"><span id="cb91-1"><a href="#cb91-1"></a><span class="co">// src/App.js</span></span>
+<span id="cb91-2"><a href="#cb91-2"></a><span class="im">import</span> React <span class="im">from</span> <span class="st">'react'</span><span class="op">;</span></span>
+<span id="cb91-3"><a href="#cb91-3"></a><span class="im">import</span> <span class="st">'./App.css'</span><span class="op">;</span> <span class="co">// Importar App.css aquí</span></span>
+<span id="cb91-4"><a href="#cb91-4"></a></span>
+<span id="cb91-5"><a href="#cb91-5"></a><span class="kw">function</span> <span class="fu">App</span>() {</span>
+<span id="cb91-6"><a href="#cb91-6"></a>  <span class="co">// Código de la aplicación</span></span>
+<span id="cb91-7"><a href="#cb91-7"></a>  <span class="cf">return</span> (</span>
+<span id="cb91-8"><a href="#cb91-8"></a>    <span class="kw">&lt;div</span> <span class="ot">className</span><span class="op">=</span><span class="st">"container"</span><span class="kw">&gt;</span></span>
+<span id="cb91-9"><a href="#cb91-9"></a>      <span class="kw">&lt;header</span> <span class="ot">className</span><span class="op">=</span><span class="st">"header"</span><span class="kw">&gt;</span></span>
+<span id="cb91-10"><a href="#cb91-10"></a>        <span class="kw">&lt;nav&gt;</span></span>
+<span id="cb91-11"><a href="#cb91-11"></a>          <span class="kw">&lt;a</span> <span class="ot">className</span><span class="op">=</span><span class="st">"nav-link"</span> <span class="ot">href</span><span class="op">=</span><span class="st">"/"</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb91-12"><a href="#cb91-12"></a>          <span class="kw">&lt;a</span> <span class="ot">className</span><span class="op">=</span><span class="st">"nav-link"</span> <span class="ot">href</span><span class="op">=</span><span class="st">"/contacto"</span><span class="kw">&gt;</span>Contacto<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb91-13"><a href="#cb91-13"></a>          <span class="kw">&lt;a</span> <span class="ot">className</span><span class="op">=</span><span class="st">"nav-link"</span> <span class="ot">href</span><span class="op">=</span><span class="st">"/quienes_somos"</span><span class="kw">&gt;</span>Quienes Somos<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb91-14"><a href="#cb91-14"></a>          <span class="kw">&lt;a</span> <span class="ot">className</span><span class="op">=</span><span class="st">"nav-link"</span> <span class="ot">href</span><span class="op">=</span><span class="st">"/crear_publicacion"</span><span class="kw">&gt;</span>Crear<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb91-15"><a href="#cb91-15"></a>        <span class="kw">&lt;/nav&gt;</span></span>
+<span id="cb91-16"><a href="#cb91-16"></a>      <span class="kw">&lt;/header&gt;</span></span>
+<span id="cb91-17"><a href="#cb91-17"></a>      <span class="va">{</span><span class="co">/* Resto del contenido de la aplicación */</span><span class="va">}</span></span>
+<span id="cb91-18"><a href="#cb91-18"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb91-19"><a href="#cb91-19"></a>  )<span class="op">;</span></span>
+<span id="cb91-20"><a href="#cb91-20"></a>}</span>
+<span id="cb91-21"><a href="#cb91-21"></a></span>
+<span id="cb91-22"><a href="#cb91-22"></a><span class="im">export</span> <span class="im">default</span> App<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Con esto, tus estilos CSS definidos en index.css se aplicarán a toda la aplicación, y los estilos definidos en App.css se aplicarán específicamente al componente App.js. Recuerda adaptar los estilos a tus necesidades y preferencias.</p>
+<p><strong>Paso 12:</strong> Importar estilos CSS</p>
+<p>En el archivo <strong>index.js</strong> en la carpeta <strong>“src”</strong>, importa el archivo <strong>styles.css</strong> para aplicar los estilos personalizados:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode numberSource jsx number-lines code-with-copy"><code class="sourceCode javascriptreact"><span id="cb92-1"><a href="#cb92-1"></a><span class="im">import</span> React <span class="im">from</span> <span class="st">'react'</span><span class="op">;</span></span>
+<span id="cb92-2"><a href="#cb92-2"></a><span class="im">import</span> ReactDOM <span class="im">from</span> <span class="st">'react-dom'</span><span class="op">;</span></span>
+<span id="cb92-3"><a href="#cb92-3"></a><span class="im">import</span> <span class="st">'./index.css'</span><span class="op">;</span></span>
+<span id="cb92-4"><a href="#cb92-4"></a><span class="im">import</span> App <span class="im">from</span> <span class="st">'./App'</span><span class="op">;</span></span>
+<span id="cb92-5"><a href="#cb92-5"></a><span class="im">import</span> reportWebVitals <span class="im">from</span> <span class="st">'./reportWebVitals'</span><span class="op">;</span></span>
+<span id="cb92-6"><a href="#cb92-6"></a></span>
+<span id="cb92-7"><a href="#cb92-7"></a>ReactDOM<span class="op">.</span><span class="fu">render</span>(</span>
+<span id="cb92-8"><a href="#cb92-8"></a>  <span class="fu">&lt;React.StrictMode&gt;</span></span>
+<span id="cb92-9"><a href="#cb92-9"></a>    <span class="fu">&lt;App</span> <span class="fu">/&gt;</span></span>
+<span id="cb92-10"><a href="#cb92-10"></a>  <span class="fu">&lt;/React.StrictMode&gt;</span><span class="op">,</span></span>
+<span id="cb92-11"><a href="#cb92-11"></a>  <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">'root'</span>)</span>
+<span id="cb92-12"><a href="#cb92-12"></a>)<span class="op">;</span></span>
+<span id="cb92-13"><a href="#cb92-13"></a></span>
+<span id="cb92-14"><a href="#cb92-14"></a><span class="fu">reportWebVitals</span>()<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Con esto, has creado un proyecto de React independiente que consume los datos de la API creada con Django Rest Framework. Puedes ejecutar el proyecto de React con el siguiente comando:</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb93-1"><a href="#cb93-1"></a><span class="ex">npm</span> start</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Luego, podrás ver la aplicación en el navegador accediendo a <a href="http://localhost:3000/">http://localhost:3000/</a>.</p>
+<p>Los componentes ListaPublicaciones, CrearPublicacion, ActualizarPublicacion y EliminarPublicacion estarán disponibles en sus respectivas rutas y consumirán datos de la API de Django.</p>
+</section>
+<section id="inconvenientes" class="slide level2">
+<h2>Inconvenientes</h2>
+<p>En caso de tener inconvenientes con las peticiones por parte de la aplicacion de React, se debe agregar la siguiente linea en el archivo settings.py de la carpeta “backend”:</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1"></a>CORS_ORIGIN_ALLOW_ALL <span class="op">=</span> <span class="va">True</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <img src="img/logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://abacom.edu.ec" class="uri">https://abacom.edu.ec</a></p>
