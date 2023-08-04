@@ -1,0 +1,24 @@
+<!-- lista_publicaciones.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Publicaciones</title>
+</head>
+<body>
+    <h1>Lista de Publicaciones</h1>
+    <ul>
+        {% for publicacion in publicaciones %}
+        <li>
+            <h2>{{ publicacion.titulo }}</h2>
+            <p>{{ publicacion.contenido }}</p>
+            <h3>Comentarios:</h3>
+            <ul>
+                {% for comentario in publicacion.comentarios %}
+                <li>{{ comentario.texto }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

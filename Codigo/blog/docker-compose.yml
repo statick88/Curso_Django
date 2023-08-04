@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  # Configuración del servidor web Django
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blog # Cambia "myproject" al nombre de tu proyecto
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  # Configuración de la base de datos PostgreSQL
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: blog  # Cambia "mydatabase" al nombre de tu base de datos
+      POSTGRES_USER: postgres    # Cambia "myuser" al nombre de usuario de la base de datos
+      POSTGRES_PASSWORD: D3mon1o.  # Cambia "mypassword" a la contraseña de la base de datos
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:  # Definición del volumen para persistencia de datos de PostgreSQL
